@@ -95,6 +95,23 @@ frontend/build/
 # ---------------------------------------------------------
 coverage/
 .nyc_output/
+playwright-report/
+test-results/
+
+
+# ---------------------------------------------------------
+# Privacy & Local Artifacts (Keep local only, never commit)
+# ---------------------------------------------------------
+storage/
+apps/api/storage/
+scratch/
+*_screenshots/
+screenshots/
+verification_screenshots/
+verify_*.cjs
+verify_*.js
+*.png.bak
+
 
 
 # ---------------------------------------------------------

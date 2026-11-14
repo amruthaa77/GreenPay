@@ -1,193 +1,139 @@
-# GreenPay Database Architecture & Schema Documentation
-
-This document describes the normalized relational database schema designed for **GreenPay**, a smart urban waste accountability and rewards platform engineered for Bengaluru / BBMP municipal operations.
-
----
+# GreenPay Database Schema & Immutability Architecture
 
 ## 1. Entity-Relationship Overview
 
-```
-+--------------------+        +---------------------+        +--------------------+
-|       wards        |        |        users        |        |    reward_rules    |
-+--------------------+        +---------------------+        +--------------------+
-| id (UUID, PK)      |<---+   | id (UUID, PK)       |        | id (UUID, PK)      |
-| ward_number (INT)  |    |   | meter_number (STR)  |<--+    | waste_type (STR)   |
-| name (STR)         |    |   | password_hash (STR) |   |    | user_type (STR)    |
-| zone (STR)         |    |   | role (USER|ADMIN)   |   |    | rate_per_kg (FLT)  |
-| pincode (STR)      |    |   | is_active (BOOL)    |   |    | penalty_flat (FLT) |
-| latitude, longitude|    |   | created_at, up_at   |   |    | is_active (BOOL)   |
-+--------------------+    |   +---------------------+   |    +--------------------+
-         |                |              |              |
-         |                |   +----------v----------+   |
-         |                |   |    user_profiles    |   |
-         |                |   +---------------------+   |
-         |                +---| id (UUID, PK)       |   |
-         |                    | user_id (FK -> users) | |
-         |                    | name, address       |   |
-         |                    | ward_id (FK->wards) |   |
-         |                    | user_type           |   |
-         |                    | green_score (FLOAT) |   |
-         |                    | streak_days (INT)   |   |
-         |                    +---------------------+   |
-         |                                              |
-+--------v----------------------------------------------v--------+
-|                          waste_entries                         |
-+----------------------------------------------------------------+
-| id (UUID, PK)                                                  |
-| transaction_id (STR, Unique, e.g. 'GP-BLR-2025-10112')        |
-| user_id (FK -> users.id)                                       |
-| recorder_admin_id (FK -> users.id)                             |
-| ward_id (FK -> wards.id)                                       |
-| waste_type (Wet | Dry | Recyclable | Non-Recyclable | Contam)  |
-| weight_kg (FLOAT > 0)                                          |
-| collection_date (TIMESTAMP)                                    |
-| claim_status (Pending | Claimed | Processed)                   |
-| journey_stage (Collection -> Sorting -> Process -> Recycling)  |
-| admin_feedback (TEXT)                                          |
-| photo_url (STR)                                                |
-| created_at, updated_at (TIMESTAMP)                             |
-+----------------------------------------------------------------+
-     |                       |                       |
-     | (1:N)                 | (1:1)                 | (1:N)
-+----v----------------+  +---v------------------+ +--v-------------------+
-| reward_transactions |  |  ai_classifications  | |   anomaly_flags     |
-+---------------------+  +----------------------+ +---------------------+
-| id (UUID, PK)       |  | id (UUID, PK)        | | id (UUID, PK)       |
-| waste_entry_id (FK) |  | waste_entry_id (FK)  | | waste_entry_id (FK) |
-| user_id (FK->users) |  | admin_id (FK->users) | | user_id (FK->users) |
-| admin_id (FK)       |  | detected_object (STR)| | anomaly_type (STR)  |
-| amount (FLOAT)      |  | predicted_cat (STR)  | | description (TEXT)  |
-| transaction_type    |  | confidence (FLOAT)   | | severity (LOW|MED|HI|
-| calc_breakdown(STR) |  | admin_confirmed (STR)| | status (PENDING..)  |
-| timestamp           |  | timestamp            | | reviewed_by (FK)    |
-+---------------------+  +----------------------+ +---------------------+
+```mermaid
+erDiagram
+    WARD ||--o{ USER_PROFILE : locates
+    WARD ||--o{ WASTE_ENTRY : records
+    WARD ||--o{ SUPERVISOR_INVITE : assigns
+    
+    USER ||--|| USER_PROFILE : has
+    USER ||--o{ WASTE_ENTRY : generates
+    USER ||--o{ CREDIT_TRANSACTION : earns
+    USER ||--o{ CONSENT_RECORD : logs
+    USER ||--o{ ANOMALY_FLAG : triggers
+    
+    WASTE_ENTRY ||--o{ CREDIT_TRANSACTION : awards
+    WASTE_ENTRY ||--o{ ANOMALY_FLAG : flags
+    
+    USER {
+        string id PK
+        string greenpay_id UK
+        string email UK
+        string role "CITIZEN | SUPERVISOR | SUPER_ADMIN"
+        string status "ACTIVE | PENDING | DELETED"
+        string pseudonymous_id UK
+        string meter_number_encrypted "AES-256-GCM"
+        string meter_number_hash UK "HMAC-SHA256"
+        datetime created_at
+    }
 
-+---------------------+        +--------------------+
-|     audit_logs      |        |   notifications    |
-+---------------------+        +--------------------+
-| id (UUID, PK)       |        | id (UUID, PK)      |
-| actor_id (FK)       |        | user_id (FK)       |
-| actor_role (STR)    |        | title (STR)        |
-| action (STR)        |        | message (TEXT)     |
-| affected_entity_type|        | type (STR)         |
-| affected_entity_id  |        | is_read (BOOL)     |
-| previous_state(JSON)|        | created_at         |
-| new_state (JSON)    |        +--------------------+
-| ip_address (STR)    |
-| timestamp           |
-+---------------------+
+    CREDIT_TRANSACTION {
+        string id PK
+        string user_id FK
+        string waste_entry_id FK
+        integer credits_amount
+        string description
+        string formula_breakdown
+        string schedule_version
+        boolean is_reversal
+        datetime created_at
+    }
+
+    WASTE_ENTRY {
+        string id PK
+        string transaction_id UK
+        string idempotency_key UK
+        string user_id FK
+        string supervisor_id FK
+        string ward_id FK
+        float wet_kg
+        float dry_kg
+        float hazardous_kg
+        float ewaste_kg
+        float total_weight_kg
+        string journey_stage
+        datetime collection_date
+    }
 ```
 
 ---
 
-## 2. Table Specifications & Indexing
+## 2. Append-Only Database Triggers (Dual-Engine)
 
-### 2.1 `wards`
-Represents official BBMP administrative wards in Bengaluru.
-- `id` (VARCHAR(36), PK): UUID primary key.
-- `ward_number` (INTEGER, UNIQUE, INDEX): Official ward index (e.g. 151 for Koramangala).
-- `name` (VARCHAR(100), INDEX): Ward nomenclature (e.g. Koramangala, Indiranagar).
-- `zone` (VARCHAR(50)): BBMP zone (South, East, West, Bommanahalli, Mahadevapura, etc.).
-- `pincode` (VARCHAR(10)): Postal pincode.
-- `latitude`, `longitude` (FLOAT): Geographic centroid coordinates.
+To guarantee ledger immutability and prevent fraud or retroactive tampering, physical database triggers prohibit all `UPDATE` and `DELETE` operations on `credit_transactions`.
 
-### 2.2 `users`
-Core authentication and identity credentials.
-- `id` (VARCHAR(36), PK): Internal UUID.
-- `meter_number` (VARCHAR(50), UNIQUE, INDEX): Official BESCOM electricity meter identification number. Enforces civic residence and acts as the unique login handle.
-- `password_hash` (VARCHAR(255)): Bcrypt-hashed password digest.
-- `role` (VARCHAR(20), INDEX): Application role (`USER` or `ADMIN`).
-- `is_active` (BOOLEAN): Status flag.
+### 2.1 SQLite Engine Trigger
+```sql
+CREATE TRIGGER IF NOT EXISTS trg_prevent_credit_ledger_update
+BEFORE UPDATE ON credit_transactions
+BEGIN
+    SELECT RAISE(ABORT, 'Credit ledger transactions are append-only. Updates are strictly prohibited.');
+END;
 
-### 2.3 `user_profiles`
-Civic profile information linked 1-to-1 with `users`.
-- `id` (VARCHAR(36), PK): Internal UUID.
-- `user_id` (VARCHAR(36), FK -> `users.id`, UNIQUE): Parent user.
-- `name` (VARCHAR(100)): Citizen name or establishment business name.
-- `address` (VARCHAR(255)): Property premises address (read-only to supervisors).
-- `ward_id` (VARCHAR(36), FK -> `wards.id`, INDEX): Registered ward location.
-- `user_type` (VARCHAR(20)): Strictly `Individual` or `Commercial`.
-- `phone_number` (VARCHAR(20), NULLABLE): Verified contact number.
-- `green_score` (FLOAT): Explainable score (0 to 100), dynamically maintained.
-- `score_delta_month` (FLOAT): Monthly score delta indicator.
-- `streak_days` (INTEGER): Active daily/weekly collection streak.
+CREATE TRIGGER IF NOT EXISTS trg_prevent_credit_ledger_delete
+BEFORE DELETE ON credit_transactions
+BEGIN
+    SELECT RAISE(ABORT, 'Credit ledger transactions are append-only. Deletions are strictly prohibited.');
+END;
+```
 
-### 2.4 `waste_entries`
-Certified municipal waste collection transactions.
-- `id` (VARCHAR(36), PK): Internal UUID.
-- `transaction_id` (VARCHAR(50), UNIQUE, INDEX): Human-readable municipal transaction ID (e.g. `GP-BLR-2025-10112`).
-- `user_id` (VARCHAR(36), FK -> `users.id`, INDEX): Citizen recipient.
-- `recorder_admin_id` (VARCHAR(36), FK -> `users.id`, INDEX): Authorized supervisor recording the collection.
-- `ward_id` (VARCHAR(36), FK -> `wards.id`, INDEX): Ward location where waste was collected.
-- `waste_type` (VARCHAR(50), INDEX): Category (`Wet Waste`, `Dry Waste`, `Recyclable`, `Non-Recyclable`, `Contaminated Waste`).
-- `weight_kg` (FLOAT, CHECK > 0): Physical scale weighment in kilograms.
-- `collection_date` (TIMESTAMP WITH TIME ZONE, INDEX): Date and time of doorstep handover.
-- `claim_status` (VARCHAR(20), INDEX): `Pending`, `Claimed`, or `Processed`.
-- `journey_stage` (VARCHAR(50)): `Collection` -> `Sorting` -> `Processing` -> `Recycling/Disposal`.
-- `admin_feedback` (TEXT, NULLABLE): Field comments from supervisor.
-- `photo_url` (VARCHAR(255), NULLABLE): Image reference of sorted fraction.
+### 2.2 PostgreSQL Engine Trigger
+```sql
+CREATE OR REPLACE FUNCTION fn_prevent_credit_ledger_mutation()
+RETURNS TRIGGER AS $$
+BEGIN
+    RAISE EXCEPTION 'Credit ledger transactions are append-only. Mutation (UPDATE/DELETE) is strictly prohibited.';
+END;
+$$ LANGUAGE plpgsql;
 
-### 2.5 `reward_rules`
-Configurable municipal compensation and penalty schedules.
-- `id` (VARCHAR(36), PK): UUID.
-- `waste_type` (VARCHAR(50)): Waste category.
-- `user_type` (VARCHAR(20)): `Individual` or `Commercial`.
-- `rate_per_kg` (FLOAT): Reward rate in ₹ per kg (e.g. ₹10.00/kg for Recyclables).
-- `penalty_flat_rate` (FLOAT): Fine in ₹ for contaminated consignments (e.g. ₹15.00 flat).
-- `is_active` (BOOLEAN): Rule activity flag.
-
-### 2.6 `reward_transactions`
-Append-only immutable financial ledger.
-- `id` (VARCHAR(36), PK): UUID.
-- `waste_entry_id` (VARCHAR(36), FK -> `waste_entries.id`, NULLABLE): Linked collection transaction.
-- `user_id` (VARCHAR(36), FK -> `users.id`, INDEX): Beneficiary citizen.
-- `admin_id` (VARCHAR(36), FK -> `users.id`, NULLABLE): Authorizing supervisor.
-- `amount` (FLOAT): Credit (+₹) or deduction (-₹).
-- `transaction_type` (VARCHAR(20)): `REWARD`, `PENALTY`, or `ADJUSTMENT`.
-- `calculation_breakdown` (TEXT): Formula explanation (e.g. `3.00 kg × ₹10.00/kg = ₹30.00`).
-- `timestamp` (TIMESTAMP WITH TIME ZONE): Immutable ledger entry timestamp.
-
-### 2.7 `ai_classifications`
-Computer vision audit trail preserving human-in-the-loop decisions.
-- `id` (VARCHAR(36), PK): UUID.
-- `waste_entry_id` (VARCHAR(36), FK -> `waste_entries.id`, NULLABLE): Linked collection.
-- `admin_id` (VARCHAR(36), FK -> `users.id`): Field supervisor who initiated scan.
-- `image_url` (VARCHAR(255)): Field capture reference.
-- `detected_object` (VARCHAR(100)): Detected entity (e.g. `PET Bottle`).
-- `predicted_category` (VARCHAR(50)): Model suggested classification.
-- `confidence` (FLOAT): Statistical confidence percentage (e.g. 0.94).
-- `admin_confirmed_category` (VARCHAR(50)): Final decision certified by supervisor.
-- `is_overridden` (BOOLEAN): Flag indicating whether supervisor modified AI advice.
-
-### 2.8 `anomaly_flags`
-Statistical outliers intercepted for municipal review.
-- `id` (VARCHAR(36), PK): UUID.
-- `waste_entry_id` (VARCHAR(36), FK -> `waste_entries.id`): Target entry.
-- `user_id` (VARCHAR(36), FK -> `users.id`): Subject account.
-- `anomaly_type` (VARCHAR(50)): `UNUSUAL_WEIGHT_SPIKE`, `DUPLICATE_LIKE`, `SUSPICIOUS_REWARD`.
-- `description` (TEXT): Contextual reason for alert.
-- `severity` (VARCHAR(20)): `LOW`, `MEDIUM`, or `HIGH`.
-- `status` (VARCHAR(30), INDEX): `PENDING_REVIEW`, `CONFIRMED`, or `DISMISSED`.
-- `admin_notes` (TEXT, NULLABLE): Justification logged during review.
-- `reviewed_by` (VARCHAR(36), FK -> `users.id`, NULLABLE): Supervisor reviewer.
-
-### 2.9 `audit_logs`
-Complete administrative accountability log.
-- `id` (VARCHAR(36), PK): UUID.
-- `actor_id` (VARCHAR(36), FK -> `users.id`, NULLABLE): Originator of the action.
-- `actor_role` (VARCHAR(20)): `USER`, `ADMIN`, or `SYSTEM`.
-- `action` (VARCHAR(50), INDEX): Action verb (`WASTE_CREATE`, `REWARD_ADJUST`, etc.).
-- `affected_entity_type` (VARCHAR(50)): Entity class (`WasteEntry`, `User`, etc.).
-- `affected_entity_id` (VARCHAR(50)): Primary key of affected record.
-- `previous_state` (TEXT, JSON snapshot): Prior attribute state.
-- `new_state` (TEXT, JSON snapshot): Updated attribute state.
-- `ip_address` (VARCHAR(50)): Client network address.
-- `timestamp` (TIMESTAMP WITH TIME ZONE): Execution timestamp.
+CREATE TRIGGER trg_credit_transactions_prevent_mutation
+BEFORE UPDATE OR DELETE ON credit_transactions
+FOR EACH ROW
+EXECUTE FUNCTION fn_prevent_credit_ledger_mutation();
+```
 
 ---
 
-## 3. Data Integrity & Constraints
+## 3. DPDP Act 2023 Pseudonymised Account Deletion (Amendment #2)
 
-1. **Foreign Key Integrity**: Cascading deletes applied strictly to private owned child entities (e.g., user profiles, notifications); financial ledger (`reward_transactions`) preserves records with `SET NULL` on collection references to prevent balance disruption.
-2. **Idempotency Safeguards**: Client-generated offline UUIDs prevent double-counting when field offline queues synchronize over flaky networks.
-3. **Weight Boundary Validation**: Weighment inputs must strictly satisfy `weight_kg > 0` and `weight_kg <= 5000` to prevent accidental clerical errors.
+### 3.1 Statutory Context & Engineering Challenge
+Under the **Digital Personal Data Protection Act 2023 (Section 12)**, citizens have the legal right to erasure of personal data. However, municipal audit regulations require that verified collection totals, waste tonnages, and civic reward allocations remain historically auditable. 
+
+Furthermore, our database-level triggers **physically forbid** deleting rows from `credit_transactions`. Attempting to delete ledger rows triggers an abort error.
+
+### 3.2 Pseudonymisation Protocol
+When a citizen requests account erasure, GreenPay executes a permanent pseudonymisation protocol:
+
+1. **PII Scrubbing**:
+   - `User.email` is set to `NULL`.
+   - `User.phone_number` is set to `NULL`.
+   - `UserProfile.name` is replaced with `"[DELETED CITIZEN]"`.
+   - `UserProfile.phone_number` is set to `NULL`.
+   - `User.hashed_password` is overwritten with an unmatchable cryptographically random string.
+2. **Cryptographic Erasure of Meter**:
+   - `User.meter_number_encrypted` (AES-256 ciphertext) is permanently overwritten with `NULL`.
+   - `User.meter_number_hash` (HMAC lookup index) is permanently overwritten with `NULL`.
+3. **Pseudonymous Ownership Assignment**:
+   - `User.pseudonymous_id` is assigned a random identifier: `ANON-<UUID>`.
+   - `User.status` is set to `"DELETED"`.
+4. **Ledger Immutability Preservation**:
+   - `credit_transactions` and `waste_entries` remain completely intact with their original foreign key references.
+   - Because the linked user profile is scrubbed of all PII and meter references, **no entity (including municipal auditors or database administrators) can ever re-link historical collections back to the real individual**.
+
+This design satisfies both Section 12 erasure requirements and statutory public utility audit mandates.
+
+---
+
+## 4. Indexing Strategy
+
+| Table | Index Columns | Type | Purpose |
+| :--- | :--- | :--- | :--- |
+| `users` | `greenpay_id` | Unique B-Tree | Citizen QR scanning & lookup |
+| `users` | `meter_number_hash` | Unique B-Tree | Fast meter lookup without decrypting |
+| `users` | `email` | Unique B-Tree | Login credential resolution |
+| `credit_transactions` | `user_id`, `created_at` | Composite B-Tree | Rapid citizen ledger pagination |
+| `waste_entries` | `idempotency_key` | Unique B-Tree | Offline queue duplicate prevention |
+| `waste_entries` | `ward_id`, `collection_date` | Composite B-Tree | High-speed ward analytics and aggregation |
+| `audit_logs` | `timestamp` | Descending B-Tree | Chronological audit trail review |

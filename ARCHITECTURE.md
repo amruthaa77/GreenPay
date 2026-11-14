@@ -1,122 +1,110 @@
-# GreenPay System Architecture
+# GreenPay Architecture & Technical Specification
 
-GreenPay is designed as a production-quality, civic-tech urban waste accountability platform oriented around Bengaluru / BBMP municipal operations. This document outlines the architectural layers, data pipelines, security boundaries, and operational workflows.
+## 1. System Overview
 
----
-
-## 1. High-Level Architectural Diagram
+GreenPay is structured as a modern, decoupled monorepo providing end-to-end civic waste collection tracking and verification for the city of Bengaluru.
 
 ```
-+---------------------------------------------------------------------------------+
-|                               CLIENT LAYER                                      |
-|                                                                                 |
-|   React 18 + TypeScript + Vite + Tailwind CSS + Framer Motion + Recharts        |
-|                                                                                 |
-|   +--------------------------+  +--------------------------+  +-------------+   |
-|   | Citizen Experience       |  | Municipal Command Center |  | Offline     |   |
-|   | - Meter Authentication   |  | - Ward Intelligence      |  | Sync Engine |   |
-|   | - Green Score Gauge      |  | - Waste Weighment Input  |  | - Queue     |   |
-|   | - Immutable Wallet (₹)   |  | - Citizen QR Verify Modal|  | - Idempotent|   |
-|   | - Multi-Stage Journey    |  | - Anomaly Interception   |  |   Replay    |   |
-|   | - Scientific Impact      |  | - Traceable Audit Logs   |  |             |   |
-|   +--------------------------+  +--------------------------+  +-------------+   |
-+----------------------------------------+----------------------------------------+
-                                         | REST API (JSON / Bearer JWT)
-+----------------------------------------v----------------------------------------+
-|                               BACKEND LAYER                                     |
-|                                                                                 |
-|   FastAPI (Python 3.10+)                                                        |
-|                                                                                 |
-|   +--------------------------+  +--------------------------+  +-------------+   |
-|   | Security & RBAC          |  | Domain Services          |  | Analytics   |   |
-|   | - Meter-based Auth       |  | - Reward Engine (₹)      |  | - Citizen QR|   |
-|   | - Strict Tenant Isolation|  | - Anomaly Detector       |  |   Resolver  |   |
-|   | - Rate Limiting & Audit  |  | - Audit Trail Service    |  | - OLS Trend |   |
-|   | - Role Verification      |  | - Impact Calculator      |  |   Forecast  |   |
-|   +--------------------------+  +--------------------------+  +-------------+   |
-+----------------------------------------+----------------------------------------+
-                                         | SQLAlchemy 2.0 ORM
-+----------------------------------------v----------------------------------------+
-|                               DATABASE LAYER                                    |
-|                                                                                 |
-|   PostgreSQL (Production) / SQLite with Foreign Keys & UUIDs (Development)      |
-|   - Relational Tables: users, wards, waste_entries, reward_transactions,        |
-|     ai_classifications, anomaly_flags, audit_logs, notifications                |
-+---------------------------------------------------------------------------------+
+                           +----------------------------------------+
+                           |  Citizen QR Card (Permanent ID / BLR)  |
+                           +----------------------------------------+
+                                               |
+                                               v
++-------------------------------+                     +-------------------------------+
+|     Citizen Web Portal        |                     |   Admin & Supervisor Portal   |
+|         (@greenpay/web)       |                     |        (@greenpay/admin)      |
+|    - Port: 5173               |                     |    - Port: 5174               |
+|    - Citizen Dashboard        |                     |    - html5-qrcode Camera      |
+|    - Green Score Simulator    |                     |    - Offline IndexedDB Queue  |
+|    - Append-Only Ledger       |                     |    - Ward Analytics & Forecast|
+|    - DPDP Privacy Settings    |                     |    - Tamper-Evident Audits    |
++-------------------------------+                     +-------------------------------+
+         | (httpOnly cookie:                                   | (httpOnly cookie:
+         |  gp_citizen_access)                                 |  gp_admin_access)
+         v                                                     v
++-----------------------------------------------------------------------------+
+|                               FastAPI API Gateway                           |
+|                       (/api/v1/citizen, /api/v1/supervisor, /api/v1/admin)    |
+|   - Double-submit CSRF verification (gp_citizen_csrf vs gp_admin_csrf)      |
+|   - AES-256-GCM Meter Decryption + Blind Index HMAC Lookup                  |
+|   - Production Safety Guard (refuses startup if demo passwords exist)       |
++-----------------------------------------------------------------------------+
+                                       |
+                   +-------------------+-------------------+
+                   |                                       |
+                   v                                       v
+    +-----------------------------+         +-------------------------------+
+    |       Database Engine       |         |       Inbucket Mailcatcher    |
+    |   (SQLite / PostgreSQL)     |         |    - Port 9000 (UI)           |
+    | - Append-only DB triggers   |         |    - Local transactional      |
+    | - Immutable ledger rows     |         |      receipt dispatcher       |
+    | - Pseudonymised DPDP audit  |         +-------------------------------+
+    +-----------------------------+
 ```
 
 ---
 
-## 2. Component Breakdown
+## 2. Security & Tenant Isolation
 
-### 2.1 Client Layer
-- **State Management**: Context-driven architecture (`AuthContext`, `OfflineContext`, `LanguageContext`) avoids bloated external state managers while ensuring zero prop drilling.
-- **Visual Storytelling**: Recharts powers responsive bar charts, donut composition diagrams, and trend areas with customized tooltips.
-- **Micro-Interactions**: Framer Motion orchestrates layout transitions, progress meter animations, and modal entrances with respect for `prefers-reduced-motion`.
-- **Multilingual Support**: Dictionary-based localization engine currently delivering English and Kannada (ಕನ್ನಡ) strings across the application.
+### 2.1 Double-Submit CSRF Protection & Cookie Scope Separation
+To ensure complete isolation between public citizens and privileged municipal personnel:
+- **Citizen Portal**:
+  - JWT Access Token stored in `httpOnly`, `SameSite=Lax`, `Secure` cookie named `gp_citizen_access`.
+  - CSRF Token stored in readable cookie `gp_citizen_csrf` and transmitted in the `X-CSRF-Token` header on state-modifying HTTP verbs (`POST`, `PUT`, `PATCH`, `DELETE`).
+- **Admin & Supervisor Portal**:
+  - JWT Access Token stored in `httpOnly`, `SameSite=Lax`, `Secure` cookie named `gp_admin_access`.
+  - CSRF Token stored in `gp_admin_csrf` and mirrored in `X-CSRF-Token`.
+- **Cross-Scope Protection**:
+  - An admin cookie is rejected on citizen endpoints.
+  - A citizen token cannot perform supervisor or administrative actions.
 
-### 2.2 Backend Service Layer
-- **FastAPI Framework**: High-performance asynchronous REST endpoints with automatic OpenAPI documentation (`/docs`, `/redoc`).
-- **Pydantic v2 Validation**: Strict schema enforcement for all incoming payloads (e.g. boundary checks on waste weights and user categories).
-- **Security Middleware**: CORS policy restricting origins to authorized municipal domains and localhost ports.
-
----
-
-## 3. Core Operational Engines
-
-### 3.1 Configurable Reward Engine
-The financial ledger in GreenPay is append-only and strictly auditable:
-1. When a supervisor submits a weighment, the `RewardEngine` queries active rates from `reward_rules` based on `(waste_type, user_type)`.
-2. Clean fractions (Recyclable, Wet, Dry) are credited:
-   $$\text{Amount (₹)} = \text{weight\_kg} \times \text{rate\_per\_kg}$$
-3. Contaminated or unsegregated consignments incur scheduled flat deductions:
-   $$\text{Amount (₹)} = -\text{penalty\_flat\_rate}$$
-4. An immutable `RewardTransaction` record is written, storing both the numeric amount and the human-readable formula string (`3.00 kg × ₹10.00/kg = ₹30.00`).
-5. The citizen's `Green Score` is dynamically recalculated and clamped between 20.0 and 100.0.
-
-### 3.2 AI-Assisted Waste Classification Architecture
-GreenPay provides AI as **assistance**, not absolute authority:
-- The classifier service abstraction (`AIClassifierService`) inspects visual cues or image uploads.
-- The service produces:
-  - Detected entity (e.g. `PET Mineral Bottle`)
-  - Suggested category (`Recyclable`)
-  - Statistical confidence percentage (`94%`)
-  - Required disclaimer: *"AI prediction is provided as field assistance only. Administrative confirmation or override is required."*
-- The supervisor reviews the recommendation and confirms or overrides it. Both the AI prediction and the supervisor's confirmed decision are preserved in `ai_classifications`.
-
-### 3.3 Statistical Anomaly Detection
-To prevent fraud or miskeying on field scales:
-- The `AnomalyDetector` evaluates the incoming weight against the user's historical 10-entry moving average and municipal account thresholds.
-- If an individual user logs an extreme weight ($> 4\times \text{avg}$ or $> 40\text{ kg}$), the system flags an `UNUSUAL_WEIGHT_SPIKE` alert.
-- If an identical transaction is submitted within a 30-minute window, a `DUPLICATE_LIKE` alert is created.
-- Alerts are queued in the supervisor's `Anomaly Interception` queue for human review. **Users are never automatically fined solely due to an algorithm alert.**
-
-### 3.4 Predictive Analytics Engine
-Forecasting relies on a defensible Ordinary Least Squares (OLS) regression:
-- Aggregates historical monthly collection tonnage across BBMP wards.
-- Computes slope ($\beta$) and intercept ($\alpha$) across time indices:
-  $$\hat{Y}_{t} = \alpha + \beta t$$
-- Projects next-month waste volume with an empirical $\pm 8.5\%$ confidence band.
-- Presented to municipal planners as logistical estimates for MRF diversion planning.
+### 2.2 PII Protection & AES-256 Blind Indexing
+- Electricity meter numbers (e.g., BESCOM consumer IDs) are encrypted at rest using **AES-256-GCM** with a distinct 96-bit initialization vector (`IV`) per record.
+- To allow fast lookup queries without decrypting the entire database table, a deterministic **HMAC-SHA256 blind index** (`meter_number_hash`) is computed using a secret key and stored alongside the ciphertext.
 
 ---
 
-## 4. Offline-First Field Synchronization
+## 3. Field Weighment & Offline Sync Lifecycle
 
-Municipal supervisors frequently operate in basements or areas with poor cellular reception. GreenPay implements an offline-first architecture:
-1. **Network Detection**: Listens to browser `online` and `offline` events.
-2. **Local Queue**: When disconnected, waste records are staged in browser storage (`localStorage`) tagged with a client-side idempotency UUID (`offline-<timestamp>-<rand>`).
-3. **Status Banners**:
-   - Disconnected: `"Offline — X records queued for synchronization"`
-   - Reconnecting: `"Syncing records to municipal database..."`
-   - Reconnected: `"✓ X records synchronized successfully"`
-4. **Idempotency Reconciliation**: The backend checks `idempotency_key` against existing transactions. If a retry occurred, the existing record is returned without creating duplicate ledger entries.
+Field supervisors frequently operate in areas with intermittent cellular connectivity. The collection lifecycle is designed offline-first:
+
+1. **Card Presentation**: The citizen presents their high-contrast permanent QR ID card.
+2. **Scan or Manual Input**: The supervisor's camera scans the QR code using `html5-qrcode` (or enters the ID manually).
+3. **Identity Binding Check (Amendment #3)**:
+   - If the citizen's account status is `PENDING`, doorstep weighment entry is locked.
+   - The supervisor confirms physical identity at the doorstep and taps **"Confirm Identity & Activate"** (`POST /supervisor/activate-citizen/{id}`).
+4. **Weighment Logging**:
+   - The supervisor inputs weights for Organic Wet, Recyclable Dry, Hazardous, and E-Waste.
+   - A live credit preview calculates points based on the active reward schedule version.
+5. **Offline Queue Enqueue**:
+   - If offline or if the API request times out, the entry is assigned a `UUIDv4` idempotency key and stored in local `IndexedDB`.
+6. **Automatic Background Sync**:
+   - The browser listens for the `online` event. When reconnected, all queued items are transmitted in batch (`POST /supervisor/sync-offline`).
+   - The API verifies idempotency keys to prevent double-crediting.
+7. **Conflict Resolution UI (Amendment #8)**:
+   - Entries rejected by the API (e.g., unknown ID, citizen account pending) are captured into a dedicated conflict store.
+   - The supervisor receives an active conflict alert with options to activate the account or correct the ID.
+8. **Security Wipe on Logout (Amendment #8)**:
+   - When a supervisor logs out, the entire local offline queue is purged to ensure no residual civic data persists on shared field devices.
 
 ---
 
-## 5. Tenant Data Isolation
+## 4. Explainable Statistical Engines
 
-Strict data isolation is enforced at the database query layer:
-- Citizen endpoints (`/api/v1/users/me/*`) extract the authenticated user identity directly from the validated Bearer JWT payload.
-- In `GET /users/me/waste/{id}`, the backend checks `entry.user_id == current_user.id`.
-- If an attacker manipulates a transaction ID in the URL to probe another citizen's data, the server immediately returns HTTP `403 Forbidden: Access Denied`.
+### 4.1 Green Score Algorithm (0–100 Scale)
+The citizen's Green Score is a composite, explainable metric calculated every collection cycle:
+$$\text{Green Score} = 0.50 \cdot S_{\text{segregation}} + 0.30 \cdot C_{\text{consistency}} + 0.20 \cdot V_{\text{balance}}$$
+- **Segregation Ratio ($S_{\text{segregation}}$)**: Percentage of clean recyclable dry waste and e-waste relative to total waste.
+- **Collection Consistency ($C_{\text{consistency}}$)**: Proportion of expected doorstep collection rounds attended in the past 60 days.
+- **Volume Balance ($V_{\text{balance}}$)**: Household per-capita volume adherence compared to ward averages.
+
+### 4.2 Rolling Z-Score Anomaly Detector
+- Flags suspicious collection spikes without penalizing citizens automatically.
+- **Threshold**: Standard score $|z| > 2.5$.
+- **Sample Guard (Amendment #7)**: Requires at least $N \ge 5$ collections for the individual household. If $N < 5$, the model automatically falls back to the **ward baseline standard deviation**.
+- **Human Review**: All flags enter the supervisor review queue (`AnomalyReviewPage`) and require manual audit notes to confirm or dismiss.
+
+### 4.3 OLS Linear Regression Forecast
+- Ordinary Least Squares linear regression model forecasting waste tonnage over 3-month horizons.
+- **Data Sufficiency Rule (Amendment #7)**: Strictly requires $\ge 6$ months of historical data; returns `INSUFFICIENT_DATA` if fewer observations exist.
+- **Uncertainty Quantification**: Calculates upper and lower bounds using the 95% t-distribution prediction interval based on residual standard error ($s_e$).

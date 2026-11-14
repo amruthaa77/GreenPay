@@ -1,160 +1,92 @@
-# GreenPay (ಗ್ರೀನ್‌ಪೇ)
+# GreenPay Bengaluru 🌿
 
-> **“Waste responsibly. Track transparently. Earn sustainably.”**  
-> A smart urban waste accountability, analytics, and rewards platform engineered as a Bengaluru / BBMP municipal prototype.
+> **"Waste responsibly. Track transparently. Earn sustainably."**
 
----
-
-## 1. Project Overview & Problem Statement
-
-Urban solid waste management in rapid-growth Indian metropolitan centers like Bengaluru faces three core structural bottlenecks:
-1. **Opaque Collection & Ghost Data**: Door-to-door waste collection is largely undocumented or unverified, leading to disputes over service delivery and lack of civic trust.
-2. **Unsegregated Dumping**: Without meaningful economic incentives or transparent feedback, source segregation (wet vs dry vs hazardous) remains substandard, burdening landfill sites like Mandur and Mittaganahalli.
-3. **Absence of Ward-Level Intelligence**: Municipal administrators lack granular, real-time weighment metrics across wards to optimize logistics and intercept fraudulent claims.
-
-### The GreenPay Solution
-GreenPay bridges Bengaluru citizens (electricity meter holders) with authorized BBMP municipal waste supervisors. Verified doorstep collections are converted into:
-- **Direct Financial Rewards in ₹**: Computed transparently using active municipal schedules on an immutable ledger.
-- **Demystified Green Scores**: An open 0–100 score reflecting segregation quality, consistency, and clean material recovery.
-- **Permanent Citizen QR Identification**: Instant doorstep citizen lookup via unique GP-XXXXXX QR codes before waste collection.
-- **Statistical Anomaly Safeguards**: Detects quantity spikes without unfair automated penalties.
-- **Ward-Level Intelligence**: Comparative analytics across Koramangala, Indiranagar, Jayanagar, and Whitefield with predictive next-month waste volume forecasting.
+GreenPay is an independent civic software prototype designed for transparent household waste collection tracking and explainable civic rewards in Bengaluru. Authorized municipal supervisors verify doorstep segregation (weight by category) via calibrated digital scales after scanning a citizen's permanent QR ID card. Verified collections earn citizens **"Green Credits"** (non-monetary civic recognition points, NOT money, NOT a wallet) and feed an explainable **0–100 Green Score**.
 
 ---
 
-## 2. Technical Stack
+## ⚠️ Important Legal Declaration: Municipal Independence
 
-- **Frontend**: React 18, Vite, TypeScript, Tailwind CSS, Framer Motion, Recharts, Lucide Icons, Canvas-Confetti.
-- **Backend**: FastAPI, Python 3.10+, REST API, Pydantic v2, Passlib (Bcrypt), Python-Jose (JWT), Pytest.
-- **Database**: PostgreSQL (Production) / SQLite with Foreign Keys & UUIDs (Zero-Config Development).
-- **Localization**: English & Kannada (ಕನ್ನಡ) dictionary engine.
-- **Offline Architecture**: Browser storage queue with idempotency keys and automatic synchronization.
+> **MUNICIPAL NON-AFFILIATION NOTICE:**  
+> GreenPay is an independent prototype technology initiative developed for civic accountability and municipal transparency. **It is NOT affiliated with, endorsed by, operated by, or contracted with the Bruhat Bengaluru Mahanagara Palike (BBMP) or the Greater Bengaluru Authority (GBA).** All ward boundaries, names, and statistical datasets displayed are pilot demonstration data and do not represent official municipal records.
 
 ---
 
-## 3. Demo Credentials (For Hackathon Judges)
+## 🚀 3-Command Developer Quickstart
 
-| Role | Electricity Meter Number | Password | Notes |
+Get GreenPay up and running in under 2 minutes:
+
+```bash
+# 1. Install all dependencies (Node workspaces & Python FastAPI)
+make setup
+
+# 2. Run the automated test suite (Pytest + Contrast + Validator)
+make test
+
+# 3. Build all production bundles
+make build
+```
+
+To run individual development services:
+```bash
+# Backend API (FastAPI)
+cd apps/api && python -m uvicorn app.main:app --reload --port 8000
+
+# Citizen Web Portal (Vite React - Port 5173)
+npm run dev:web
+
+# Admin & Supervisor Portal (Vite React - Port 5174)
+npm run dev:admin
+```
+
+---
+
+## 🔑 Demo Login Credentials (Development Only)
+
+All accounts are pre-seeded with 12 months of realistic collection history:
+
+| Role | Username / Identifier | Password | Access Portal |
 | :--- | :--- | :--- | :--- |
-| **Citizen (Individual)** | `BESCOM-IND-104928` | `Password123!` | Aarav Sharma (Ward 151 Koramangala, Green Score: 86/100) |
-| **Citizen (Individual)** | `BESCOM-IND-208491` | `Password123!` | Priya Nair (Ward 82 Indiranagar, Green Score: 92/100) |
-| **Citizen (Commercial)** | `BESCOM-COM-501928` | `Password123!` | Green Roots Organic Cafe (Commercial Account) |
-| **Municipal Supervisor (Admin)** | `ADM-BLR-001` | `AdminSecret123!` | BBMP Field Supervisor Ramesh Rao |
-
-> 🔑 **Secret Admin Registration Invite Code:** `GREENPAY_BBMP_ADMIN_2025`  
-> Accessible strictly via protected route: `/secure-admin-registration`
+| **Super Administrator** | `admin@greenpay.blr` | `AdminSecure2026!` | `http://localhost:5174/` |
+| **Field Supervisor (Koramangala)** | `supervisor.koramangala@greenpay.blr` | `AdminSecure2026!` | `http://localhost:5174/` |
+| **Field Supervisor (Indiranagar)** | `supervisor.indiranagar@greenpay.blr` | `AdminSecure2026!` | `http://localhost:5174/` |
+| **Citizen (Active - Koramangala)** | `BES-0010-4921` (or `citizen1@example.com`) | `Password123!` | `http://localhost:5173/login` |
+| **Citizen (Pending Verification)** | `BES-0012-9999` (or `pending@example.com`) | `Password123!` | `http://localhost:5173/login` |
 
 ---
 
-## 4. Key Architectural Highlights
+## 🏛️ Monorepo Architecture
 
-1. **Electricity Meter Identity Binding**: Registration requires a unique electricity meter number, anchoring digital identity to physical premises.
-2. **Strict Tenant & Data Isolation**: Citizen A cannot view Citizen B’s records or wallet balance; attempts to probe another user's ID return HTTP `403 Forbidden`.
-3. **Immutable Financial Ledger**: Financial entries in `reward_transactions` are append-only. Formulas are stored alongside amounts (e.g. `3.00 kg × ₹10.00/kg = ₹30.00`).
-4. **Offline-First Field Weighment**: Supervisors can log waste entries when disconnected. Entries queue locally and sync automatically when connectivity returns.
-5. **Permanent Citizen QR Verification**: Field supervisors scan or input permanent Citizen GreenPay QR IDs to resolve resident records instantly before weighment.
-6. **Defensible Predictive Forecasting**: Ordinary Least Squares (OLS) regression models next-month waste volume with $\pm 8.5\%$ confidence bounds.
-7. **Transparent Audit Trail**: Every administrative action, diff, and review is logged with actor attribution and IP address.
-
----
-
-## 5. Quickstart & Setup Guide
-
-### 5.1 Prerequisites
-- Python 3.10+
-- Node.js 18+ and npm
-
-### 5.2 Backend Setup
-```bash
-# 1. Navigate to project root
-cd /path/to/GREENPAY
-
-# 2. Activate Python virtual environment
-# Windows:
-.\venv\Scripts\Activate.ps1
-# Linux/macOS:
-source venv/bin/activate
-
-# 3. Install backend dependencies
-pip install -r backend/requirements.txt
-
-# 4. Seed database with Bengaluru demo records
-$env:PYTHONPATH="backend"
-python backend/app/seed.py
-
-# 5. Start FastAPI development server
-python -m uvicorn app.main:app --app-dir backend --reload --port 8000
 ```
-Backend API will be accessible at: `http://127.0.0.1:8000` (Interactive Swagger Docs: `http://127.0.0.1:8000/docs`).
-
-### 5.3 Frontend Setup
-```bash
-# 1. Navigate to frontend directory
-cd frontend
-
-# 2. Install npm dependencies
-npm install
-
-# 3. Launch Vite development server
-npm run dev
-```
-Frontend application will be accessible at: `http://localhost:5173`.
-
----
-
-## 6. Running Automated Tests
-
-Run the full backend test suite covering authentication, RBAC, tenant isolation, and reward calculations:
-```bash
-$env:PYTHONPATH="backend"
-.\venv\Scripts\pytest backend/tests -v
-```
-
-All 9 integration and unit tests will execute:
-```text
-backend/tests/test_auth.py::test_root_endpoint PASSED
-backend/tests/test_auth.py::test_login_success_citizen PASSED
-backend/tests/test_auth.py::test_login_success_admin PASSED
-backend/tests/test_auth.py::test_login_invalid_credentials PASSED
-backend/tests/test_auth.py::test_duplicate_meter_registration PASSED
-backend/tests/test_auth.py::test_admin_registration_invalid_invite_code PASSED
-backend/tests/test_rbac_and_isolation.py::test_citizen_cannot_access_admin_endpoints PASSED
-backend/tests/test_rbac_and_isolation.py::test_tenant_data_isolation_between_citizens PASSED
-backend/tests/test_waste_and_rewards.py::test_waste_recording_reward_calculation_and_anomaly PASSED
+GREENPAY/
+├── apps/
+│   ├── api/             # FastAPI backend (Python 3.10+, SQLAlchemy 2, Pydantic v2)
+│   ├── web/             # Citizen portal (React 18, Tailwind, Framer Motion, Recharts)
+│   └── admin/           # Supervisor & Admin portal (html5-qrcode, IndexedDB offline queue)
+├── packages/
+│   ├── config/          # Strict business entity config & validation rules
+│   └── tokens/          # Design tokens with WCAG 2.2 AA contrast tests
+├── docs/
+│   └── LEGAL_REVIEW.md  # Legal disclaimers & statutory compliance notices
+├── docker-compose.yml   # Multi-container orchestration (API, Web, Admin, Postgres, Mail)
+├── Makefile             # Standard developer automation commands
+└── .github/workflows/   # CI matrix for SQLite, Postgres triggers, and builds
 ```
 
 ---
 
-## 7. Interactive Guided Hackathon Tour
+## 🌟 Core Highlights & Architectural Guarantees
 
-A 14-step interactive guided tour is accessible via the **“Demo Tour”** button in the header navigation:
-1. **Citizen Authentication** with electricity meter.
-2. **Explainable Green Score (86/100)** with formula breakdown.
-3. **View-Only Waste History** with search and filters.
-4. **Waste Journey Pipeline** (Collection -> Sorting -> Processing -> Recovery).
-5. **Transparent Wallet** and ledger calculations.
-6. **Municipal Supervisor Operations Center** login.
-7. **Citizen Directory** with read-only identity protection.
-8. **Waste Entry Creation** with live reward formula preview.
-9. **Citizen QR Identification & Rapid Tagging** for verified collection.
-10. **Automatic Ledger Reconciliation**.
-11. **Statistical Anomaly Interception** for volume spikes.
-12. **Supervisor Anomaly Review** with audit notes.
-13. **Bengaluru Ward Intelligence** comparative charts.
-14. **Defensible Predictive Waste Volume Forecasting**.
-
----
-
-## 8. Documentation Suite
-
-- [`ARCHITECTURE.md`](ARCHITECTURE.md): Deep architectural dive, services, offline sync, and data flow.
-- [`DATABASE.md`](DATABASE.md): Entity-relationship diagrams, table schemas, foreign keys, and indexes.
-- [`SECURITY.md`](SECURITY.md): Threat model, RBAC policies, password hashing, and tenant isolation proofs.
-
----
-
-## 9. Future Improvements
-
-- Integration with physical Bluetooth digital weighing scales on collection auto-tippers.
-- Municipal utility bill API integration with BESCOM billing systems for direct bill offset.
-- Real-time GPS collection truck routing tracking across ward zones.
+1. **Dual-Engine Append-Only DB Triggers**:
+   Database-level triggers physically block any `UPDATE` or `DELETE` on `credit_transactions` across both **SQLite** and **PostgreSQL**.
+2. **DPDP Act 2023 Compliance & Pseudonymisation**:
+   Electricity meters are encrypted with AES-256-GCM. When an account is deleted, PII is permanently scrubbed, while immutable credit ledger rows are preserved under a random pseudonym (`ANON-<UUID>`).
+3. **Identity Binding & Pending Status**:
+   New citizen registrations remain in `PENDING` state until physically confirmed by a supervisor at the doorstep. The system prevents issuing credits to pending accounts.
+4. **Offline-First Field Weighments with Idempotency**:
+   Supervisors can record weighments without internet connectivity. Entries are queued locally with UUIDv4 idempotency keys and synchronized when online, complete with a conflict-resolution UI.
+5. **Statistical Anomaly Detection & OLS Forecasting**:
+   Rolling z-score anomaly review with minimum sample $N \ge 5$ and ward fallback. OLS linear regression forecast with 95% prediction intervals (requires $\ge 6$ months history).
+6. **Pure CSS/SVG Hero**:
+   Interactive exploding 3D card effect built with pure CSS 3D transforms (`rotateX`, `rotateY`, `translateZ`) and SVG, without heavy WebGL engines.

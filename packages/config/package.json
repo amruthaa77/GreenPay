@@ -1,0 +1,7 @@
+{
+  "name": "@greenpay/config",
+  "version": "1.0.0",
+  "private": true,
+  "main": "business.config.ts",
+  "types": "business.config.ts"
+}

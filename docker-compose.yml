@@ -1,0 +1,68 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: greenpay_postgres
+    environment:
+      POSTGRES_USER: greenpay_user
+      POSTGRES_PASSWORD: greenpay_password_2026
+      POSTGRES_DB: greenpay_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U greenpay_user -d greenpay_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: greenpay_api
+    environment:
+      - DATABASE_URL=postgresql://greenpay_user:greenpay_password_2026@postgres:5432/greenpay_db
+      - SECRET_KEY=greenpay_dev_secret_key_32_bytes_super_secure_2026
+      - ENCRYPTION_KEY=gK7xL1mN3pQ5sT7vX9zB2dF4hJ6lP8rT
+      - HMAC_SECRET=greenpay_meter_hmac_secret_2026
+      - ENV=development
+      - ALLOWED_ORIGINS=http://localhost:5173,http://localhost:5174
+      - SMTP_HOST=mailcatcher
+      - SMTP_PORT=1025
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    container_name: greenpay_web
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+  admin:
+    build:
+      context: .
+      dockerfile: ./apps/admin/Dockerfile
+    container_name: greenpay_admin
+    ports:
+      - "5174:80"
+    depends_on:
+      - api
+
+  mailcatcher:
+    image: inbucket/inbucket:latest
+    container_name: greenpay_mailcatcher
+    ports:
+      - "9000:9000" # Web UI for mail inspect
+      - "1025:2500" # SMTP port
+    restart: unless-stopped
+
+volumes:
+  pgdata:
