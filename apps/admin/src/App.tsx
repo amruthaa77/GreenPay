@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAdminAuth } from './context/AdminAuthContext';
 import { AdminNavbar } from './components/AdminNavbar';
-import { AdminDemoBanner } from './components/AdminDemoBanner';
 
 // Admin & Supervisor pages
 import { AdminLoginPage } from './pages/AdminLoginPage';
@@ -114,7 +113,6 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#041B15] text-[#F4F7F0] font-sans selection:bg-[#D7FF35]/30 selection:text-[#041B15]">
-      <AdminDemoBanner navigate={navigate} />
       <AdminNavbar
         currentPath={currentPath}
         navigate={navigate}

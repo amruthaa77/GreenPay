@@ -210,24 +210,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate, onOpenDemo
               </button>
             </motion.div>
 
-            {/* Quick Demo Credentials Bar */}
-            <div className="mt-6 sm:mt-8 p-3 sm:p-3.5 bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-xs max-w-xl mx-auto flex flex-wrap items-center justify-center sm:justify-around gap-2 text-xs">
-              <span className="font-semibold text-slate-500 dark:text-slate-400">{t('landing.quick_test')}</span>
-              <button
-                onClick={() => onNavigate('/login')}
-                className="font-mono text-emerald-700 dark:text-emerald-400 font-bold hover:underline cursor-pointer"
-              >
-                {t('landing.quick_citizen')}
-              </button>
-              <span className="text-slate-300 dark:text-slate-700">|</span>
-              <button
-                onClick={() => onNavigate('/login')}
-                className="font-mono text-teal-700 dark:text-teal-400 font-bold hover:underline cursor-pointer"
-              >
-                {t('landing.quick_supervisor')}
-              </button>
-            </div>
-
             {/* ACCEPTED DRY ITEMS ONLY SHOWCASE */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}

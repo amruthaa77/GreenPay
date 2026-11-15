@@ -56,12 +56,6 @@ def lookup_citizen_by_id(
             detail=f"No citizen record found with GreenPay ID '{clean_id}'."
         )
         
-    if current_supervisor.is_demo and not citizen.is_demo:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Demo supervisors are isolated to demo citizen accounts and cannot view real citizen records."
-        )
-        
     masked_meter = "[MASKED]"
     if citizen.meter_number_encrypted:
         masked_meter = mask_meter_number(decrypt_meter_number(citizen.meter_number_encrypted))
@@ -106,11 +100,6 @@ def activate_pending_citizen(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Citizen '{clean_id}' not found."
-        )
-    if current_supervisor.is_demo and not citizen.is_demo:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Demo supervisors cannot activate genuine citizen accounts."
         )
     if citizen.status == "ACTIVE":
         return {"message": "Citizen identity is already verified and active.", "status": "ACTIVE"}
@@ -163,12 +152,6 @@ def _process_weighment_entry(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Citizen '{payload.greenpay_id}' does not exist."
-        )
-
-    if supervisor.is_demo and not citizen.is_demo:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Demo supervisors cannot log weighments for genuine citizens."
         )
         
     # 2. Check identity binding: PENDING accounts cannot be issued credits (Amendment #3)
@@ -228,8 +211,7 @@ def _process_weighment_entry(
         ewaste_kg=payload.ewaste_kg,
         total_weight_kg=total_weight,
         journey_stage="Collection",
-        notes=payload.notes,
-        is_demo=bool(supervisor.is_demo or citizen.is_demo)
+        notes=payload.notes
     )
     db.add(waste_entry)
     db.flush()

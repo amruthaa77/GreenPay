@@ -57,18 +57,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
     }
   };
 
-  const fillDemoCitizen = () => {
-    setMeterNumber('BESCOM-IND-104928');
-    setPassword('Password123!');
-    setErrorMessage(null);
-  };
-
-  const fillDemoAdmin = () => {
-    setMeterNumber('ADM-BLR-001');
-    setPassword('AdminSecret123!');
-    setErrorMessage(null);
-  };
-
   return (
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 sm:p-6 lg:p-12 bg-slate-50/70">
       <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -144,51 +132,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
               <p className="text-xs text-slate-500 mt-1">
                 {t('auth.login_subtitle')}
               </p>
-            </div>
-
-            {/* Polished Demo Access Section */}
-            <div className="mb-6 p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80">
-              <div className="flex items-center justify-between mb-2.5">
-                <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                  {t('auth.demo_chips_title')}
-                </span>
-                <Badge variant="neutral" size="xs">One-Click Fill</Badge>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={fillDemoCitizen}
-                  className="p-2.5 bg-white hover:bg-emerald-50/60 border border-slate-200 hover:border-emerald-300 rounded-xl transition-all text-left shadow-2xs group"
-                >
-                  <div className="flex items-center gap-1.5 mb-0.5">
-                    <Building2 className="w-3.5 h-3.5 text-emerald-600 group-hover:scale-105 transition-transform" />
-                    <span className="text-xs font-bold text-slate-800">
-                      {t('auth.chip_citizen')}
-                    </span>
-                  </div>
-                  <p className="text-[10px] text-slate-400 font-mono truncate">
-                    Aarav (Ward 151)
-                  </p>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={fillDemoAdmin}
-                  className="p-2.5 bg-white hover:bg-purple-50/60 border border-slate-200 hover:border-purple-300 rounded-xl transition-all text-left shadow-2xs group"
-                >
-                  <div className="flex items-center gap-1.5 mb-0.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-purple-600 group-hover:scale-105 transition-transform" />
-                    <span className="text-xs font-bold text-slate-800">
-                      {t('auth.chip_admin')}
-                    </span>
-                  </div>
-                  <p className="text-[10px] text-slate-400 font-mono truncate">
-                    Supervisor Ramesh
-                  </p>
-                </button>
-              </div>
             </div>
 
             {/* Error Alert */}

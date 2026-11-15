@@ -10,15 +10,12 @@ export interface CitizenUser {
   role: string;
   status: string;
   green_score: number;
-  is_demo?: boolean;
 }
 
 interface AuthContextType {
   user: CitizenUser | null;
   loading: boolean;
-  isDemo: boolean;
   login: (meter: string, pwd: string) => Promise<any>;
-  demoLogin: (role?: string, demo_id?: string) => Promise<any>;
   register: (payload: any) => Promise<any>;
   logout: () => Promise<void>;
   refreshProfile: () => Promise<void>;
@@ -35,26 +32,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return null;
     }
   });
-  const [isDemo, setIsDemo] = useState<boolean>(() => {
-    return localStorage.getItem('greenpay_is_demo') === 'true';
-  });
   const [loading, setLoading] = useState<boolean>(true);
 
   const refreshProfile = async () => {
     try {
       const profile = await api.citizen.getProfile();
       setUser(profile);
-      if (profile.is_demo !== undefined) {
-        setIsDemo(Boolean(profile.is_demo));
-        localStorage.setItem('greenpay_is_demo', profile.is_demo ? 'true' : 'false');
-      }
       localStorage.setItem('greenpay_citizen_user', JSON.stringify(profile));
     } catch {
       // Not authenticated or error
       setUser(null);
-      setIsDemo(false);
       localStorage.removeItem('greenpay_citizen_user');
-      localStorage.removeItem('greenpay_is_demo');
     } finally {
       setLoading(false);
     }
@@ -66,18 +54,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (meter: string, pwd: string) => {
     const res = await api.auth.login(meter, pwd);
-    setIsDemo(Boolean(res?.is_demo));
-    localStorage.setItem('greenpay_is_demo', res?.is_demo ? 'true' : 'false');
-    if (res.role === 'CITIZEN') {
-      await refreshProfile();
-    }
-    return res;
-  };
-
-  const demoLogin = async (role = 'CITIZEN', demo_id?: string) => {
-    const res = await api.auth.demoLogin(role, demo_id);
-    setIsDemo(true);
-    localStorage.setItem('greenpay_is_demo', 'true');
     if (res.role === 'CITIZEN') {
       await refreshProfile();
     }
@@ -86,8 +62,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const register = async (payload: any) => {
     const res = await api.auth.register(payload);
-    setIsDemo(false);
-    localStorage.setItem('greenpay_is_demo', 'false');
     await refreshProfile();
     return res;
   };
@@ -95,13 +69,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const logout = async () => {
     await api.auth.logout();
     setUser(null);
-    setIsDemo(false);
     localStorage.removeItem('greenpay_citizen_user');
-    localStorage.removeItem('greenpay_is_demo');
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, isDemo, login, demoLogin, register, logout, refreshProfile }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );

@@ -103,7 +103,7 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordPageProps> = ({ navigate
                 required
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
-                placeholder="e.g. BESCOM-IND-104928 or name@example.com"
+                placeholder="e.g. BESCOM-IND-XXXXXX or name@example.com"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-white text-xs placeholder:text-[#A7B9A8]/40 focus:outline-none focus:ring-2 focus:ring-[#D7FF35] transition"
               />
             </div>

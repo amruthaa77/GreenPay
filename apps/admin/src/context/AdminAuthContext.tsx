@@ -8,7 +8,6 @@ export interface AdminUser {
   role: 'SUPER_ADMIN' | 'SUPERVISOR';
   greenpay_id: string;
   status: string;
-  is_demo?: boolean;
   profile?: {
     name: string;
     ward_id?: string;
@@ -25,9 +24,7 @@ export interface LoginResult {
 interface AdminAuthContextType {
   user: AdminUser | null;
   loading: boolean;
-  isDemo: boolean;
   login: (email: string, pass: string) => Promise<LoginResult>;
-  demoLogin: (role: 'SUPER_ADMIN' | 'SUPERVISOR', demoId?: string) => Promise<LoginResult>;
   challenge2FA: (temp_token: string, totp_code?: string, recovery_code?: string) => Promise<AdminUser>;
   acceptInvite: (payload: { invite_token: string; name: string; password: string; phone_number?: string }) => Promise<AdminUser>;
   logout: () => Promise<void>;
@@ -46,9 +43,6 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       return null;
     }
   });
-  const [isDemo, setIsDemo] = useState<boolean>(() => {
-    return localStorage.getItem('greenpay_admin_is_demo') === 'true';
-  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -56,21 +50,15 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       .then((data) => {
         if (data && (data.role === 'SUPER_ADMIN' || data.role === 'SUPERVISOR')) {
           setUser(data);
-          setIsDemo(Boolean(data.is_demo));
-          localStorage.setItem('greenpay_admin_is_demo', data.is_demo ? 'true' : 'false');
           localStorage.setItem('greenpay_admin_user', JSON.stringify(data));
         } else {
           setUser(null);
-          setIsDemo(false);
           localStorage.removeItem('greenpay_admin_user');
-          localStorage.removeItem('greenpay_admin_is_demo');
         }
       })
       .catch(() => {
         setUser(null);
-        setIsDemo(false);
         localStorage.removeItem('greenpay_admin_user');
-        localStorage.removeItem('greenpay_admin_is_demo');
       })
       .finally(() => setLoading(false));
   }, []);
@@ -90,39 +78,12 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       role: res.role as 'SUPER_ADMIN' | 'SUPERVISOR',
       greenpay_id: res.greenpay_id || '',
       status: res.user_status,
-      is_demo: Boolean(res.is_demo),
       profile: {
         name: res.name,
         ward_name: res.ward_name,
       },
     };
     setUser(authedUser);
-    setIsDemo(Boolean(res.is_demo));
-    localStorage.setItem('greenpay_admin_is_demo', res.is_demo ? 'true' : 'false');
-    localStorage.setItem('greenpay_admin_user', JSON.stringify(authedUser));
-    return {
-      requires_2fa: false,
-      user: authedUser,
-    };
-  };
-
-  const demoLogin = async (role: 'SUPER_ADMIN' | 'SUPERVISOR', demoId?: string): Promise<LoginResult> => {
-    const res = await adminApi.auth.demoLogin(role, demoId);
-    const authedUser: AdminUser = {
-      id: res.greenpay_id || 'demo_admin',
-      email: res.name || `${role.toLowerCase()}@greenpay.blr`,
-      role: res.role as 'SUPER_ADMIN' | 'SUPERVISOR',
-      greenpay_id: res.greenpay_id || '',
-      status: res.user_status || 'ACTIVE',
-      is_demo: true,
-      profile: {
-        name: res.name || 'Demo Administrator',
-        ward_name: res.ward_name || 'Koramangala',
-      },
-    };
-    setUser(authedUser);
-    setIsDemo(true);
-    localStorage.setItem('greenpay_admin_is_demo', 'true');
     localStorage.setItem('greenpay_admin_user', JSON.stringify(authedUser));
     return {
       requires_2fa: false,
@@ -173,9 +134,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       // Ignore network errors on logout
     } finally {
       setUser(null);
-      setIsDemo(false);
       localStorage.removeItem('greenpay_admin_user');
-      localStorage.removeItem('greenpay_admin_is_demo');
       // Amendment #8: Security wipe on supervisor logout
       offlineQueue.clearAllOnLogout();
     }
@@ -189,9 +148,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       value={{
         user,
         loading,
-        isDemo,
         login,
-        demoLogin,
         challenge2FA,
         acceptInvite,
         logout,

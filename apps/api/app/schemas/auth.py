@@ -24,10 +24,6 @@ class LoginRequest(BaseModel):
     meter_number_or_email: str = Field(..., description="Electricity meter number for citizens, or email for supervisors/admins")
     password: str = Field(..., min_length=1)
 
-class DemoLoginRequest(BaseModel):
-    role: str = Field(..., description="Role to authenticate as: CITIZEN, SUPERVISOR, or SUPER_ADMIN")
-    demo_id: Optional[str] = Field(None, description="Optional specific demo profile ID")
-
 class AuthResponse(BaseModel):
     access_token: Optional[str] = None
     token_type: str = "bearer"
@@ -40,6 +36,5 @@ class AuthResponse(BaseModel):
     ward_name: Optional[str] = None
     requires_2fa: bool = False
     temp_token: Optional[str] = None
-    is_demo: bool = False
 
     model_config = ConfigDict(from_attributes=True)

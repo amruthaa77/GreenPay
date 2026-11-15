@@ -136,7 +136,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ navigate }) => {
                 value={formData.meter_number}
                 onChange={(e) => setFormData({ ...formData, meter_number: e.target.value })}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-white placeholder-[#A7B9A8]/40 focus:outline-none focus:border-[#D7FF35]"
-                placeholder="e.g. BESCOM-IND-104928"
+                placeholder="e.g. BESCOM-IND-XXXXXX"
               />
               <span className="text-[10px] text-[#A7B9A8]/70 block">
                 Symmetrically encrypted at rest. Displayed masked (e.g. BESCOM-***-4928).

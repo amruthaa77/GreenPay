@@ -7,7 +7,7 @@ interface AdminLoginPageProps {
 }
 
 export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
-  const { login, demoLogin, challenge2FA } = useAdminAuth();
+  const { login, challenge2FA } = useAdminAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -44,23 +44,6 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
     }
   };
 
-  const handleOneClickDemo = async (role: 'SUPER_ADMIN' | 'SUPERVISOR', demoId?: string) => {
-    setError(null);
-    setLoading(true);
-    try {
-      const result = await demoLogin(role, demoId);
-      if (result.user?.role === 'SUPER_ADMIN') {
-        navigate('/analytics');
-      } else {
-        navigate('/supervisor');
-      }
-    } catch (err: any) {
-      setError(err.message || 'Demo authentication failed. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handle2FASubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -82,11 +65,6 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleQuickFill = (demoEmail: string) => {
-    setEmail(demoEmail);
-    setPassword('AdminSecure2026!');
   };
 
   return (
@@ -202,7 +180,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="supervisor.koramangala@greenpay.blr"
+                  placeholder="official@greenpay.blr"
                   className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-xs text-white placeholder-[#A7B9A8]/40 focus:outline-none focus:border-[#D7FF35]"
                 />
               </div>
@@ -250,49 +228,6 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
               )}
             </button>
           </form>
-        )}
-
-        {/* Demo Quick-Fill Helpers */}
-        {!is2FAPending && (
-          <div className="pt-4 border-t border-amber-500/20 space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-semibold text-amber-300 flex items-center gap-1.5">
-                <Shield className="w-3.5 h-3.5 text-amber-400" />
-                Demonstration Mode (Evaluator Access)
-              </span>
-              <span className="text-[10px] text-amber-400 font-mono">1-Click Launch</span>
-            </div>
-            <p className="text-[10px] text-[#A7B9A8] leading-tight">
-              One-click access with isolated municipal demo data. Zero password exposure in code; live production records remain protected.
-            </p>
-            <div className="grid grid-cols-1 gap-2">
-              <button
-                type="button"
-                disabled={loading}
-                onClick={() => handleOneClickDemo('SUPER_ADMIN')}
-                className="w-full text-left p-2.5 rounded-xl bg-[#062B20] hover:bg-[#062B20]/80 border border-white/5 text-xs text-[#F4F7F0] flex items-center justify-between transition"
-              >
-                <div>
-                  <span className="font-semibold text-purple-300 block">Super Administrator</span>
-                  <span className="text-[10px] text-[#A7B9A8]">Citywide Telemetry · Dry Waste Categories · Ward Analytics</span>
-                </div>
-                <span className="text-[10px] font-mono text-[#D7FF35] font-bold">Enter &rarr;</span>
-              </button>
-
-              <button
-                type="button"
-                disabled={loading}
-                onClick={() => handleOneClickDemo('SUPERVISOR', 'supervisor_koramangala')}
-                className="w-full text-left p-2.5 rounded-xl bg-[#062B20] hover:bg-[#062B20]/80 border border-white/5 text-xs text-[#F4F7F0] flex items-center justify-between transition"
-              >
-                <div>
-                  <span className="font-semibold text-[#D7FF35] block">Koramangala Field Supervisor</span>
-                  <span className="text-[10px] text-[#A7B9A8]">Doorstep Weighments · QR Lookups · Offline Queue Sync</span>
-                </div>
-                <span className="text-[10px] font-mono text-[#D7FF35] font-bold">Enter &rarr;</span>
-              </button>
-            </div>
-          </div>
         )}
 
         {/* Security & Cookie Note */}

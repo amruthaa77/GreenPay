@@ -180,7 +180,7 @@ export const kn: TranslationDictionary = {
   'auth.login_title': 'ಏಕೀಕೃತ ನಾಗರಿಕ ಲಾಗಿನ್',
   'auth.login_subtitle': 'ನಿಮ್ಮ ವಿದ್ಯುತ್ ಮೀಟರ್ ವಿವರಗಳನ್ನು ಬಳಸಿಕೊಂಡು ನಿಮ್ಮ ಗ್ರೀನ್‌ಪೇ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಪ್ರವೇಶಿಸಿ',
   'auth.meter_label': 'ವಿದ್ಯುತ್ ಮೀಟರ್ ಸಂಖ್ಯೆ',
-  'auth.meter_placeholder': 'ಉದಾ: BESCOM-IND-104928',
+  'auth.meter_placeholder': 'ಉದಾ: BESCOM-IND-XXXXXX',
   'auth.password_label': 'ಪಾಸ್‌ವರ್ಡ್',
   'auth.password_placeholder': '••••••••••••',
   'auth.btn_signin': 'ಗ್ರೀನ್‌ಪೇಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ',

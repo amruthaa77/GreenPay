@@ -155,13 +155,6 @@ class DryWasteEngine:
                 detail=f"Citizen or household '{payload.greenpay_id}' does not exist."
             )
 
-        # Demo isolation: Demo supervisors can only record collections for demo citizens
-        if supervisor.is_demo and not citizen.is_demo:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Demo supervisors are isolated to demo citizen accounts and cannot record collections for genuine citizens."
-            )
-
         # 2. Check household status
         if citizen.status == "PENDING":
             raise HTTPException(
@@ -208,7 +201,6 @@ class DryWasteEngine:
                 journey_stage="Collection",
                 dispute_status="PENDING_CONFIRMATION",
                 notes=payload.notes,
-                is_demo=bool(supervisor.is_demo or citizen.is_demo),
             )
             db.add(waste_entry)
             db.flush()

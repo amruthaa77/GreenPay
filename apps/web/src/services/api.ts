@@ -122,15 +122,6 @@ export const api = {
       if (res.access_token) setAccessToken(res.access_token);
       return res;
     },
-    demoLogin: async (role: string = 'CITIZEN', demo_id?: string) => {
-      const res = await request<any>('/auth/demo-login', {
-        method: 'POST',
-        body: JSON.stringify({ role, demo_id }),
-      });
-      if (res.csrf_token) setStoredCsrfToken(res.csrf_token);
-      if (res.access_token) setAccessToken(res.access_token);
-      return res;
-    },
     logout: async () => {
       try {
         await request('/auth/logout', { method: 'POST' });

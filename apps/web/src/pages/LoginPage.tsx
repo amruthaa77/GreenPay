@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { ArrowRight, Lock, KeyRound, AlertCircle, CheckCircle, FlaskConical, ShieldAlert } from 'lucide-react';
+import { ArrowRight, Lock, KeyRound, AlertCircle, CheckCircle } from 'lucide-react';
 
 interface LoginPageProps {
   navigate: (path: string) => void;
 }
 
 export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
-  const { login, demoLogin } = useAuth();
+  const { login } = useAuth();
   const [meterOrEmail, setMeterOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -35,34 +35,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleOneClickDemo = async (role: string = 'CITIZEN', demoId?: string) => {
-    setError(null);
-    setLoading(true);
-    try {
-      const res = await demoLogin(role, demoId);
-      const adminUrl = (import.meta.env.VITE_ADMIN_APP_URL || 'http://localhost:5174').replace(/\/+$/, '');
-      if (res?.role === 'SUPERVISOR') {
-        window.location.href = `${adminUrl}/supervisor`;
-        return;
-      }
-      if (res?.role === 'SUPER_ADMIN') {
-        window.location.href = `${adminUrl}/analytics`;
-        return;
-      }
-      navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.message || 'Demo authentication failed. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fillDemoCitizen = (meter: string) => {
-    setMeterOrEmail(meter);
-    setPassword('••••••••••••');
-    handleOneClickDemo('CITIZEN', meter.includes('3091') ? 'citizen_jayanagar' : 'citizen_koramangala');
   };
 
   return (
@@ -103,7 +75,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
               value={meterOrEmail}
               onChange={(e) => setMeterOrEmail(e.target.value)}
               className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-white placeholder-[#A7B9A8]/40 focus:outline-none focus:border-[#D7FF35]"
-              placeholder="e.g. BESCOM-IND-104928"
+              placeholder="e.g. BESCOM-IND-XXXXXX"
               autoComplete="username"
             />
           </div>
@@ -149,46 +121,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
           </button>
         </form>
 
-        {/* Demo Credentials Quick-Fill & 1-Click Access */}
-        <div className="p-4 rounded-xl bg-[#062B20] border border-amber-500/20 space-y-3 text-[11px]">
-          <div className="flex items-center justify-between">
-            <span className="micro-label text-amber-300 font-semibold flex items-center gap-1.5">
-              <FlaskConical className="w-3.5 h-3.5 text-amber-400" />
-              Demonstration Mode (Evaluator Access)
-            </span>
-            <span className="text-[10px] text-amber-400/80 font-mono">1-Click Launch</span>
-          </div>
-          <p className="text-[10px] text-[#A7B9A8] leading-tight">
-            Instant evaluation sessions with pre-seeded demo collection receipts and isolated metrics. Real citizen records remain untouched.
-          </p>
-          <div className="flex flex-col gap-2">
-            <button
-              type="button"
-              disabled={loading}
-              onClick={() => handleOneClickDemo('CITIZEN', 'citizen_koramangala')}
-              className="w-full p-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-left text-[#A7B9A8] hover:text-white flex items-center justify-between transition border border-white/5"
-            >
-              <div>
-                <span className="font-medium text-white block">Aarav Sharma</span>
-                <span className="text-[10px] text-[#A7B9A8]">Koramangala Ward · 78.5 Green Score · Active Receipts</span>
-              </div>
-              <span className="font-mono text-[#D7FF35] text-xs font-bold shrink-0">Enter &rarr;</span>
-            </button>
-            <button
-              type="button"
-              disabled={loading}
-              onClick={() => handleOneClickDemo('CITIZEN', 'citizen_jayanagar')}
-              className="w-full p-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-left text-[#A7B9A8] hover:text-white flex items-center justify-between transition border border-white/5"
-            >
-              <div>
-                <span className="font-medium text-white block">Rohan Verma</span>
-                <span className="text-[10px] text-[#A7B9A8]">Jayanagar Ward · 62.0 Green Score · Secondary Household</span>
-              </div>
-              <span className="font-mono text-amber-400 text-xs font-bold shrink-0">Enter &rarr;</span>
-            </button>
-          </div>
-        </div>
-
         {/* Register Link */}
         <div className="text-center text-xs text-[#A7B9A8] pt-2 border-t border-white/10">
           New household?{' '}
@@ -203,5 +135,4 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
       </div>
     </div>
   );
-};
 };

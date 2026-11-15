@@ -180,7 +180,7 @@ export const en: TranslationDictionary = {
   'auth.login_title': 'Unified Civic Login',
   'auth.login_subtitle': 'Access your GreenPay dashboard using your electricity meter credentials',
   'auth.meter_label': 'Electricity Meter Number',
-  'auth.meter_placeholder': 'e.g. BESCOM-IND-104928',
+  'auth.meter_placeholder': 'e.g. BESCOM-IND-XXXXXX',
   'auth.password_label': 'Password',
   'auth.password_placeholder': '••••••••••••',
   'auth.btn_signin': 'Sign In to GreenPay',

@@ -69,12 +69,7 @@ def mask_meter_number(meter_number: str) -> str:
 # JWT Generation and Verification
 ALGORITHM = "HS256"
 
-def create_access_token(
-    user_id: str,
-    role: str,
-    expires_delta: Optional[timedelta] = None,
-    is_demo: bool = False
-) -> str:
+def create_access_token(user_id: str, role: str, expires_delta: Optional[timedelta] = None) -> str:
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta
     else:
@@ -83,23 +78,17 @@ def create_access_token(
     payload: Dict[str, Any] = {
         "sub": user_id,
         "role": role,
-        "is_demo": is_demo,
         "type": "access",
         "exp": expire,
         "iat": datetime.now(timezone.utc)
     }
     return jwt.encode(payload, settings.SECRET_KEY, algorithm=ALGORITHM)
 
-def create_refresh_token(
-    user_id: str,
-    role: str,
-    is_demo: bool = False
-) -> str:
+def create_refresh_token(user_id: str, role: str) -> str:
     expire = datetime.now(timezone.utc) + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
     payload: Dict[str, Any] = {
         "sub": user_id,
         "role": role,
-        "is_demo": is_demo,
         "type": "refresh",
         "exp": expire,
         "iat": datetime.now(timezone.utc),
