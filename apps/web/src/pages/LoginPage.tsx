@@ -20,12 +20,13 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
 
     try {
       const res = await login(meterOrEmail, password);
+      const adminUrl = (import.meta.env.VITE_ADMIN_APP_URL || 'http://localhost:5174').replace(/\/+$/, '');
       if (res?.role === 'SUPERVISOR') {
-        window.location.href = 'http://localhost:5174/supervisor';
+        window.location.href = `${adminUrl}/supervisor`;
         return;
       }
       if (res?.role === 'SUPER_ADMIN') {
-        window.location.href = 'http://localhost:5174/analytics';
+        window.location.href = `${adminUrl}/analytics`;
         return;
       }
       navigate('/dashboard');

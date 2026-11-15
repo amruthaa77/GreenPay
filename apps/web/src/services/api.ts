@@ -3,7 +3,12 @@
  * Supports automatic credentials (httpOnly cookies) and CSRF double-submit token.
  */
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+// Resolve and normalize API_BASE URL:
+// 1. Strip trailing slashes
+// 2. Ensure /api/v1 prefix is appended if user provided bare domain (e.g. https://...onrender.com)
+const rawBase = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1').trim();
+const trimmedBase = rawBase.replace(/\/+$/, '');
+const API_BASE = trimmedBase.endsWith('/api/v1') ? trimmedBase : `${trimmedBase}/api/v1`;
 
 function getCookie(name: string): string | null {
   const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));

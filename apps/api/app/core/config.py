@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Any
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -55,6 +55,33 @@ class Settings(BaseSettings):
         "http://127.0.0.1:5176",
         "http://127.0.0.1:4173",
     ]
+
+    @field_validator("CORS_ORIGINS", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, v: Any) -> List[str]:
+        """
+        Parses CORS origins from:
+        - JSON array: '["https://app.vercel.app"]'
+        - Comma-separated: 'https://app.vercel.app, https://admin.vercel.app'
+        - Single string: 'https://app.vercel.app'
+        Automatically strips trailing slashes to prevent Starlette CORS header mismatches.
+        """
+        if isinstance(v, str):
+            v = v.strip()
+            if not v:
+                return []
+            if v.startswith("[") and v.endswith("]"):
+                import json
+                try:
+                    parsed = json.loads(v)
+                    if isinstance(parsed, list):
+                        return [str(item).strip().rstrip('/') for item in parsed if item]
+                except Exception:
+                    pass
+            return [origin.strip().rstrip('/') for origin in v.split(",") if origin.strip()]
+        if isinstance(v, list):
+            return [str(item).strip().rstrip('/') for item in v if item]
+        return v
     
     # Separate Cookie Scopes (Citizen vs Admin)
     CITIZEN_ACCESS_COOKIE: str = "gp_citizen_access"
