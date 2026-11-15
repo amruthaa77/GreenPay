@@ -262,7 +262,7 @@ export const SchedulePage: React.FC<SchedulePageProps> = ({ navigate }) => {
                     Assigned Vehicle
                   </span>
                   <p className="font-bold text-white text-sm">{nextPickup.vehicle_number}</p>
-                  <p className="text-[10px] text-[#A7B9A8]/70">BBMP Electric Tipper</p>
+                  <p className="text-[10px] text-[#A7B9A8]/70">Dry-Waste Electric Tipper (Pilot)</p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-[#041B15] border border-white/5 space-y-1">

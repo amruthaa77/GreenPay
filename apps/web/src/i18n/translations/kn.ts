@@ -823,14 +823,14 @@ export const kn: TranslationDictionary = {
   'rewards.ward_pool_total': 'ವಾರ್ಡ್‌ನಲ್ಲಿ ಒಟ್ಟು ಸಂಗ್ರಹ:',
 
   // Public Certificate Verification
-  'verify_cert.title': 'BBMP / GreenPay ಪೌರ ಪ್ರಮಾಣಪತ್ರ ಪರಿಶೀಲನೆ',
-  'verify_cert.subtitle': 'ಬೆಂಗಳೂರಿನಲ್ಲಿ ಪರಿಶೀಲಿಸಲಾದ ಹಸಿರು ಮನೆತನಗಳ ಅಧಿಕೃತ ಸಾರ್ವಜನಿಕ ನೋಂದಣಿ ದಾಖಲೆ.',
+  'verify_cert.title': 'GreenPay ಪೌರ ಗೃಹ ಪ್ರಮಾಣಪತ್ರ ಪರಿಶೀಲನೆ',
+  'verify_cert.subtitle': 'ಬೆಂಗಳೂರು ಪ್ರಾಯೋಗಿಕ ವಾರ್ಡ್‌ಗಳಲ್ಲಿ ಒಣ ಕಸ ವಿಂಗಡಣೆಯ ಪರಿಶೀಲಿತ ಗೃಹಗಳ ಸ್ವತಂತ್ರ ಪ್ರಾಯೋಗಿಕ ದಾಖಲೆ (ಇದು ಅಧಿಕೃತ ಬಿಬಿಎಂಪಿ ಪ್ರಮಾಣಪತ್ರವಲ್ಲ).',
   'verify_cert.input_placeholder': 'ಪ್ರಮಾಣಪತ್ರ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ (ಉದಾ: GP-CERT-2026-...)',
   'verify_cert.btn_verify': 'ಪ್ರಮಾಣಪತ್ರ ಪರಿಶೀಲಿಸಿ',
-  'verify_cert.badge_authentic': 'ಅಧಿಕೃತ ಪೌರ ದಾಖಲೆ ದೃಢೀಕರಿಸಲಾಗಿದೆ',
+  'verify_cert.badge_authentic': 'ಅಧಿಕೃತ ಪೌರ ಪ್ರಾಯೋಗಿಕ ದಾಖಲೆ ದೃಢೀಕರಿಸಲಾಗಿದೆ',
   'verify_cert.badge_invalid': 'ಅಮಾನ್ಯ ಅಥವಾ ಅಪರಿಚಿತ ಪ್ರಮಾಣಪತ್ರ',
   'verify_cert.recipient': 'ಗುರುತಿಸಲ್ಪಟ್ಟ ನಾಗರಿಕರು / ಕುಟುಂಬ',
-  'verify_cert.ward': 'BBMP ವಾರ್ಡ್',
+  'verify_cert.ward': 'ಪ್ರಾಯೋಗಿಕ ವಾರ್ಡ್',
   'verify_cert.zone': 'ವಲಯ',
   'verify_cert.tier': 'ಗ್ರೀನ್ ಸ್ಕೋರ್ ಶ್ರೇಣಿ',
   'verify_cert.issued_on': 'ನೀಡಿದ ದಿನಾಂಕ',

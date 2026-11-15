@@ -1,8 +1,11 @@
 /**
  * Business Configuration Strict Validator
  * 
- * Verifies that business.config.ts has real values supplied via environment variables
- * and contains NO empty strings, TODOs, placeholder names, or lorem ipsum.
+ * Verifies that business.config.ts has appropriate configuration:
+ * - For Academic Prototypes: Verifies clear prototype labeling, valid academic contact email,
+ *   absence of invented commercial corporate CINs, and presence of BBMP/GBA non-affiliation notices.
+ * - For Commercial Deployments: Verifies real entity values supplied via environment variables,
+ *   rejecting empty strings, placeholders, or dummy names.
  */
 
 import { businessConfig, BusinessConfig } from './business.config';
@@ -33,6 +36,51 @@ const FORBIDDEN_EXACT_VALUES = [
 
 export function validateBusinessConfig(config: BusinessConfig): { isValid: boolean; errors: string[] } {
   const errors: string[] = [];
+
+  // =========================================================================
+  // 1. ACADEMIC PROTOTYPE VALIDATION
+  // =========================================================================
+  if (config.isAcademicPrototype) {
+    // Ensure legalName does not falsely claim to be a registered commercial entity
+    const legalName = (config.legalName || '').trim();
+    if (!legalName) {
+      errors.push("Academic prototype must specify a project name (e.g. 'GreenPay (Academic Research Prototype)').");
+    } else if (/private\s*limited|pvt\.?\s*ltd\.?/i.test(legalName)) {
+      errors.push(
+        `Academic prototype cannot claim to be a registered company ("${legalName}"). Remove corporate suffixes.`
+      );
+    }
+
+    // Ensure CIN is NOT an invented corporate number
+    const cin = (config.cin || '').trim();
+    if (!cin || (!cin.includes('NOT APPLICABLE') && !cin.includes('N/A'))) {
+      if (/^[LUF][0-9]{5}[A-Z]{2}[0-9]{4}[A-Z]{3}[0-9]{6}$/i.test(cin) || cin === 'U72900KA2025PTC000000') {
+        errors.push(
+          `Academic prototype must NOT invent a synthetic corporate CIN ("${cin}"). Set to 'NOT APPLICABLE (Non-Commercial Academic Prototype)'.`
+        );
+      }
+    }
+
+    // Ensure contact email is valid
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!config.contactEmail || !emailRegex.test(config.contactEmail)) {
+      errors.push(`Field 'contactEmail' must be a valid email address: "${config.contactEmail}".`);
+    }
+
+    // Ensure non-affiliation notice is present
+    if (!config.nonAffiliationDeclaration || !config.nonAffiliationDeclaration.includes('BBMP')) {
+      errors.push('Academic prototype must include a non-affiliation declaration clarifying it is not an agency of BBMP/GBA.');
+    }
+
+    return {
+      isValid: errors.length === 0,
+      errors
+    };
+  }
+
+  // =========================================================================
+  // 2. COMMERCIAL REGISTERED ENTITY VALIDATION
+  // =========================================================================
   const requiredKeys: (keyof BusinessConfig)[] = [
     'legalName',
     'registeredAddress',
@@ -44,7 +92,7 @@ export function validateBusinessConfig(config: BusinessConfig): { isValid: boole
   ];
 
   for (const key of requiredKeys) {
-    const val = (config[key] || '').trim();
+    const val = String(config[key] || '').trim();
 
     if (!val) {
       errors.push(`Missing required field: '${key}' is empty. Set BUSINESS_${key.replace(/([A-Z])/g, '_$1').toUpperCase()} in environment.`);
@@ -85,19 +133,22 @@ export function validateBusinessConfig(config: BusinessConfig): { isValid: boole
 
 // CLI runner
 if (require.main === module || process.argv[1]?.endsWith('validate-business-config.ts')) {
-  console.log('Validating GreenPay business configuration...');
+  console.log('Validating GreenPay business & prototype configuration...');
   const result = validateBusinessConfig(businessConfig);
 
   if (!result.isValid) {
-    console.error('\n❌ BUSINESS CONFIG VALIDATION FAILED:');
-    console.error('The application build cannot proceed until real legal and business values are provided.');
+    console.error('\n❌ BUSINESS / PROTOTYPE CONFIG VALIDATION FAILED:');
     for (const err of result.errors) {
       console.error(`  - ${err}`);
     }
-    console.error('\nPlease supply real business details via environment variables in your .env file or deployment pipeline.\n');
+    console.error('\nPlease supply appropriate configuration in your environment variables.\n');
     process.exit(1);
   } else {
-    console.log('✅ Business configuration validated successfully with real entity data.');
+    if (businessConfig.isAcademicPrototype) {
+      console.log('✅ Academic prototype configuration validated successfully with clear non-affiliation disclosures.');
+    } else {
+      console.log('✅ Commercial business configuration validated successfully with real entity data.');
+    }
     process.exit(0);
   }
 }

@@ -84,11 +84,11 @@ export const PublicCertificateVerifyPage: React.FC<PublicCertificateVerifyPagePr
             Public Civic Registry
           </div>
           <h1 className="text-3xl font-light text-white tracking-tight sm:text-4xl">
-            {t('verify_cert.title') || 'BBMP / GreenPay Civic Certificate Verification'}
+            {t('verify_cert.title') || 'GreenPay Civic Household Certificate Verification'}
           </h1>
           <p className="mt-2 text-base text-[#A7B9A8] max-w-xl mx-auto">
             {t('verify_cert.subtitle') ||
-              'Official public registry for verified Green Household recognition certificates in Bengaluru.'}
+              'Independent prototype registry for verified household dry-waste segregation recognition records in Bengaluru pilot wards (Not an official BBMP certificate).'}
           </p>
         </div>
 
@@ -158,7 +158,7 @@ export const PublicCertificateVerifyPage: React.FC<PublicCertificateVerifyPagePr
 
                   <div className="p-4 rounded-2xl bg-[#062B20]/80 border border-white/5">
                     <span className="text-xs text-[#A7B9A8] block mb-1">
-                      {t('verify_cert.ward') || 'BBMP Ward & Zone'}
+                      {t('verify_cert.ward') || 'Pilot Ward & Zone'}
                     </span>
                     <span className="text-base font-bold text-white">
                       {verificationResult.ward_name} ({verificationResult.zone})

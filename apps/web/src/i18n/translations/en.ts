@@ -823,19 +823,19 @@ export const en: TranslationDictionary = {
   'rewards.ward_pool_total': 'Total Pooled in Ward:',
 
   // Public Certificate Verification
-  'verify_cert.title': 'BBMP / GreenPay Civic Certificate Verification',
-  'verify_cert.subtitle': 'Official public registry for verified Green Household recognition certificates in Bengaluru.',
+  'verify_cert.title': 'GreenPay Civic Household Certificate Verification',
+  'verify_cert.subtitle': 'Independent prototype registry for verified household dry-waste segregation recognition records in Bengaluru pilot wards (Not an official BBMP certificate).',
   'verify_cert.input_placeholder': 'Enter Certificate Number (e.g. GP-CERT-2026-...)',
   'verify_cert.btn_verify': 'Verify Certificate',
-  'verify_cert.badge_authentic': 'Authentic Civic Record Verified',
-  'verify_cert.badge_invalid': 'Invalid or Unknown Certificate',
+  'verify_cert.badge_authentic': 'Authentic Civic Prototype Record Verified',
+  'verify_cert.badge_invalid': 'Invalid or Unknown Certificate Identifier',
   'verify_cert.recipient': 'Recognised Household / Citizen',
-  'verify_cert.ward': 'BBMP Ward',
-  'verify_cert.zone': 'Zone',
+  'verify_cert.ward': 'Pilot Ward',
+  'verify_cert.zone': 'Bengaluru Zone',
   'verify_cert.tier': 'Green Score Tier',
   'verify_cert.issued_on': 'Date of Issue',
   'verify_cert.dpdp_notice': 'DPDP Section 9 Compliance: In accordance with India’s Digital Personal Data Protection Act 2023, personal identifying details are masked on public records.',
-  'verify_cert.invalid_desc': 'The certificate identifier entered does not match any registered municipal recognition record.',
+  'verify_cert.invalid_desc': 'The certificate identifier entered does not match any registered prototype household record.',
 
   // Open Data & Cell Suppression
   'opendata.title': 'Civic Open Data & Research Repository',

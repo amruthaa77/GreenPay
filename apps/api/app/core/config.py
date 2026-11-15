@@ -1,4 +1,5 @@
 from typing import List
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
@@ -14,6 +15,21 @@ class Settings(BaseSettings):
     
     # Database
     DATABASE_URL: str = "sqlite:///./greenpay.db"
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def normalize_database_url(cls, v: str) -> str:
+        """
+        Normalizes database URLs for PostgreSQL deployments (e.g. Render).
+        Render automatically supplies `postgres://...` or `postgresql://...`.
+        SQLAlchemy 2.0 with psycopg 3 requires `postgresql+psycopg://...`.
+        """
+        if isinstance(v, str):
+            if v.startswith("postgres://"):
+                return v.replace("postgres://", "postgresql+psycopg://", 1)
+            if v.startswith("postgresql://") and not v.startswith("postgresql+"):
+                return v.replace("postgresql://", "postgresql+psycopg://", 1)
+        return v
     
     # JWT & Session Expiration
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
