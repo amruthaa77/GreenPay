@@ -19,6 +19,9 @@ class User(BaseModel):
     # Age compliance (DPDP Act 2023 Section 9)
     is_adult_declared = Column(Boolean, default=True, nullable=False)
     
+    # Demonstration Mode isolation flag
+    is_demo = Column(Boolean, default=False, server_default="false", nullable=False)
+    
     # DPDP Pseudonymisation identifier (e.g. ANON-10a4...)
     pseudonymous_id = Column(String(50), unique=True, index=True, nullable=True)
     

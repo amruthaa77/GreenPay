@@ -89,6 +89,15 @@ export const adminApi = {
       if (res.access_token) setAdminAccessToken(res.access_token);
       return res;
     },
+    demoLogin: async (role: string = 'SUPERVISOR', demo_id?: string) => {
+      const res = await request<any>('/auth/demo-login', {
+        method: 'POST',
+        body: JSON.stringify({ role, demo_id }),
+      });
+      if (res.csrf_token) setStoredAdminCsrfToken(res.csrf_token);
+      if (res.access_token) setAdminAccessToken(res.access_token);
+      return res;
+    },
     acceptInvite: async (payload: { invite_token: string; name: string; password: string; phone_number?: string }) => {
       const res = await request<any>('/auth/supervisor-accept-invite', {
         method: 'POST',

@@ -53,6 +53,7 @@ def upgrade() -> None:
             sa.Column('role', sa.String(length=20), server_default='CITIZEN', nullable=False),
             sa.Column('status', sa.String(length=20), server_default='PENDING', nullable=False),
             sa.Column('is_adult_declared', sa.Boolean(), server_default='1', nullable=False),
+            sa.Column('is_demo', sa.Boolean(), server_default='0', nullable=False),
             sa.Column('pseudonymous_id', sa.String(length=50), nullable=True),
             sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
             sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),

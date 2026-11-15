@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
+import { DemoBanner } from './components/DemoBanner';
 
 // Pages
 import { LandingPage } from './pages/LandingPage';
@@ -302,6 +303,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] font-sans selection:bg-[#D7FF35]/30 selection:text-[#041B15] transition-colors duration-200">
+      <DemoBanner navigate={navigate} />
       <Navbar currentPath={currentPath} navigate={navigate} />
       <main id="main-content" className="flex-1">
         {renderContent()}

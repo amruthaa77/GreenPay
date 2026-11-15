@@ -89,6 +89,11 @@ def create_supervisor_invite(
     current_admin: User = Depends(require_super_admin),
     db: Session = Depends(get_db)
 ):
+    if current_admin.is_demo:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Demo administrators cannot create supervisor invitations."
+        )
     ward = db.query(Ward).filter(Ward.name.ilike(payload.assigned_ward_name.strip())).first()
     if not ward:
         raise HTTPException(
@@ -203,6 +208,11 @@ def create_versioned_reward_schedule(
     current_admin: User = Depends(require_super_admin),
     db: Session = Depends(get_db)
 ):
+    if current_admin.is_demo:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Demo administrators cannot modify municipal reward schedules."
+        )
     latest = db.query(RewardSchedule).order_by(desc(RewardSchedule.version)).first()
     new_version = (latest.version + 1) if latest else 1
     
@@ -457,6 +467,11 @@ def enrol_admin_2fa(
     current_admin: User = Depends(require_supervisor),
     db: Session = Depends(get_db)
 ):
+    if current_admin.is_demo:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Demo administrators cannot alter 2FA security settings."
+        )
     admin_2fa = db.query(Admin2FA).filter(Admin2FA.user_id == current_admin.id).first()
     if admin_2fa and admin_2fa.is_enabled:
         raise HTTPException(
@@ -539,6 +554,11 @@ def disable_admin_2fa(
     current_admin: User = Depends(require_supervisor),
     db: Session = Depends(get_db)
 ):
+    if current_admin.is_demo:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Demo administrators cannot alter 2FA security settings."
+        )
     admin_2fa = db.query(Admin2FA).filter(Admin2FA.user_id == current_admin.id).first()
     if not admin_2fa or not admin_2fa.is_enabled:
         raise HTTPException(
@@ -1185,6 +1205,11 @@ def update_supervisor_status_admin(
     Deactivates (SUSPENDED) or reactivates (ACTIVE) a municipal supervisor with full audit logging.
     Deactivating terminates all active sessions immediately.
     """
+    if current_admin.is_demo:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Demo administrators cannot modify staff status."
+        )
     sup = db.query(User).filter(User.id == supervisor_id, User.role == "SUPERVISOR").first()
     if not sup:
         raise HTTPException(status_code=404, detail="Supervisor not found.")
@@ -1229,6 +1254,11 @@ def reassign_supervisor_ward_admin(
     """
     Reassigns a supervisor to a new ward with auditable justification.
     """
+    if current_admin.is_demo:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Demo administrators cannot modify staff ward assignment."
+        )
     sup = db.query(User).filter(User.id == supervisor_id, User.role == "SUPERVISOR").first()
     if not sup:
         raise HTTPException(status_code=404, detail="Supervisor not found.")
@@ -1439,6 +1469,11 @@ def admin_update_dry_waste_category(
     Super-Admin endpoint to update category rates or toggle active status.
     Automatically generates immutable DryWasteRateHistory snapshot and AuditLog entry.
     """
+    if current_admin.is_demo:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Demo administrators cannot modify dry waste categories or rates."
+        )
     cat = DryWasteEngine.get_category_by_code_or_id(db, category_id)
     if not cat:
         raise HTTPException(
@@ -1771,6 +1806,12 @@ def get_citizen_detail_admin(
     if not citizen:
         raise HTTPException(status_code=404, detail="Citizen not found.")
 
+    if current_admin.is_demo and not citizen.is_demo:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Demo administrators cannot modify genuine citizen account status."
+        )
+
     p = citizen.profile
     balance_resp = DryWasteEngine.get_household_points_balance(db, citizen.id)
 
@@ -1869,6 +1910,12 @@ def update_citizen_status_admin(
     citizen = db.query(User).filter(User.id == citizen_id, User.role == "CITIZEN").first()
     if not citizen:
         raise HTTPException(status_code=404, detail="Citizen not found.")
+
+    if current_admin.is_demo and not citizen.is_demo:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Demo administrators cannot modify genuine citizen account status."
+        )
 
     old_status = citizen.status
     citizen.status = payload.status
@@ -2003,6 +2050,11 @@ def create_supervisor_admin(
     Super-Admin endpoint to directly create a field supervisor account with a
     designated Staff ID and ward assignment.
     """
+    if current_admin.is_demo:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Demo administrators cannot create staff accounts."
+        )
     ward = db.query(Ward).filter(Ward.id == payload.ward_id).first()
     if not ward:
         raise HTTPException(status_code=404, detail="Assigned ward does not exist.")
@@ -2072,6 +2124,11 @@ def update_supervisor_staff_id(
     """
     Super-Admin endpoint to assign or modify a supervisor's unique Staff ID.
     """
+    if current_admin.is_demo:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Demo administrators cannot modify staff identifiers."
+        )
     sup = db.query(User).filter(User.id == supervisor_id, User.role == "SUPERVISOR").first()
     if not sup:
         raise HTTPException(status_code=404, detail="Supervisor not found.")

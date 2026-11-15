@@ -26,6 +26,7 @@ from app.schemas.auth import (
     CitizenRegisterRequest,
     SupervisorAcceptInviteRequest,
     LoginRequest,
+    DemoLoginRequest,
     AuthResponse
 )
 from app.schemas.security import (
@@ -38,6 +39,7 @@ from app.models.admin_2fa import Admin2FA
 from app.services.email_service import EmailService
 from app.services.security_service import SecurityService
 from app.services.notification_service import NotificationService
+from app.services.demo_service import DemoService
 from app.adapters.email_adapter import get_email_adapter
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -483,8 +485,8 @@ def login(
                 ward_name=user.profile.ward.name if user.profile and user.profile.ward else None
             )
         
-    access_token = create_access_token(user.id, user.role)
-    refresh_token = create_refresh_token(user.id, user.role)
+    access_token = create_access_token(user.id, user.role, is_demo=user.is_demo)
+    refresh_token = create_refresh_token(user.id, user.role, is_demo=user.is_demo)
     csrf_token = generate_csrf_token()
     
     _set_auth_cookies(response, access_token, refresh_token, csrf_token, user.role)
@@ -510,7 +512,61 @@ def login(
         csrf_token=csrf_token,
         masked_meter=masked_meter,
         name=user_name,
-        ward_name=ward_name
+        ward_name=ward_name,
+        is_demo=user.is_demo
+    )
+
+@router.post("/demo-login", response_model=AuthResponse)
+def demo_login(
+    payload: DemoLoginRequest,
+    response: Response,
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    """
+    Secure One-Click Demonstration Authentication.
+    Provisions and authenticates isolated demo accounts for Citizen, Supervisor, or Admin.
+    Zero hardcoded passwords; fully isolated from genuine citizens.
+    """
+    requested_role = payload.role.upper()
+    if requested_role not in ("CITIZEN", "SUPERVISOR", "SUPER_ADMIN"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid demo role. Must be 'CITIZEN', 'SUPERVISOR', or 'SUPER_ADMIN'."
+        )
+
+    user = DemoService.get_or_create_demo_user(db, role=requested_role, demo_id=payload.demo_id)
+
+    access_token = create_access_token(user.id, user.role, is_demo=True)
+    refresh_token = create_refresh_token(user.id, user.role, is_demo=True)
+    csrf_token = generate_csrf_token()
+
+    _set_auth_cookies(response, access_token, refresh_token, csrf_token, user.role)
+
+    # Record active session
+    client_ip = request.client.host if request.client else "unknown"
+    user_agent = request.headers.get("User-Agent", "Demo Session")
+    SecurityService.create_session(db, user.id, device_browser=f"[DEMO] {user_agent}", ip=client_ip)
+
+    masked_meter = None
+    if user.meter_number_encrypted:
+        from app.core.security import decrypt_meter_number
+        decrypted = decrypt_meter_number(user.meter_number_encrypted)
+        masked_meter = mask_meter_number(decrypted)
+
+    ward_name = user.profile.ward.name if user.profile and user.profile.ward else None
+    user_name = user.profile.name if user.profile else "Demo User"
+
+    return AuthResponse(
+        access_token=access_token,
+        role=user.role,
+        greenpay_id=user.greenpay_id,
+        user_status=user.status,
+        csrf_token=csrf_token,
+        masked_meter=masked_meter,
+        name=user_name,
+        ward_name=ward_name,
+        is_demo=True
     )
 
 @router.post("/admin/2fa-challenge", response_model=AuthResponse)
@@ -552,8 +608,8 @@ def admin_2fa_challenge(
             detail="Invalid 2FA code or recovery code. Please check your authenticator app or backup codes."
         )
         
-    access_token = create_access_token(user.id, user.role)
-    refresh_token = create_refresh_token(user.id, user.role)
+    access_token = create_access_token(user.id, user.role, is_demo=user.is_demo)
+    refresh_token = create_refresh_token(user.id, user.role, is_demo=user.is_demo)
     csrf_token = generate_csrf_token()
     
     _set_auth_cookies(response, access_token, refresh_token, csrf_token, user.role)
@@ -573,7 +629,8 @@ def admin_2fa_challenge(
         csrf_token=csrf_token,
         masked_meter=None,
         name=user_name,
-        ward_name=ward_name
+        ward_name=ward_name,
+        is_demo=user.is_demo
     )
 
 @router.post("/refresh", response_model=AuthResponse)
@@ -607,8 +664,8 @@ def refresh_token(
             detail="User no longer active."
         )
         
-    new_access = create_access_token(user.id, user.role)
-    new_refresh = create_refresh_token(user.id, user.role)
+    new_access = create_access_token(user.id, user.role, is_demo=user.is_demo)
+    new_refresh = create_refresh_token(user.id, user.role, is_demo=user.is_demo)
     new_csrf = generate_csrf_token()
     
     _set_auth_cookies(response, new_access, new_refresh, new_csrf, user.role)
@@ -628,7 +685,8 @@ def refresh_token(
         csrf_token=new_csrf,
         masked_meter=masked_meter,
         name=user.profile.name if user.profile else "User",
-        ward_name=ward_name
+        ward_name=ward_name,
+        is_demo=user.is_demo
     )
 
 @router.post("/logout")
@@ -716,6 +774,7 @@ def get_current_user_info(
         "role": user.role,
         "status": user.status,
         "greenpay_id": user.greenpay_id,
+        "is_demo": user.is_demo,
         "profile": {
             "name": user_name,
             "ward_id": user.profile.ward_id if user.profile else None,
