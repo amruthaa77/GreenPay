@@ -1,6 +1,27 @@
-from typing import List, Any
+from typing import Annotated, List, Any
+from urllib.parse import urlparse
+import json
 from pydantic import field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, SettingsConfigDict, NoDecode
+
+def _clean_and_validate_origin(origin: str) -> str:
+    cleaned = origin.strip().rstrip('/')
+    if not cleaned:
+        raise ValueError("CORS origin entry cannot be empty")
+    if cleaned == "*":
+        return cleaned
+    parsed = urlparse(cleaned)
+    if parsed.scheme not in ("http", "https"):
+        raise ValueError(
+            f"Invalid origin '{origin}': scheme must be 'http' or 'https' (got '{parsed.scheme}')"
+        )
+    if not parsed.netloc:
+        raise ValueError(f"Invalid origin '{origin}': missing valid host/domain")
+    if parsed.path:
+        raise ValueError(f"Invalid origin '{origin}': origins cannot contain a path ('{parsed.path}')")
+    if parsed.query or parsed.fragment:
+        raise ValueError(f"Invalid origin '{origin}': origins cannot contain query parameters or fragments")
+    return cleaned
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "GreenPay"
@@ -41,7 +62,7 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     
     # CORS
-    CORS_ORIGINS: List[str] = [
+    CORS_ORIGINS: Annotated[List[str], NoDecode] = [
         "http://localhost:3000",
         "http://localhost:5173",
         "http://localhost:5174",
@@ -61,27 +82,49 @@ class Settings(BaseSettings):
     def parse_cors_origins(cls, v: Any) -> List[str]:
         """
         Parses CORS origins from:
-        - JSON array: '["https://app.vercel.app"]'
-        - Comma-separated: 'https://app.vercel.app, https://admin.vercel.app'
-        - Single string: 'https://app.vercel.app'
-        Automatically strips trailing slashes to prevent Starlette CORS header mismatches.
+        - Comma-separated string: 'https://app.vercel.app, https://admin.vercel.app'
+        - JSON array: '["https://app.vercel.app", "https://admin.vercel.app"]'
+        - Single origin: 'https://app.vercel.app'
+        - Python list / iterable of origins
+
+        Strips whitespace and trailing slashes. Rejects malformed values with clear validation errors.
+        Uses NoDecode on the field to prevent pydantic-settings from eagerly JSON-decoding.
         """
+        if v is None:
+            return []
+
+        raw_list: List[Any] = []
         if isinstance(v, str):
-            v = v.strip()
-            if not v:
+            v_str = v.strip()
+            if not v_str:
                 return []
-            if v.startswith("[") and v.endswith("]"):
-                import json
+            if v_str.startswith("[") or v_str.startswith("{"):
                 try:
-                    parsed = json.loads(v)
-                    if isinstance(parsed, list):
-                        return [str(item).strip().rstrip('/') for item in parsed if item]
-                except Exception:
-                    pass
-            return [origin.strip().rstrip('/') for origin in v.split(",") if origin.strip()]
-        if isinstance(v, list):
-            return [str(item).strip().rstrip('/') for item in v if item]
-        return v
+                    parsed = json.loads(v_str)
+                except Exception as e:
+                    raise ValueError(f"Invalid JSON format for CORS_ORIGINS: {e}")
+                if not isinstance(parsed, list):
+                    raise ValueError("CORS_ORIGINS JSON must be an array of origin strings")
+                raw_list = parsed
+            else:
+                raw_list = [part.strip() for part in v_str.split(",") if part.strip()]
+        elif isinstance(v, (list, tuple, set)):
+            raw_list = list(v)
+        else:
+            raise ValueError(
+                f"Invalid type for CORS_ORIGINS: expected string or list, got {type(v).__name__}"
+            )
+
+        cleaned_origins: List[str] = []
+        for item in raw_list:
+            if not isinstance(item, str):
+                raise ValueError(
+                    f"CORS origin items must be strings, got {type(item).__name__}: {item!r}"
+                )
+            cleaned = _clean_and_validate_origin(item)
+            cleaned_origins.append(cleaned)
+
+        return cleaned_origins
     
     # Separate Cookie Scopes (Citizen vs Admin)
     CITIZEN_ACCESS_COOKIE: str = "gp_citizen_access"
