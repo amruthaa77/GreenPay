@@ -21,12 +21,16 @@ depends_on: Union[str, Sequence[str], None] = None
 def upgrade() -> None:
     """Upgrade schema for Phase D: Credit Redemption, Certificates, Clean-Up Donations, and Partner Coupons."""
     bind = op.get_bind()
-    insp = sa.inspect(bind)
-    tables = insp.get_table_names()
+    try:
+        insp = sa.inspect(bind)
+        tables = insp.get_table_names()
+    except Exception:
+        insp = None
+        tables = []
 
     # 1. Add clean_up_fund_credits to wards if not present
-    if 'wards' in tables:
-        ward_columns = [c['name'] for c in insp.get_columns('wards')]
+    if not tables or 'wards' in tables:
+        ward_columns = [c['name'] for c in insp.get_columns('wards')] if insp else []
         if 'clean_up_fund_credits' not in ward_columns:
             op.add_column(
                 'wards',

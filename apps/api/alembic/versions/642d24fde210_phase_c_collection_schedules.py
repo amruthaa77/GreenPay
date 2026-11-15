@@ -21,8 +21,12 @@ depends_on: Union[str, Sequence[str], None] = None
 def upgrade() -> None:
     """Upgrade schema for Phase C: Ward Collection Schedules & Overrides."""
     bind = op.get_bind()
-    insp = sa.inspect(bind)
-    tables = insp.get_table_names()
+    try:
+        insp = sa.inspect(bind)
+        tables = insp.get_table_names()
+    except Exception:
+        insp = None
+        tables = []
 
     if 'ward_collection_schedules' not in tables:
         op.create_table(

@@ -19,8 +19,12 @@ depends_on: Union[str, Sequence[str], None] = None
 def upgrade() -> None:
     """Upgrade schema for Stage 4: Category-based dry-waste earning system."""
     bind = op.get_bind()
-    insp = sa.inspect(bind)
-    tables = insp.get_table_names()
+    try:
+        insp = sa.inspect(bind)
+        tables = insp.get_table_names()
+    except Exception:
+        insp = None
+        tables = []
 
     # 1. Create dry_waste_categories table
     if 'dry_waste_categories' not in tables:
@@ -71,6 +75,15 @@ def upgrade() -> None:
         )
         op.create_index('ix_waste_collection_items_waste_entry_id', 'waste_collection_items', ['waste_entry_id'])
         op.create_index('ix_waste_collection_items_category_id', 'waste_collection_items', ['category_id'])
+
+    # 4. Add total_weight_kg and journey_stage to waste_entries if not present
+    if not tables or 'waste_entries' in tables:
+        we_cols = [c['name'] for c in insp.get_columns('waste_entries')] if insp else []
+        with op.batch_alter_table('waste_entries', schema=None) as batch_op:
+            if 'total_weight_kg' not in we_cols:
+                batch_op.add_column(sa.Column('total_weight_kg', sa.Float(), server_default='0.0', nullable=False))
+            if 'journey_stage' not in we_cols:
+                batch_op.add_column(sa.Column('journey_stage', sa.String(length=50), server_default='Collection', nullable=False))
 
 
 def downgrade() -> None:

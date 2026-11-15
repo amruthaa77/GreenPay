@@ -21,8 +21,12 @@ depends_on: Union[str, Sequence[str], None] = None
 def upgrade() -> None:
     """Upgrade schema."""
     bind = op.get_bind()
-    insp = sa.inspect(bind)
-    tables = insp.get_table_names()
+    try:
+        insp = sa.inspect(bind)
+        tables = insp.get_table_names()
+    except Exception:
+        insp = None
+        tables = []
 
     if 'dispute_tickets' not in tables:
         op.create_table(
@@ -55,7 +59,7 @@ def upgrade() -> None:
         op.create_index('ix_dispute_tickets_category', 'dispute_tickets', ['category'], unique=False)
         op.create_index('ix_dispute_tickets_status', 'dispute_tickets', ['status'], unique=False)
 
-    columns = [c['name'] for c in insp.get_columns('waste_entries')]
+    columns = [c['name'] for c in insp.get_columns('waste_entries')] if insp else []
     with op.batch_alter_table('waste_entries', schema=None) as batch_op:
         if 'dispute_status' not in columns:
             batch_op.add_column(sa.Column('dispute_status', sa.String(length=30), nullable=False, server_default='PENDING_CONFIRMATION'))
