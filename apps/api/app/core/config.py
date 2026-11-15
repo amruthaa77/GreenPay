@@ -25,6 +25,11 @@ class Settings(BaseSettings):
         SQLAlchemy 2.0 with psycopg 3 requires `postgresql+psycopg://...`.
         """
         if isinstance(v, str):
+            if v.startswith("driver://") or "user:pass@localhost/dbname" in v:
+                raise ValueError(
+                    "DATABASE_URL cannot be a placeholder ('driver://...'). "
+                    "Please provide a valid database connection string."
+                )
             if v.startswith("postgres://"):
                 return v.replace("postgres://", "postgresql+psycopg://", 1)
             if v.startswith("postgresql://") and not v.startswith("postgresql+"):
