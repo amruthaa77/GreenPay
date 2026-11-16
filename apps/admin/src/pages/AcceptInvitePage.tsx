@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAdminAuth } from '../context/AdminAuthContext';
 import { ShieldCheck, Lock, User, Phone, AlertCircle, ArrowRight } from 'lucide-react';
-import { ThemeToggle } from '../components/ThemeToggle';
 
 interface AcceptInvitePageProps {
   navigate: (path: string) => void;
@@ -57,11 +56,7 @@ export const AcceptInvitePage: React.FC<AcceptInvitePageProps> = ({ navigate }) 
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] relative transition-colors duration-200">
-      <div className="absolute top-4 right-4">
-        <ThemeToggle />
-      </div>
-
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#041B15] text-[#F4F7F0] relative">
       <div className="max-w-md w-full space-y-8 p-8 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-xl dark:shadow-2xl">
         <div className="text-center space-y-2">
           <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-[#D7FF35]/15 border border-emerald-300 dark:border-[#D7FF35]/30 flex items-center justify-center mx-auto text-emerald-800 dark:text-[#D7FF35]">

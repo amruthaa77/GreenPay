@@ -89,7 +89,7 @@ interface LandingPageProps {
 export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
 
   return (
-    <div className="relative w-full bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] transition-colors duration-200">
+    <div className="relative w-full bg-[#041B15] text-[#F4F7F0]">
       
       {/* =================================================================== */}
       {/* 1. CINEMATIC SCROLL-DRIVEN 3D STATION EXPERIENCE (600vh PINNED)     */}

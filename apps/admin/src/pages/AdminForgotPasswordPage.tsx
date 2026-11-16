@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, ArrowLeft, CheckCircle2, AlertCircle, Shield } from 'lucide-react';
 import { adminApi } from '../services/api';
-import { ThemeToggle } from '../components/ThemeToggle';
 
 interface AdminForgotPasswordPageProps {
   navigate?: (path: string) => void;
@@ -32,11 +31,7 @@ export const AdminForgotPasswordPage: React.FC<AdminForgotPasswordPageProps> = (
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] relative transition-colors duration-200">
-      <div className="absolute top-4 right-4">
-        <ThemeToggle />
-      </div>
-
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#041B15] text-[#F4F7F0] relative">
       <div className="max-w-md w-full space-y-6 p-8 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-xl dark:shadow-2xl">
         <button
           type="button"

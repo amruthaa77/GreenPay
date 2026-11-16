@@ -47,17 +47,17 @@ export const AccessibilityPage: React.FC = () => {
                 <span>Verified Contrast Ratios</span>
               </div>
               <p className="text-slate-600 dark:text-[#A7B9A8] text-[11px]">
-                All text meets or exceeds &ge;4.5:1 contrast against backgrounds. UI elements and buttons exceed &ge;3.0:1 in both dark and light modes.
+                All text meets or exceeds &ge;4.5:1 contrast against backgrounds. UI elements and buttons exceed &ge;3.0:1 across the application.
               </p>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#062B20]/90 border border-slate-200 dark:border-white/10 space-y-2">
               <div className="flex items-center gap-2 text-slate-900 dark:text-white font-semibold">
                 <Globe className="w-4 h-4 text-emerald-700 dark:text-[#D7FF35]" />
-                <span>Kannada Localization</span>
+                <span>Plain English Interface</span>
               </div>
               <p className="text-slate-600 dark:text-[#A7B9A8] text-[11px]">
-                Complete English and Kannada (ಕನ್ನಡ) interface with self-hosted Noto Sans Kannada font and dynamic <code>lang="kn"</code> switching.
+                Clear and accessible English municipal interface with legible typography, accessible semantic markup, and consistent labels.
               </p>
             </div>
 

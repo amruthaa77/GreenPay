@@ -22,7 +22,8 @@
 
 @layer base {
   body {
-    @apply font-sans bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] antialiased selection:bg-[#D7FF35]/30 selection:text-[#041B15];
+    @apply font-sans bg-[#041B15] text-[#F4F7F0] antialiased selection:bg-[#D7FF35]/30 selection:text-[#041B15];
+    color-scheme: dark;
   }
 }
 

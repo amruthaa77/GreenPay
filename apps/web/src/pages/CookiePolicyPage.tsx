@@ -48,20 +48,6 @@ export const CookiePolicyPage: React.FC = () => {
       purpose: 'Records your granular privacy choices (essential, preferences, analytics).',
       duration: 'Persistent (1 year)',
     },
-    {
-      name: 'greenpay_theme',
-      type: 'localStorage',
-      category: 'Preferences',
-      purpose: 'Saves your dark / light theme preference.',
-      duration: 'Persistent (1 year)',
-    },
-    {
-      name: 'greenpay_lang',
-      type: 'localStorage',
-      category: 'Preferences',
-      purpose: 'Saves your English or Kannada (ಕನ್ನಡ) interface preference.',
-      duration: 'Persistent (1 year)',
-    },
   ];
 
   return (

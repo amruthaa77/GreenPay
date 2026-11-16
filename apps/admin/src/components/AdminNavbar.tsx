@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAdminAuth } from '../context/AdminAuthContext';
 import { offlineQueue } from '../services/offlineQueue';
-import { ThemeToggle } from './ThemeToggle';
 import {
   ShieldCheck,
   Scale,
@@ -300,12 +299,8 @@ export const AdminNavbar: React.FC<AdminNavbarProps> = ({
           })}
         </nav>
 
-        {/* Bottom Section: Theme Toggle, Sync Status, User Info, Sign Out */}
+        {/* Bottom Section: Sync Status, User Info, Sign Out */}
         <div className="p-3 border-t border-slate-200 dark:border-white/10 space-y-2.5 shrink-0 bg-slate-50/80 dark:bg-[#041B15]">
-          {/* Theme Toggle Button */}
-          <div className="w-full">
-            <ThemeToggle showLabel={!isCollapsed} className="w-full justify-center" />
-          </div>
           {/* Conflict Alert (if any) */}
           {syncState.rejectedCount > 0 && onOpenConflicts && (
             <button
@@ -424,9 +419,6 @@ export const AdminNavbar: React.FC<AdminNavbarProps> = ({
         </button>
 
         <div className="flex items-center gap-2">
-          {/* Theme Toggle Button */}
-          <ThemeToggle />
-
           {/* Online badge */}
           {syncState.isOnline ? (
             <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-[#D7FF35]/15 dark:text-[#D7FF35] dark:border-[#D7FF35]/30 text-[10px] font-mono">
@@ -534,7 +526,6 @@ export const AdminNavbar: React.FC<AdminNavbarProps> = ({
 
             {/* Bottom status & logout in drawer */}
             <div className="p-4 border-t border-slate-200 dark:border-white/10 space-y-3 bg-slate-50 dark:bg-[#041B15]">
-              <ThemeToggle showLabel className="w-full justify-center" />
               {user && (
                 <div className="flex items-center gap-2.5">
                   <div className="w-7 h-7 rounded-full bg-emerald-100 dark:bg-[#0D4935] border border-emerald-300 dark:border-[#D7FF35]/30 flex items-center justify-center text-xs font-bold text-emerald-800 dark:text-[#D7FF35] shrink-0">

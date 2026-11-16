@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import { Language, translate } from '../i18n';
 
 export type { Language };
@@ -18,35 +18,29 @@ interface LanguageContextType {
   getGreeting: () => string;
 }
 
-const STORAGE_KEY = 'greenpay-language';
-
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('greenpay_lang');
-      if (stored === 'kn' || stored === 'en') {
-        return stored;
-      }
-    } catch {
-      // ignore localstorage errors
-    }
-    return 'en';
-  });
+  // English is the single, permanent application language
+  const language: Language = 'en';
 
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
+  useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, lang);
-      localStorage.setItem('greenpay_lang', lang);
+      localStorage.removeItem('greenpay-language');
+      localStorage.removeItem('greenpay_lang');
+      localStorage.removeItem('greenpay-theme');
+      localStorage.removeItem('greenpay_theme');
     } catch {
       // ignore
     }
+  }, []);
+
+  const setLanguage = (_lang: Language) => {
+    // No-op: English is permanently locked
   };
 
   const t = (key: string, params?: Record<string, string | number>): string => {
-    return translate(language, key, params);
+    return translate('en', key, params);
   };
 
   const translateWasteType = (type?: string | null): string => {

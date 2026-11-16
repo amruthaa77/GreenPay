@@ -123,7 +123,7 @@ export const CookieBanner: React.FC = () => {
                 <div>
                   <div className="font-semibold text-slate-900 dark:text-white">Interface Preferences</div>
                   <p className="mt-1 text-slate-600 dark:text-[#A7B9A8]">
-                    Saves your chosen theme (dark/light) and preferred language (English/Kannada).
+                    Saves your interface layout preferences and session settings.
                   </p>
                 </div>
                 <input

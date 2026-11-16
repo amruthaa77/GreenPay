@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAdminAuth } from '../context/AdminAuthContext';
-import { ThemeToggle } from '../components/ThemeToggle';
 import { Shield, KeyRound, Mail, AlertCircle, ArrowRight, Smartphone, RefreshCw, ArrowLeft } from 'lucide-react';
 
 interface AdminLoginPageProps {
@@ -69,12 +68,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] relative transition-colors duration-200">
-      {/* Top right theme toggle */}
-      <div className="absolute top-4 right-4">
-        <ThemeToggle />
-      </div>
-
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#041B15] text-[#F4F7F0] relative">
       <div className="max-w-md w-full space-y-8 p-8 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-xl dark:shadow-2xl">
         
         {/* Header */}
