@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { KeyRound, CheckCircle2, AlertCircle, ArrowLeft, Eye, EyeOff, Shield } from 'lucide-react';
 import { adminApi } from '../services/api';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 interface AdminResetPasswordPageProps {
   navigate?: (path: string) => void;
@@ -49,12 +50,16 @@ export const AdminResetPasswordPage: React.FC<AdminResetPasswordPageProps> = ({ 
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#041B15]">
-      <div className="max-w-md w-full space-y-6 p-8 rounded-3xl bg-[#0D4935] border border-white/10 shadow-2xl">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] relative transition-colors duration-200">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+
+      <div className="max-w-md w-full space-y-6 p-8 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-xl dark:shadow-2xl">
         <button
           type="button"
           onClick={() => navigate?.('/login')}
-          className="flex items-center gap-1.5 text-xs text-[#A7B9A8] hover:text-white transition mb-6"
+          className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-900 dark:text-[#A7B9A8] dark:hover:text-white transition mb-6"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Ops Login</span>
@@ -62,18 +67,18 @@ export const AdminResetPasswordPage: React.FC<AdminResetPasswordPageProps> = ({ 
 
         {success ? (
           <div className="text-center py-4 space-y-4 animate-in fade-in zoom-in-95 duration-200">
-            <div className="w-12 h-12 rounded-full bg-[#D7FF35]/15 border border-[#D7FF35]/30 text-[#D7FF35] mx-auto flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-[#D7FF35]/15 border border-emerald-300 dark:border-[#D7FF35]/30 text-emerald-800 dark:text-[#D7FF35] mx-auto flex items-center justify-center">
               <CheckCircle2 className="w-6 h-6" />
             </div>
-            <h2 className="text-xl font-bold text-white">Password Updated</h2>
-            <p className="text-xs text-[#A7B9A8] leading-relaxed">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white">Password Updated</h2>
+            <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
               Your administrator/supervisor password has been successfully updated. All active sessions have been revoked.
             </p>
-            <div className="pt-4 border-t border-white/10">
+            <div className="pt-4 border-t border-slate-200 dark:border-white/10">
               <button
                 type="button"
                 onClick={() => navigate?.('/login')}
-                className="w-full py-3 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold text-xs uppercase tracking-wider transition shadow-glow-lime"
+                className="w-full py-3 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-bold text-xs uppercase tracking-wider transition shadow-sm dark:shadow-glow-lime"
               >
                 Sign In With New Password
               </button>
@@ -82,24 +87,24 @@ export const AdminResetPasswordPage: React.FC<AdminResetPasswordPageProps> = ({ 
         ) : (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-[#D7FF35]/15 border border-[#D7FF35]/30 text-[#D7FF35] flex items-center justify-center mb-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-[#D7FF35]/15 border border-emerald-300 dark:border-[#D7FF35]/30 text-emerald-800 dark:text-[#D7FF35] flex items-center justify-center mb-3">
                 <Shield className="w-5 h-5" />
               </div>
-              <h1 className="text-xl font-bold text-white">Update Ops Password</h1>
-              <p className="text-xs text-[#A7B9A8] mt-1">
+              <h1 className="text-xl font-bold text-slate-900 dark:text-white">Update Ops Password</h1>
+              <p className="text-xs text-slate-600 dark:text-[#A7B9A8] mt-1">
                 Enter a strong new password with at least 8 characters.
               </p>
             </div>
 
             {errorMessage && (
-              <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-start gap-2.5">
-                <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-rose-400" />
+              <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-700 dark:text-rose-300 text-xs flex items-start gap-2.5">
+                <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-rose-500 dark:text-rose-400" />
                 <span>{errorMessage}</span>
               </div>
             )}
 
             <div>
-              <label htmlFor="admin-new-pwd" className="block text-xs font-medium text-[#A7B9A8] mb-1.5">
+              <label htmlFor="admin-new-pwd" className="block text-xs font-medium text-slate-700 dark:text-[#A7B9A8] mb-1.5">
                 New Password (min 8 characters)
               </label>
               <div className="relative">
@@ -110,12 +115,12 @@ export const AdminResetPasswordPage: React.FC<AdminResetPasswordPageProps> = ({ 
                   minLength={8}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-white text-xs pr-10 focus:outline-none focus:ring-2 focus:ring-[#D7FF35]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white text-xs pr-10 focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:focus:ring-[#D7FF35]"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 text-[#A7B9A8] hover:text-white"
+                  className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 dark:text-[#A7B9A8] dark:hover:text-white"
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -124,7 +129,7 @@ export const AdminResetPasswordPage: React.FC<AdminResetPasswordPageProps> = ({ 
             </div>
 
             <div>
-              <label htmlFor="admin-confirm-pwd" className="block text-xs font-medium text-[#A7B9A8] mb-1.5">
+              <label htmlFor="admin-confirm-pwd" className="block text-xs font-medium text-slate-700 dark:text-[#A7B9A8] mb-1.5">
                 Confirm New Password
               </label>
               <input
@@ -134,14 +139,14 @@ export const AdminResetPasswordPage: React.FC<AdminResetPasswordPageProps> = ({ 
                 minLength={8}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-white text-xs focus:outline-none focus:ring-2 focus:ring-[#D7FF35]"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:focus:ring-[#D7FF35]"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading || !newPassword || !confirmPassword}
-              className="w-full py-3 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold text-xs uppercase tracking-wider disabled:opacity-50 transition shadow-glow-lime flex items-center justify-center gap-2"
+              className="w-full py-3 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-bold text-xs uppercase tracking-wider disabled:opacity-50 transition shadow-sm dark:shadow-glow-lime flex items-center justify-center gap-2"
             >
               {loading ? <span>Saving...</span> : <span>Update Password</span>}
             </button>

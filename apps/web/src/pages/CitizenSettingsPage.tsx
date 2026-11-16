@@ -239,35 +239,35 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
   ];
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8">
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8 text-slate-900 dark:text-[#F4F7F0]">
       {/* Page Title */}
       <div>
-        <span className="micro-label text-[#D7FF35]">DPDP ACT 2023 COMPLIANCE & CONTROLS</span>
-        <h1 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
+        <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">DPDP ACT 2023 COMPLIANCE & CONTROLS</span>
+        <h1 className="text-2xl sm:text-4xl font-light text-slate-900 dark:text-white tracking-tight">
           Citizen Privacy & Security Settings
         </h1>
-        <p className="text-xs text-[#A7B9A8] mt-1">
+        <p className="text-xs text-slate-600 dark:text-[#A7B9A8] mt-1">
           Manage your verified contact channels, notification preferences, active sessions, and privacy controls.
         </p>
       </div>
 
       {/* Profile Overview Card */}
-      <div className="p-6 rounded-3xl bg-[#0D4935]/80 border border-white/10 shadow-card-dark space-y-4">
-        <div className="flex items-center justify-between border-b border-white/10 pb-4">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-card-dark space-y-4">
+        <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#062B20] border border-white/10 flex items-center justify-center text-[#D7FF35]">
+            <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-[#062B20] border border-slate-200 dark:border-white/10 flex items-center justify-center text-emerald-700 dark:text-[#D7FF35]">
               <Shield className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-medium text-white">{profile?.name || user?.name}</h2>
-              <p className="text-xs font-mono text-[#A7B9A8]">ID: {user?.greenpay_id}</p>
+              <h2 className="text-base font-medium text-slate-900 dark:text-white">{profile?.name || user?.name}</h2>
+              <p className="text-xs font-mono text-slate-500 dark:text-[#A7B9A8]">ID: {user?.greenpay_id}</p>
             </div>
           </div>
           <span
             className={`px-3 py-1 rounded-full text-xs font-bold font-mono ${
               profile?.status === 'ACTIVE' || user?.status === 'ACTIVE'
-                ? 'bg-[#D7FF35]/15 text-[#D7FF35] border border-[#D7FF35]/30'
-                : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                ? 'bg-emerald-100 dark:bg-[#D7FF35]/15 text-emerald-800 dark:text-[#D7FF35] border border-emerald-300 dark:border-[#D7FF35]/30'
+                : 'bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-500/30'
             }`}
           >
             {profile?.status || user?.status || 'PENDING'}
@@ -276,17 +276,17 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs pt-2">
           <div>
-            <span className="text-[#A7B9A8] block mb-0.5">Assigned Ward</span>
-            <span className="font-medium text-white">{profile?.ward_name || user?.ward_name || 'Koramangala'}</span>
+            <span className="text-slate-500 dark:text-[#A7B9A8] block mb-0.5">Assigned Ward</span>
+            <span className="font-medium text-slate-900 dark:text-white">{profile?.ward_name || user?.ward_name || 'Koramangala'}</span>
           </div>
           <div>
-            <span className="text-[#A7B9A8] block mb-0.5">Electricity Meter</span>
-            <span className="font-mono text-white">{profile?.masked_meter || user?.masked_meter || 'BES-••••-4921'}</span>
-            <span className="text-[10px] text-[#A7B9A8]/70 block">AES-256 encrypted in storage</span>
+            <span className="text-slate-500 dark:text-[#A7B9A8] block mb-0.5">Electricity Meter</span>
+            <span className="font-mono text-slate-900 dark:text-white">{profile?.masked_meter || user?.masked_meter || 'BES-••••-4921'}</span>
+            <span className="text-[10px] text-slate-500 dark:text-[#A7B9A8]/70 block">AES-256 encrypted in storage</span>
           </div>
           <div>
-            <span className="text-[#A7B9A8] block mb-0.5">Account Status</span>
-            <span className="font-medium text-[#D7FF35] flex items-center gap-1 font-mono">
+            <span className="text-slate-500 dark:text-[#A7B9A8] block mb-0.5">Account Status</span>
+            <span className="font-medium text-emerald-700 dark:text-[#D7FF35] flex items-center gap-1 font-mono">
               <UserCheck className="w-3.5 h-3.5" />
               {profile?.status === 'ACTIVE' || user?.status === 'ACTIVE'
                 ? 'Active (Doorstep/Phone Verified)'
@@ -297,33 +297,33 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
       </div>
 
       {/* Phone OTP Verification Card (Phase A - Identity & Alternative Pending Activation) */}
-      <div className="p-6 rounded-3xl bg-[#0D4935]/80 border border-white/10 shadow-card-dark space-y-5">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-card-dark space-y-5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Phone className="w-5 h-5 text-[#D7FF35]" />
-            <h2 className="text-base font-medium text-white">Verified Mobile Contact & Identity Binding</h2>
+            <Phone className="w-5 h-5 text-emerald-700 dark:text-[#D7FF35]" />
+            <h2 className="text-base font-medium text-slate-900 dark:text-white">Verified Mobile Contact & Identity Binding</h2>
           </div>
           {profile?.phone_number && (
-            <span className="px-2.5 py-1 rounded-full text-[11px] font-mono bg-[#D7FF35]/15 text-[#D7FF35] border border-[#D7FF35]/30 flex items-center gap-1">
+            <span className="px-2.5 py-1 rounded-full text-[11px] font-mono bg-emerald-100 dark:bg-[#D7FF35]/15 text-emerald-800 dark:text-[#D7FF35] border border-emerald-300 dark:border-[#D7FF35]/30 flex items-center gap-1">
               <Check className="w-3.5 h-3.5" /> Verified
             </span>
           )}
         </div>
 
-        <p className="text-xs text-[#A7B9A8] leading-relaxed">
+        <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
           In accordance with identity binding regulations, new accounts are pending until confirmed either at first doorstep collection
           or via cryptographic Phone OTP. Verified phone numbers also enable transactional SMS notices.
         </p>
 
         {phoneMessage && (
-          <div className="p-3.5 rounded-xl bg-[#D7FF35]/15 border border-[#D7FF35]/30 text-[#D7FF35] text-xs flex items-center gap-2 font-mono">
+          <div className="p-3.5 rounded-xl bg-emerald-100 dark:bg-[#D7FF35]/15 border border-emerald-300 dark:border-[#D7FF35]/30 text-emerald-900 dark:text-[#D7FF35] text-xs flex items-center gap-2 font-mono">
             <CheckCircle className="w-4 h-4 flex-shrink-0" />
             <span>{phoneMessage}</span>
           </div>
         )}
 
         {phoneError && (
-          <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+          <div className="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
             <AlertTriangle className="w-4 h-4 flex-shrink-0" />
             <span>{phoneError}</span>
           </div>
@@ -332,7 +332,7 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
         {!otpSent ? (
           <form onSubmit={handleSendOtp} className="space-y-4 max-w-md">
             <div>
-              <label htmlFor="phone-input" className="block text-xs font-medium text-[#A7B9A8] mb-1.5">
+              <label htmlFor="phone-input" className="block text-xs font-medium text-slate-700 dark:text-[#A7B9A8] mb-1.5">
                 Indian Mobile Number (+91)
               </label>
               <div className="flex gap-2">
@@ -343,12 +343,12 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
                   placeholder="+91 98765 43210"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
-                  className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-[#F4F7F0] text-xs placeholder:text-[#A7B9A8]/50 focus:outline-none focus:ring-2 focus:ring-[#D7FF35]"
+                  className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-slate-900 dark:text-[#F4F7F0] text-xs placeholder:text-slate-400 dark:placeholder:text-[#A7B9A8]/50 focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:focus:ring-[#D7FF35]"
                 />
                 <button
                   type="submit"
                   disabled={sendingOtp || cooldown > 0 || !phoneNumber.trim()}
-                  className="px-4 py-2.5 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold text-xs whitespace-nowrap disabled:opacity-50 disabled:pointer-events-none transition shadow-glow-lime"
+                  className="px-4 py-2.5 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-bold text-xs whitespace-nowrap disabled:opacity-50 disabled:pointer-events-none transition shadow-sm dark:shadow-glow-lime"
                 >
                   {sendingOtp ? 'Sending...' : cooldown > 0 ? `Resend (${cooldown}s)` : 'Send OTP'}
                 </button>
@@ -360,17 +360,17 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
                 type="checkbox"
                 checked={smsConsent}
                 onChange={(e) => setSmsConsent(e.target.checked)}
-                className="mt-0.5 rounded border-white/20 bg-[#041B15] text-[#D7FF35] focus:ring-[#D7FF35]"
+                className="mt-0.5 rounded border-slate-300 dark:border-white/20 bg-white dark:bg-[#041B15] text-emerald-600 dark:text-[#D7FF35] focus:ring-emerald-600 dark:focus:ring-[#D7FF35]"
               />
-              <span className="text-[11px] text-[#A7B9A8] leading-tight">
+              <span className="text-[11px] text-slate-600 dark:text-[#A7B9A8] leading-tight">
                 I explicitly consent to receive transactional SMS notices for doorstep collections, weighment confirmations, and security codes.
               </span>
             </label>
           </form>
         ) : (
-          <form onSubmit={handleVerifyOtp} className="space-y-4 max-w-md bg-[#062B20]/60 p-4 rounded-2xl border border-white/10">
+          <form onSubmit={handleVerifyOtp} className="space-y-4 max-w-md bg-slate-50 dark:bg-[#062B20]/60 p-4 rounded-2xl border border-slate-200 dark:border-white/10">
             <div>
-              <label htmlFor="otp-input" className="block text-xs font-medium text-[#F4F7F0] mb-1.5">
+              <label htmlFor="otp-input" className="block text-xs font-medium text-slate-900 dark:text-[#F4F7F0] mb-1.5">
                 Enter 6-digit verification code sent to {phoneNumber}
               </label>
               <input
@@ -381,7 +381,7 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
                 placeholder="123456"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/15 text-[#F4F7F0] font-mono text-center tracking-widest text-lg focus:outline-none focus:ring-2 focus:ring-[#D7FF35]"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#041B15] border border-slate-300 dark:border-white/15 text-slate-900 dark:text-[#F4F7F0] font-mono text-center tracking-widest text-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:focus:ring-[#D7FF35]"
               />
             </div>
 
@@ -389,7 +389,7 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
               <button
                 type="submit"
                 disabled={verifyingOtp || otp.length < 6}
-                className="flex-1 py-2.5 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold text-xs uppercase tracking-wider disabled:opacity-50 transition shadow-glow-lime"
+                className="flex-1 py-2.5 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-bold text-xs uppercase tracking-wider disabled:opacity-50 transition shadow-sm dark:shadow-glow-lime"
               >
                 {verifyingOtp ? 'Verifying...' : 'Confirm & Activate'}
               </button>
@@ -397,7 +397,7 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
                 type="button"
                 disabled={cooldown > 0 || sendingOtp}
                 onClick={() => handleSendOtp()}
-                className="px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-[#A7B9A8] text-xs disabled:opacity-40 transition"
+                className="px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-700 dark:text-[#A7B9A8] border border-slate-200 dark:border-white/10 text-xs disabled:opacity-40 transition"
               >
                 {cooldown > 0 ? `${cooldown}s` : 'Resend'}
               </button>
@@ -407,25 +407,25 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
       </div>
 
       {/* Multi-Channel Notification Preferences Matrix (Phase A) */}
-      <div className="p-6 rounded-3xl bg-[#0D4935] border border-white/10 space-y-5">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 space-y-5 shadow-sm dark:shadow-card-dark">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Bell className="w-5 h-5 text-[#D7FF35]" />
-            <h2 className="text-base font-medium text-[#F4F7F0]">Notification Preferences Matrix</h2>
+            <Bell className="w-5 h-5 text-emerald-700 dark:text-[#D7FF35]" />
+            <h2 className="text-base font-medium text-slate-900 dark:text-[#F4F7F0]">Notification Preferences Matrix</h2>
           </div>
           {prefsSaved && (
-            <span className="text-xs text-[#D7FF35] flex items-center gap-1 animate-in fade-in">
+            <span className="text-xs text-emerald-700 dark:text-[#D7FF35] flex items-center gap-1 animate-in fade-in">
               <CheckCircle className="w-3.5 h-3.5" /> Saved
             </span>
           )}
         </div>
 
-        <p className="text-xs text-[#A7B9A8] leading-relaxed">
+        <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
           Configure which channels you wish to receive notifications through. Security notices are always dispatched in-app and by email for safety.
         </p>
 
-        <div className="border border-white/10 rounded-2xl overflow-hidden divide-y divide-white/5">
-          <div className="grid grid-cols-12 bg-[#062B20]/60 px-4 py-2.5 text-[11px] font-mono text-[#A7B9A8] uppercase tracking-wider">
+        <div className="border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden divide-y divide-slate-200 dark:divide-white/5">
+          <div className="grid grid-cols-12 bg-slate-100 dark:bg-[#062B20]/60 px-4 py-2.5 text-[11px] font-mono text-slate-700 dark:text-[#A7B9A8] uppercase tracking-wider">
             <div className="col-span-6 sm:col-span-7">Category</div>
             <div className="col-span-2 text-center">In-App</div>
             <div className="col-span-2 text-center">Email</div>
@@ -435,17 +435,17 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
           {categories.map((cat) => {
             const p = notifPrefs[cat.key] || { in_app: true, email: true, sms: false };
             return (
-              <div key={cat.key} className="grid grid-cols-12 px-4 py-3 items-center hover:bg-white/[0.02] text-xs">
+              <div key={cat.key} className="grid grid-cols-12 px-4 py-3 items-center hover:bg-slate-50 dark:hover:bg-white/[0.02] text-xs">
                 <div className="col-span-6 sm:col-span-7 pr-2">
-                  <span className="text-white font-medium block">{cat.label}</span>
-                  <span className="text-[10px] text-[#A7B9A8] font-mono">{cat.key}</span>
+                  <span className="text-slate-900 dark:text-white font-medium block">{cat.label}</span>
+                  <span className="text-[10px] text-slate-500 dark:text-[#A7B9A8] font-mono">{cat.key}</span>
                 </div>
                 <div className="col-span-2 flex justify-center">
                   <input
                     type="checkbox"
                     checked={p.in_app}
                     onChange={() => handleTogglePref(cat.key, 'in_app')}
-                    className="rounded border-white/20 bg-[#041B15] text-[#D7FF35] focus:ring-[#D7FF35]"
+                    className="rounded border-slate-300 dark:border-white/20 bg-white dark:bg-[#041B15] text-emerald-600 dark:text-[#D7FF35] focus:ring-emerald-600 dark:focus:ring-[#D7FF35]"
                   />
                 </div>
                 <div className="col-span-2 flex justify-center">
@@ -453,7 +453,7 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
                     type="checkbox"
                     checked={p.email}
                     onChange={() => handleTogglePref(cat.key, 'email')}
-                    className="rounded border-white/20 bg-[#041B15] text-[#D7FF35] focus:ring-[#D7FF35]"
+                    className="rounded border-slate-300 dark:border-white/20 bg-white dark:bg-[#041B15] text-emerald-600 dark:text-[#D7FF35] focus:ring-emerald-600 dark:focus:ring-[#D7FF35]"
                   />
                 </div>
                 <div className="col-span-2 sm:col-span-1 flex justify-center">
@@ -463,7 +463,7 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
                     disabled={!profile?.phone_number}
                     onChange={() => handleTogglePref(cat.key, 'sms')}
                     title={!profile?.phone_number ? 'Verify phone number first to enable SMS' : ''}
-                    className="rounded border-white/20 bg-[#041B15] text-[#D7FF35] focus:ring-[#D7FF35] disabled:opacity-30"
+                    className="rounded border-slate-300 dark:border-white/20 bg-white dark:bg-[#041B15] text-emerald-600 dark:text-[#D7FF35] focus:ring-emerald-600 dark:focus:ring-[#D7FF35] disabled:opacity-30"
                   />
                 </div>
               </div>
@@ -472,14 +472,14 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
         </div>
 
         <div className="flex items-center justify-between pt-2">
-          <span className="text-[11px] text-[#A7B9A8]">
+          <span className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">
             SMS notices require an active verified phone number.
           </span>
           <button
             type="button"
             onClick={handleSaveNotifPrefs}
             disabled={savingPrefs}
-            className="px-4 py-2 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold text-xs disabled:opacity-50 transition shadow-glow-lime"
+            className="px-4 py-2 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-bold text-xs disabled:opacity-50 transition shadow-sm dark:shadow-glow-lime"
           >
             {savingPrefs ? 'Saving...' : 'Save Preferences'}
           </button>
@@ -487,43 +487,43 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
       </div>
 
       {/* Active Sessions Manager (Phase A) */}
-      <div className="p-6 rounded-3xl bg-[#0D4935] border border-white/10 space-y-4">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 space-y-4 shadow-sm dark:shadow-card-dark">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Laptop className="w-5 h-5 text-[#D7FF35]" />
-            <h2 className="text-base font-medium text-[#F4F7F0]">Active Sessions & Devices</h2>
+            <Laptop className="w-5 h-5 text-emerald-700 dark:text-[#D7FF35]" />
+            <h2 className="text-base font-medium text-slate-900 dark:text-[#F4F7F0]">Active Sessions & Devices</h2>
           </div>
-          <span className="text-xs font-mono text-[#A7B9A8]">
+          <span className="text-xs font-mono text-slate-500 dark:text-[#A7B9A8]">
             {sessions.length} active {sessions.length === 1 ? 'session' : 'sessions'}
           </span>
         </div>
-        <p className="text-xs text-[#A7B9A8] leading-relaxed">
+        <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
           Manage your active GreenPay web sessions. If you suspect unauthorized access or lost a device, revoke that session immediately.
         </p>
 
         <div className="space-y-2.5 pt-2">
           {sessions.length === 0 ? (
-            <div className="p-4 text-center text-xs text-[#A7B9A8]">No active remote sessions detected.</div>
+            <div className="p-4 text-center text-xs text-slate-500 dark:text-[#A7B9A8]">No active remote sessions detected.</div>
           ) : (
             sessions.map((s, idx) => (
               <div
                 key={s.session_id}
-                className="p-3.5 rounded-2xl bg-[#062B20]/60 border border-white/5 flex items-center justify-between text-xs"
+                className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#062B20]/60 border border-slate-200 dark:border-white/5 flex items-center justify-between text-xs"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-[#041B15] flex items-center justify-center text-[#A7B9A8]">
+                  <div className="w-8 h-8 rounded-lg bg-slate-200 dark:bg-[#041B15] flex items-center justify-center text-slate-700 dark:text-[#A7B9A8]">
                     <Laptop className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-white font-medium block">
+                    <span className="text-slate-900 dark:text-white font-medium block">
                       {s.device_browser || 'Web Browser'}
                       {idx === 0 && (
-                        <span className="ml-2 text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#D7FF35]/15 text-[#D7FF35]">
+                        <span className="ml-2 text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-[#D7FF35]/15 text-emerald-800 dark:text-[#D7FF35] border border-emerald-200 dark:border-[#D7FF35]/30">
                           Current Device
                         </span>
                       )}
                     </span>
-                    <span className="text-[11px] text-[#A7B9A8] font-mono">
+                    <span className="text-[11px] text-slate-500 dark:text-[#A7B9A8] font-mono">
                       IP: {s.ip_address || 'Localhost'} • Last active: {new Date(s.last_active_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
@@ -533,7 +533,7 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
                   type="button"
                   onClick={() => handleRevokeSession(s.session_id)}
                   disabled={revokingSession === s.session_id}
-                  className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-rose-500/20 text-[#A7B9A8] hover:text-rose-300 border border-white/10 hover:border-rose-500/30 text-xs transition disabled:opacity-40"
+                  className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-100 dark:bg-white/5 dark:hover:bg-rose-500/20 text-slate-600 dark:text-[#A7B9A8] hover:text-rose-700 dark:hover:text-rose-300 border border-slate-200 dark:border-white/10 hover:border-rose-300 dark:hover:border-rose-500/30 text-xs transition disabled:opacity-40"
                 >
                   {revokingSession === s.session_id ? 'Revoking...' : 'Revoke'}
                 </button>
@@ -544,40 +544,40 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
       </div>
 
       {/* Email Marketing Opt-In */}
-      <div className="p-6 rounded-3xl bg-[#0D4935] border border-white/10 space-y-5">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 space-y-5 shadow-sm dark:shadow-card-dark">
         <div className="flex items-center gap-2">
-          <Mail className="w-5 h-5 text-[#D7FF35]" />
-          <h2 className="text-base font-medium text-[#F4F7F0]">Email Preference Centre</h2>
+          <Mail className="w-5 h-5 text-emerald-700 dark:text-[#D7FF35]" />
+          <h2 className="text-base font-medium text-slate-900 dark:text-[#F4F7F0]">Email Preference Centre</h2>
         </div>
-        <p className="text-xs text-[#A7B9A8] leading-relaxed">
+        <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
           In compliance with the Digital Personal Data Protection Act 2023, you have full control over non-essential communications.
           Essential transactional notices (such as doorstep waste receipts and account security notices) cannot be disabled.
         </p>
 
         <div className="space-y-4 pt-2">
           {/* Essential Notices (Locked ON) */}
-          <div className="flex items-center justify-between p-4 rounded-2xl bg-[#062B20]/60 border border-white/5">
+          <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-[#062B20]/60 border border-slate-200 dark:border-white/5">
             <div className="space-y-0.5">
-              <span className="text-xs font-medium text-[#F4F7F0] flex items-center gap-1.5">
+              <span className="text-xs font-medium text-slate-900 dark:text-[#F4F7F0] flex items-center gap-1.5">
                 <span>Transactional Notices & Collection Receipts</span>
-                <Lock className="w-3.5 h-3.5 text-[#A7B9A8]" />
+                <Lock className="w-3.5 h-3.5 text-slate-500 dark:text-[#A7B9A8]" />
               </span>
-              <p className="text-[11px] text-[#A7B9A8]">
+              <p className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">
                 Doorstep collection weighment logs, password resets, and identity activation receipts.
               </p>
             </div>
-            <span className="text-xs font-mono font-bold text-[#A7B9A8] uppercase px-2.5 py-1 rounded bg-black/40">
+            <span className="text-xs font-mono font-bold text-slate-600 dark:text-[#A7B9A8] uppercase px-2.5 py-1 rounded bg-slate-200 dark:bg-black/40">
               Required
             </span>
           </div>
 
           {/* Marketing / Tips Opt-In */}
-          <div className="flex items-center justify-between p-4 rounded-2xl bg-[#062B20]/60 border border-white/5">
+          <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-[#062B20]/60 border border-slate-200 dark:border-white/5">
             <div className="space-y-0.5">
-              <span className="text-xs font-medium text-[#F4F7F0]">
+              <span className="text-xs font-medium text-slate-900 dark:text-[#F4F7F0]">
                 Monthly Sustainability Digests & Ward Benchmarks
               </span>
-              <p className="text-[11px] text-[#A7B9A8]">
+              <p className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">
                 Monthly segregation summaries, seasonal zero-waste tips, and neighbourhood benchmark updates.
               </p>
             </div>
@@ -587,8 +587,8 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
               aria-checked={marketingEmail}
               disabled={savingEmail}
               onClick={() => handleUpdatePreferences(!marketingEmail)}
-              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#D7FF35] focus:ring-offset-2 focus:ring-offset-[#0D4935] ${
-                marketingEmail ? 'bg-[#D7FF35]' : 'bg-[#062B20]'
+              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:focus:ring-[#D7FF35] focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-[#0D4935] ${
+                marketingEmail ? 'bg-emerald-600 dark:bg-[#D7FF35]' : 'bg-slate-300 dark:bg-[#062B20]'
               }`}
             >
               <span
@@ -601,25 +601,25 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
         </div>
 
         {emailSaved && (
-          <div className="flex items-center gap-2 text-xs text-[#D7FF35] bg-[#D7FF35]/10 p-3 rounded-xl border border-[#D7FF35]/30">
+          <div className="flex items-center gap-2 text-xs text-emerald-800 dark:text-[#D7FF35] bg-emerald-50 dark:bg-[#D7FF35]/10 p-3 rounded-xl border border-emerald-300 dark:border-[#D7FF35]/30">
             <CheckCircle className="w-4 h-4 shrink-0" />
             <span>Preferences saved successfully.</span>
           </div>
         )}
 
-        <div className="text-[11px] text-[#A7B9A8] flex items-center justify-between pt-2 border-t border-white/5">
+        <div className="text-[11px] text-slate-500 dark:text-[#A7B9A8] flex items-center justify-between pt-2 border-t border-slate-200 dark:border-white/5">
           <span>Local mail catcher active in development environment.</span>
           <span className="font-mono">Unsubscribe tokens generated per DPDP Sec 6</span>
         </div>
       </div>
 
       {/* Data Portability (DPDP Section 11) */}
-      <div className="p-6 rounded-3xl bg-[#0D4935] border border-white/10 space-y-4">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 space-y-4 shadow-sm dark:shadow-card-dark">
         <div className="flex items-center gap-2">
-          <Download className="w-5 h-5 text-[#D7FF35]" />
-          <h2 className="text-base font-medium text-[#F4F7F0]">Right to Data Portability (DPDP Act Sec. 11)</h2>
+          <Download className="w-5 h-5 text-emerald-700 dark:text-[#D7FF35]" />
+          <h2 className="text-base font-medium text-slate-900 dark:text-[#F4F7F0]">Right to Data Portability (DPDP Act Sec. 11)</h2>
         </div>
-        <p className="text-xs text-[#A7B9A8] leading-relaxed">
+        <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
           You are legally entitled to download a machine-readable copy of all personal data, consent logs,
           collection history, and credit records held by GreenPay.
         </p>
@@ -628,32 +628,32 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
             type="button"
             onClick={handleExportData}
             disabled={exporting}
-            className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold flex items-center gap-2 border border-white/10 transition"
+            className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/10 dark:hover:bg-white/15 dark:text-white text-xs font-semibold flex items-center gap-2 border border-slate-200 dark:border-white/10 transition"
           >
-            <Download className="w-4 h-4 text-[#D7FF35]" />
+            <Download className="w-4 h-4 text-emerald-700 dark:text-[#D7FF35]" />
             <span>{exporting ? 'Generating JSON...' : 'Export All My Data (JSON)'}</span>
           </button>
         </div>
       </div>
 
       {/* Danger Zone: Account Deletion (Amendment #2) */}
-      <div className="p-6 rounded-3xl bg-red-950/20 border border-red-500/30 space-y-4">
-        <div className="flex items-center gap-2 text-red-400">
+      <div className="p-6 rounded-3xl bg-rose-50/50 dark:bg-red-950/20 border border-rose-300 dark:border-red-500/30 space-y-4">
+        <div className="flex items-center gap-2 text-rose-700 dark:text-red-400">
           <AlertTriangle className="w-5 h-5" />
           <h2 className="text-base font-semibold">Danger Zone: Account Deletion & Erasure</h2>
         </div>
-        <p className="text-xs text-[#A7B9A8] leading-relaxed">
+        <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
           Pursuant to DPDP Act Section 12, requesting account deletion will permanently scrub and anonymize your
           Personally Identifiable Information (name, electricity meter number, email, and phone).
         </p>
-        <div className="p-3.5 rounded-xl bg-[#062B20]/80 border border-red-500/20 text-[#A7B9A8] text-xs space-y-1">
-          <div className="font-semibold text-white flex items-center gap-1.5">
-            <Info className="w-3.5 h-3.5 text-amber-400" />
+        <div className="p-3.5 rounded-xl bg-white dark:bg-[#062B20]/80 border border-rose-200 dark:border-red-500/20 text-slate-600 dark:text-[#A7B9A8] text-xs space-y-1">
+          <div className="font-semibold text-slate-900 dark:text-white flex items-center gap-1.5">
+            <Info className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
             <span>Pseudonymisation Retention Notice (Amendment #2)</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8] leading-relaxed">
+          <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
             In accordance with municipal audit requirements and database immutability triggers, past verified collection
-            records and civic credit ledger rows are strictly preserved under a random pseudonym (<code className="font-mono text-white">ANON-UUID</code>).
+            records and civic credit ledger rows are strictly preserved under a random pseudonym (<code className="font-mono text-slate-900 dark:text-white">ANON-UUID</code>).
             No person, including municipal auditors, can link those historical rows back to your real identity once deleted.
           </p>
         </div>
@@ -662,7 +662,7 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
           <button
             type="button"
             onClick={() => setDeleteModalOpen(true)}
-            className="px-4 py-2.5 rounded-xl bg-red-600/20 hover:bg-red-600/30 text-red-300 border border-red-500/40 text-xs font-semibold flex items-center gap-2 transition"
+            className="px-4 py-2.5 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-800 dark:bg-red-600/20 dark:hover:bg-red-600/30 dark:text-red-300 border border-rose-300 dark:border-red-500/40 text-xs font-semibold flex items-center gap-2 transition"
           >
             <Trash2 className="w-4 h-4" />
             <span>Request Account Deletion & Anonymisation</span>
@@ -675,17 +675,17 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/60 dark:bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
         >
-          <div className="w-full max-w-md rounded-3xl bg-[#062B20] border border-red-500/40 p-6 space-y-6 shadow-2xl">
-            <div className="flex items-center gap-2 text-red-400 border-b border-white/10 pb-4">
+          <div className="w-full max-w-md rounded-3xl bg-white dark:bg-[#062B20] border border-rose-300 dark:border-red-500/40 p-6 space-y-6 shadow-2xl">
+            <div className="flex items-center gap-2 text-rose-700 dark:text-red-400 border-b border-slate-200 dark:border-white/10 pb-4">
               <AlertTriangle className="w-5 h-5" />
-              <h3 className="text-lg font-light text-white">Confirm Account Erasure</h3>
+              <h3 className="text-lg font-light text-slate-900 dark:text-white">Confirm Account Erasure</h3>
             </div>
 
-            <p className="text-xs text-[#A7B9A8] leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
               This action cannot be undone. All your personal profile information will be wiped immediately.
-              To confirm, type <strong className="font-mono text-white">DELETE MY ACCOUNT</strong> in the field below:
+              To confirm, type <strong className="font-mono text-slate-900 dark:text-white">DELETE MY ACCOUNT</strong> in the field below:
             </p>
 
             <div className="space-y-2">
@@ -694,10 +694,10 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
                 value={deleteConfirmText}
                 onChange={(e) => setDeleteConfirmText(e.target.value)}
                 placeholder="DELETE MY ACCOUNT"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/20 text-xs text-[#F4F7F0] placeholder-[#A7B9A8]/50 focus:outline-none focus:border-red-500 font-mono"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/20 text-xs text-slate-900 dark:text-[#F4F7F0] placeholder-slate-400 dark:placeholder-[#A7B9A8]/50 focus:outline-none focus:border-rose-500 font-mono"
               />
               {deleteError && (
-                <p className="text-xs text-red-400">{deleteError}</p>
+                <p className="text-xs text-rose-600 dark:text-red-400">{deleteError}</p>
               )}
             </div>
 
@@ -709,7 +709,7 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
                   setDeleteConfirmText('');
                   setDeleteError(null);
                 }}
-                className="flex-1 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-[#A7B9A8] text-xs font-medium transition"
+                className="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-700 dark:text-[#A7B9A8] text-xs font-medium border border-slate-200 dark:border-white/10 transition"
               >
                 Cancel
               </button>
@@ -717,7 +717,7 @@ export const CitizenSettingsPage: React.FC<CitizenSettingsPageProps> = ({ naviga
                 type="button"
                 onClick={handleDeleteAccount}
                 disabled={deleting || deleteConfirmText !== 'DELETE MY ACCOUNT'}
-                className="flex-1 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-xs font-semibold transition"
+                className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 disabled:opacity-50 text-white text-xs font-semibold transition"
               >
                 {deleting ? 'Erasing...' : 'Erase My Data'}
               </button>

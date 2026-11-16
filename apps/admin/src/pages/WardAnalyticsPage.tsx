@@ -78,26 +78,26 @@ export const WardAnalyticsPage: React.FC = () => {
   }));
 
   return (
-    <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 transition-colors duration-200">
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="micro-label text-[#D7FF35]">SUPER-ADMIN GOVERNANCE</span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/20 text-purple-300 border border-purple-500/30">
+            <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">SUPER-ADMIN GOVERNANCE</span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-100 text-purple-800 border border-purple-200 dark:bg-purple-500/20 dark:text-purple-300 dark:border-purple-500/30">
               MUNICIPAL INTELLIGENCE
             </span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-light text-white tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-4xl font-light text-slate-900 dark:text-white tracking-tight mt-1">
             Super Admin Governance Dashboard
           </h1>
-          <p className="text-xs text-[#A7B9A8] mt-1">
+          <p className="text-xs text-slate-600 dark:text-[#A7B9A8] mt-1">
             Real-time dry-recyclables collection, grocery rewards ecosystem, and municipal ward governance intelligence.
           </p>
         </div>
 
         {/* Date Filter Controls */}
-        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-black/40 border border-white/10">
+        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/10">
           {(['all', '30d', '90d', 'year'] as const).map((pKey) => {
             const labels = {
               all: 'All Time',
@@ -112,8 +112,8 @@ export const WardAnalyticsPage: React.FC = () => {
                 onClick={() => handlePeriodChange(pKey)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-mono transition ${
                   active
-                    ? 'bg-[#0D4935] text-white font-semibold border border-[#D7FF35]/30'
-                    : 'text-[#A7B9A8] hover:text-white'
+                    ? 'bg-white dark:bg-[#0D4935] text-emerald-800 dark:text-white font-semibold border border-slate-200 dark:border-[#D7FF35]/30 shadow-sm'
+                    : 'text-slate-600 dark:text-[#A7B9A8] hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 {labels[pKey]}
@@ -126,116 +126,116 @@ export const WardAnalyticsPage: React.FC = () => {
       {/* 8 Authoritative KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* 1. Total Registered Citizens */}
-        <div className="p-5 rounded-3xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">
             1. Registered Citizens
           </span>
-          <div className="text-3xl font-light text-white flex items-baseline gap-2">
+          <div className="text-3xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{stats?.total_citizens?.toLocaleString() ?? '—'}</span>
-            <span className="text-xs font-mono text-emerald-400">households</span>
+            <span className="text-xs font-mono text-emerald-700 dark:text-emerald-400">households</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">BESCOM meter bound residents</p>
+          <p className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">BESCOM meter bound residents</p>
         </div>
 
         {/* 2. Active Field Supervisors */}
-        <div className="p-5 rounded-3xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">
             2. Active Supervisors
           </span>
-          <div className="text-3xl font-light text-white flex items-baseline gap-2">
+          <div className="text-3xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{stats?.active_supervisors?.toLocaleString() ?? '—'}</span>
-            <span className="text-xs font-mono text-purple-400">staff</span>
+            <span className="text-xs font-mono text-purple-700 dark:text-purple-400">staff</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">Unique Staff IDs & ward assigned</p>
+          <p className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">Unique Staff IDs & ward assigned</p>
         </div>
 
         {/* 3. Total Verified Collections */}
-        <div className="p-5 rounded-3xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">
             3. Verified Collections
           </span>
-          <div className="text-3xl font-light text-white flex items-baseline gap-2">
+          <div className="text-3xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{stats?.total_collections?.toLocaleString() ?? '—'}</span>
-            <span className="text-xs font-mono text-[#D7FF35]">receipts</span>
+            <span className="text-xs font-mono text-emerald-700 dark:text-[#D7FF35]">receipts</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">Doorstep weighment records</p>
+          <p className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">Doorstep weighment records</p>
         </div>
 
         {/* 4. Dry Recyclables Collected (kg) */}
-        <div className="p-5 rounded-3xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">
             4. Dry Recyclables Collected
           </span>
-          <div className="text-3xl font-light text-white flex items-baseline gap-2">
+          <div className="text-3xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{stats?.total_collected_kg?.toFixed(1) ?? '—'}</span>
-            <span className="text-xs font-mono text-[#D7FF35]">kg</span>
+            <span className="text-xs font-mono text-emerald-700 dark:text-[#D7FF35]">kg</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">Strictly 8 dry categories</p>
+          <p className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">Strictly 8 dry categories</p>
         </div>
 
         {/* 5. Green Points Awarded */}
-        <div className="p-5 rounded-3xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">
             5. Green Points Awarded
           </span>
-          <div className="text-3xl font-light text-white flex items-baseline gap-2">
+          <div className="text-3xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{stats ? Math.round(stats.total_gp_awarded).toLocaleString() : '—'}</span>
-            <span className="text-xs font-mono text-emerald-400">GP</span>
+            <span className="text-xs font-mono text-emerald-700 dark:text-emerald-400">GP</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">Issued via snapshot rate schedule</p>
+          <p className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">Issued via snapshot rate schedule</p>
         </div>
 
         {/* 6. Green Points Redeemed */}
-        <div className="p-5 rounded-3xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">
             6. Green Points Redeemed
           </span>
-          <div className="text-3xl font-light text-white flex items-baseline gap-2">
+          <div className="text-3xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{stats ? Math.round(stats.total_gp_redeemed).toLocaleString() : '—'}</span>
-            <span className="text-xs font-mono text-amber-400">GP</span>
+            <span className="text-xs font-mono text-amber-700 dark:text-amber-400">GP</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">Debited for essential groceries</p>
+          <p className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">Debited for essential groceries</p>
         </div>
 
         {/* 7. Available Grocery Inventory */}
-        <div className="p-5 rounded-3xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">
             7. Grocery Inventory Units
           </span>
-          <div className="text-3xl font-light text-white flex items-baseline gap-2">
+          <div className="text-3xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{stats?.available_inventory_units?.toLocaleString() ?? '—'}</span>
-            <span className="text-xs font-mono text-blue-400">units</span>
+            <span className="text-xs font-mono text-blue-700 dark:text-blue-400">units</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">Stock in civil supplies depot</p>
+          <p className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">Stock in civil supplies depot</p>
         </div>
 
         {/* 8. Successful Grocery Redemptions */}
-        <div className="p-5 rounded-3xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">
+        <div className="p-5 rounded-3xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">
             8. Grocery Redemptions
           </span>
-          <div className="text-3xl font-light text-white flex items-baseline gap-2">
+          <div className="text-3xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{stats?.successful_redemptions?.toLocaleString() ?? '—'}</span>
-            <span className="text-xs font-mono text-[#D7FF35]">orders</span>
+            <span className="text-xs font-mono text-emerald-700 dark:text-[#D7FF35]">orders</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">Vouchers claimed by residents</p>
+          <p className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">Vouchers claimed by residents</p>
         </div>
       </div>
 
       {/* 8 Dry-Waste Category Breakdown Section */}
-      <div className="rounded-3xl bg-[#0D4935]/40 border border-white/10 p-6 sm:p-8 space-y-6">
+      <div className="rounded-3xl bg-white dark:bg-[#0D4935]/40 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none p-6 sm:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <div className="flex items-center gap-2">
-              <span className="micro-label text-[#D7FF35]">APPROVED DRY WASTE ENGINE</span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/10 text-neutral-300">
+              <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">APPROVED DRY WASTE ENGINE</span>
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 text-slate-700 dark:bg-white/10 dark:text-neutral-300">
                 8 CATEGORIES ONLY
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-light text-white mt-1">
+            <h2 className="text-xl sm:text-2xl font-light text-slate-900 dark:text-white mt-1">
               Dry Recyclable Material Breakdown
             </h2>
-            <p className="text-xs text-[#A7B9A8]">
+            <p className="text-xs text-slate-600 dark:text-[#A7B9A8]">
               Verified weighments across all 8 dry recyclable categories. No wet, organic, hazardous, or e-waste is accepted.
             </p>
           </div>

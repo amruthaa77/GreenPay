@@ -18,16 +18,12 @@
   --waste-dry: #3B82F6;
   --waste-hazardous: #EF4444;
   --waste-ewaste: #EAB308;
-
-  color-scheme: dark;
 }
 
-body {
-  margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #041B15;
-  color: #F4F7F0;
-  -webkit-font-smoothing: antialiased;
+@layer base {
+  body {
+    @apply font-sans bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] antialiased selection:bg-[#D7FF35]/30 selection:text-[#041B15];
+  }
 }
 
 @layer components {
@@ -37,47 +33,47 @@ body {
   }
 
   .micro-label {
-    @apply text-[10px] uppercase tracking-[0.2em] font-mono text-[#A7B9A8] select-none;
+    @apply text-[10px] uppercase tracking-[0.2em] font-mono text-slate-500 dark:text-[#A7B9A8] select-none;
   }
 
   /* Cards & Containers */
   .card-cinematic {
-    @apply bg-[#0D4935]/80 border border-white/10 rounded-2xl shadow-card-dark transition-all duration-300;
+    @apply bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 rounded-2xl shadow-sm dark:shadow-card-dark text-[#062B20] dark:text-[#F4F7F0] transition-all duration-300;
   }
 
   .card-cinematic-surface {
-    @apply bg-[#14543D]/60 border border-white/10 rounded-2xl shadow-card-dark transition-all duration-300;
+    @apply bg-slate-50 dark:bg-[#14543D]/60 border border-slate-200 dark:border-white/10 rounded-2xl shadow-sm dark:shadow-card-dark text-[#062B20] dark:text-[#F4F7F0] transition-all duration-300;
   }
 
   .card-cinematic-forest {
-    @apply bg-[#062B20]/90 border border-white/10 rounded-2xl shadow-card-dark transition-all duration-300;
+    @apply bg-white dark:bg-[#062B20]/90 border border-slate-200 dark:border-white/10 rounded-2xl shadow-sm dark:shadow-card-dark text-[#062B20] dark:text-[#F4F7F0] transition-all duration-300;
   }
 
   /* Buttons */
   .btn-lime {
-    @apply px-5 py-2.5 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-glow-lime flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply px-5 py-2.5 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm dark:shadow-glow-lime flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-secondary {
-    @apply px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-mono text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2;
+    @apply px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-200 dark:border-white/15 text-slate-800 dark:text-white font-mono text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2;
   }
 
   .btn-emerald {
-    @apply px-5 py-2.5 rounded-xl bg-[#0D4935] hover:bg-[#14543D] border border-white/10 text-white font-mono text-xs font-medium uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2;
+    @apply px-5 py-2.5 rounded-xl bg-[#0D4935] hover:bg-[#14543D] border border-transparent dark:border-white/10 text-white font-mono text-xs font-medium uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2;
   }
 
   /* Form Inputs */
   .input-cinematic {
-    @apply w-full px-4 py-2.5 rounded-xl bg-[#062B20]/80 border border-white/15 text-white placeholder-[#A7B9A8] text-sm focus:border-[#D7FF35] focus:ring-1 focus:ring-[#D7FF35] outline-none transition duration-200;
+    @apply w-full px-4 py-2.5 rounded-xl bg-white dark:bg-[#062B20]/80 border border-slate-300 dark:border-white/15 text-[#062B20] dark:text-white placeholder-slate-400 dark:placeholder-[#A7B9A8] text-sm focus:border-emerald-600 dark:focus:border-[#D7FF35] focus:ring-1 focus:ring-emerald-600 dark:focus:ring-[#D7FF35] outline-none transition duration-200;
   }
 
   /* Badges */
   .badge-lime {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#D7FF35]/15 text-[#D7FF35] border border-[#D7FF35]/30;
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-[#D7FF35]/15 dark:text-[#D7FF35] dark:border-[#D7FF35]/30;
   }
 
   .badge-emerald {
-    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0D4935] text-[#F4F7F0] border border-white/10;
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-[#0D4935] text-[#F4F7F0] border border-transparent dark:border-white/10;
   }
 
   .badge-wet {
@@ -99,6 +95,11 @@ body {
 
 /* Accessible focus visible outlines */
 *:focus-visible {
+  outline: 2px solid #0D4935 !important;
+  outline-offset: 2px !important;
+}
+
+.dark *:focus-visible {
   outline: 2px solid #D7FF35 !important;
   outline-offset: 2px !important;
 }

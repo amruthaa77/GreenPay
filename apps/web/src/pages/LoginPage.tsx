@@ -39,15 +39,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 p-8 rounded-3xl bg-[#0D4935] border border-white/10 shadow-2xl">
+      <div className="max-w-md w-full space-y-8 p-8 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-xl dark:shadow-2xl transition-colors duration-200">
         
         {/* Header */}
         <div className="text-center space-y-2">
-          <span className="micro-label text-[#D7FF35]">CITIZEN PORTAL</span>
-          <h1 className="text-2xl font-light text-white tracking-tight">
+          <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">CITIZEN PORTAL</span>
+          <h1 className="text-2xl font-light text-slate-900 dark:text-white tracking-tight">
             Login to GreenPay
           </h1>
-          <p className="text-xs text-[#A7B9A8]">
+          <p className="text-xs text-slate-600 dark:text-[#A7B9A8]">
             Enter your electricity meter number and password to access your Green Score and waste receipts.
           </p>
         </div>
@@ -56,16 +56,16 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
           <div
             role="alert"
             aria-live="assertive"
-            className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-2.5"
+            className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300 text-xs flex items-start gap-2.5"
           >
-            <AlertCircle className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" />
+            <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 mt-0.5 shrink-0" />
             <div className="flex-1 flex items-center justify-between">
               <span>{error || backendError}</span>
               {backendError && !error && (
                 <button
                   type="button"
                   onClick={() => retryAuth()}
-                  className="text-[#D7FF35] hover:underline text-[11px] font-bold ml-2 shrink-0"
+                  className="text-emerald-700 dark:text-[#D7FF35] hover:underline text-[11px] font-bold ml-2 shrink-0"
                 >
                   Retry
                 </button>
@@ -76,7 +76,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div className="space-y-1">
-            <label htmlFor="login-meter" className="block text-[#A7B9A8] font-medium">
+            <label htmlFor="login-meter" className="block text-slate-700 dark:text-[#A7B9A8] font-medium">
               Electricity Meter Number
             </label>
             <input
@@ -85,7 +85,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
               required
               value={meterOrEmail}
               onChange={(e) => setMeterOrEmail(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-white placeholder-[#A7B9A8]/40 focus:outline-none focus:border-[#D7FF35]"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#A7B9A8]/40 focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
               placeholder="e.g. BESCOM-IND-XXXXXX"
               autoComplete="username"
             />
@@ -93,13 +93,13 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
 
           <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <label htmlFor="login-pwd" className="block text-[#A7B9A8] font-medium">
+              <label htmlFor="login-pwd" className="block text-slate-700 dark:text-[#A7B9A8] font-medium">
                 Password
               </label>
               <button
                 type="button"
                 onClick={() => navigate('/forgot-password')}
-                className="text-[11px] text-[#D7FF35] hover:underline focus:outline-none"
+                className="text-[11px] text-emerald-700 dark:text-[#D7FF35] hover:underline focus:outline-none"
               >
                 Forgot password?
               </button>
@@ -110,7 +110,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-white placeholder-[#A7B9A8]/40 focus:outline-none focus:border-[#D7FF35]"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#A7B9A8]/40 focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
               placeholder="••••••••"
               autoComplete="current-password"
             />
@@ -119,7 +119,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] disabled:opacity-50 text-[#041B15] font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 mt-2 shadow-glow-lime"
+            className="w-full py-3 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] disabled:opacity-50 font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 mt-2 shadow-sm dark:shadow-glow-lime"
           >
             {loading ? (
               <span>Authenticating...</span>
@@ -133,12 +133,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
         </form>
 
         {/* Register Link */}
-        <div className="text-center text-xs text-[#A7B9A8] pt-2 border-t border-white/10">
+        <div className="text-center text-xs text-slate-600 dark:text-[#A7B9A8] pt-2 border-t border-slate-200 dark:border-white/10">
           New household?{' '}
           <button
             type="button"
             onClick={() => navigate('/register')}
-            className="text-[#D7FF35] hover:underline font-medium"
+            className="text-emerald-700 dark:text-[#D7FF35] hover:underline font-medium"
           >
             Register your electricity meter
           </button>

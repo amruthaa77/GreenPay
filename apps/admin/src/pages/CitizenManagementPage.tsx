@@ -158,15 +158,15 @@ export const CitizenManagementPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="micro-label text-[#D7FF35]">GOVERNANCE & HOUSEHOLD OVERSIGHT</span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-500/20 text-purple-300 border border-purple-500/30">
+            <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">GOVERNANCE & HOUSEHOLD OVERSIGHT</span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-100 text-purple-800 dark:bg-purple-500/20 dark:text-purple-300 border border-purple-300 dark:border-purple-500/30">
               IMMUTABLE LEDGER VERIFIED
             </span>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-light text-white tracking-tight mt-1">
+          <h1 className="text-2xl sm:text-4xl font-light text-slate-900 dark:text-white tracking-tight mt-1">
             Citizen & Household Management
           </h1>
-          <p className="text-xs text-[#A7B9A8] mt-1">
+          <p className="text-xs text-slate-600 dark:text-[#A7B9A8] mt-1">
             Authoritative citizen registries, masked BESCOM meters, ward bindings, and read-only Green Points balances.
           </p>
         </div>
@@ -174,73 +174,73 @@ export const CitizenManagementPage: React.FC = () => {
         <button
           onClick={fetchCitizens}
           disabled={loading}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 text-neutral-300 text-xs transition"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 dark:bg-white/5 dark:hover:bg-white/10 dark:text-neutral-300 dark:hover:text-white border border-slate-200 dark:border-white/10 text-xs transition"
         >
-          <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-[#D7FF35]' : ''}`} />
+          <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-emerald-700 dark:text-[#D7FF35]' : ''}`} />
           <span>Refresh Ledger</span>
         </button>
       </div>
 
       {/* Overview Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">Registered Citizens</span>
-          <div className="text-2xl font-light text-white flex items-baseline gap-2">
+        <div className="p-5 rounded-2xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-md space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">Registered Citizens</span>
+          <div className="text-2xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{total.toLocaleString()}</span>
-            <span className="text-xs font-mono text-emerald-400">households</span>
+            <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400">households</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">Across {wards.length} pilot Bengaluru wards</p>
+          <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8]">Across {wards.length} pilot Bengaluru wards</p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">Active Status</span>
-          <div className="text-2xl font-light text-white flex items-baseline gap-2">
+        <div className="p-5 rounded-2xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-md space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">Active Status</span>
+          <div className="text-2xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{citizens.filter(c => c.status === 'ACTIVE').length}</span>
-            <span className="text-xs font-mono text-[#D7FF35]">verified KYC</span>
+            <span className="text-xs font-mono text-emerald-700 dark:text-[#D7FF35]">verified KYC</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">Authorized to earn and redeem</p>
+          <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8]">Authorized to earn and redeem</p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">Pending Activation</span>
-          <div className="text-2xl font-light text-white flex items-baseline gap-2">
+        <div className="p-5 rounded-2xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-md space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">Pending Activation</span>
+          <div className="text-2xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{citizens.filter(c => c.status === 'PENDING').length}</span>
-            <span className="text-xs font-mono text-amber-400">pending phone OTP</span>
+            <span className="text-xs font-mono text-amber-600 dark:text-amber-400">pending phone OTP</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">Requires doorstep verification</p>
+          <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8]">Requires doorstep verification</p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-[#0D4935]/80 border border-white/10 space-y-1">
-          <span className="text-[10px] font-mono uppercase text-[#A7B9A8] tracking-wider">Total GP Held in Balance</span>
-          <div className="text-2xl font-light text-white flex items-baseline gap-2">
+        <div className="p-5 rounded-2xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-md space-y-1">
+          <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider">Total GP Held in Balance</span>
+          <div className="text-2xl font-light text-slate-900 dark:text-white flex items-baseline gap-2">
             <span>{Math.round(totalPointsInCirculation).toLocaleString()}</span>
-            <span className="text-xs font-mono text-[#D7FF35]">GP</span>
+            <span className="text-xs font-mono text-emerald-700 dark:text-[#D7FF35]">GP</span>
           </div>
-          <p className="text-[11px] text-[#A7B9A8]">Strictly ledger-backed liability</p>
+          <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8]">Strictly ledger-backed liability</p>
         </div>
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="p-4 rounded-2xl bg-[#062B20] border border-white/10 flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <div className="p-4 rounded-2xl bg-white dark:bg-[#062B20] border border-slate-200 dark:border-white/10 shadow-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 text-[#A7B9A8] absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-400 dark:text-[#A7B9A8] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search citizen name, GP-ID, or phone..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-white placeholder-neutral-500 text-xs focus:outline-none focus:border-[#D7FF35]"
+            className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-neutral-500 text-xs focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
           />
         </div>
 
         <div className="flex items-center gap-3 w-full sm:w-auto">
           {/* Ward filter */}
           <div className="flex items-center gap-1.5 w-full sm:w-auto">
-            <span className="text-[11px] text-[#A7B9A8] font-mono shrink-0">Ward:</span>
+            <span className="text-[11px] text-slate-500 dark:text-[#A7B9A8] font-mono shrink-0">Ward:</span>
             <select
               value={wardFilter}
               onChange={(e) => setWardFilter(e.target.value)}
-              className="px-2.5 py-1.5 rounded-xl bg-black/40 border border-white/10 text-white text-xs focus:outline-none focus:border-[#D7FF35]"
+              className="px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
             >
               <option value="ALL">All Wards</option>
               {wards.map((w) => (
@@ -251,11 +251,11 @@ export const CitizenManagementPage: React.FC = () => {
 
           {/* Status filter */}
           <div className="flex items-center gap-1.5 w-full sm:w-auto">
-            <span className="text-[11px] text-[#A7B9A8] font-mono shrink-0">Status:</span>
+            <span className="text-[11px] text-slate-500 dark:text-[#A7B9A8] font-mono shrink-0">Status:</span>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-2.5 py-1.5 rounded-xl bg-black/40 border border-white/10 text-white text-xs focus:outline-none focus:border-[#D7FF35]"
+              className="px-2.5 py-1.5 rounded-xl bg-slate-50 dark:bg-black/40 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
             >
               <option value="ALL">All Status</option>
               <option value="ACTIVE">Active</option>
@@ -267,11 +267,11 @@ export const CitizenManagementPage: React.FC = () => {
       </div>
 
       {/* Citizen Table */}
-      <div className="rounded-3xl bg-[#0D4935]/40 border border-white/10 overflow-hidden shadow-2xl">
+      <div className="rounded-3xl bg-white dark:bg-[#0D4935]/40 border border-slate-200 dark:border-white/10 overflow-hidden shadow-sm dark:shadow-2xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-white/10 bg-black/20 text-[10px] font-mono uppercase tracking-wider text-[#A7B9A8]">
+              <tr className="border-b border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-black/20 text-[10px] font-mono uppercase tracking-wider text-slate-700 dark:text-[#A7B9A8]">
                 <th className="py-3.5 px-4">Citizen / QR ID</th>
                 <th className="py-3.5 px-4">Resident & Meter</th>
                 <th className="py-3.5 px-4">Ward</th>
@@ -282,32 +282,32 @@ export const CitizenManagementPage: React.FC = () => {
                 <th className="py-3.5 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 text-xs text-neutral-300">
+            <tbody className="divide-y divide-slate-100 dark:divide-white/5 text-xs text-slate-700 dark:text-neutral-300">
               {citizens.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-12 text-center text-neutral-500 font-mono text-xs">
+                  <td colSpan={8} className="py-12 text-center text-slate-500 dark:text-neutral-500 font-mono text-xs">
                     {loading ? 'Querying verified citizen ledger...' : 'No citizens found matching current criteria.'}
                   </td>
                 </tr>
               ) : (
                 citizens.map((c) => (
-                  <tr key={c.id} className="hover:bg-white/[0.03] transition">
+                  <tr key={c.id} className="hover:bg-slate-50 dark:hover:bg-white/[0.03] transition">
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[#D7FF35] bg-[#D7FF35]/10 px-2 py-0.5 rounded text-[11px] font-semibold border border-[#D7FF35]/20">
+                        <span className="font-mono text-emerald-800 dark:text-[#D7FF35] bg-emerald-100 dark:bg-[#D7FF35]/10 px-2 py-0.5 rounded text-[11px] font-semibold border border-emerald-300 dark:border-[#D7FF35]/20">
                           {c.greenpay_id || 'GP-PENDING'}
                         </span>
                       </div>
                     </td>
                     <td className="py-3.5 px-4">
-                      <div className="font-medium text-white">{c.name}</div>
-                      <div className="font-mono text-[11px] text-neutral-400 flex items-center gap-1.5 mt-0.5">
-                        <span className="text-neutral-500">Meter:</span>
+                      <div className="font-medium text-slate-900 dark:text-white">{c.name}</div>
+                      <div className="font-mono text-[11px] text-slate-500 dark:text-neutral-400 flex items-center gap-1.5 mt-0.5">
+                        <span className="text-slate-400 dark:text-neutral-500">Meter:</span>
                         <span>{c.masked_meter}</span>
                       </div>
                     </td>
                     <td className="py-3.5 px-4">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-white/5 border border-white/10 text-neutral-300">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-neutral-300">
                         {c.ward_name}
                       </span>
                     </td>
@@ -315,41 +315,41 @@ export const CitizenManagementPage: React.FC = () => {
                       <span
                         className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider ${
                           c.status === 'ACTIVE'
-                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                            ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-emerald-500/20 dark:text-emerald-300 dark:border-emerald-500/30'
                             : c.status === 'PENDING'
-                            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                            : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+                            ? 'bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30'
+                            : 'bg-rose-100 text-rose-800 border border-rose-300 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/30'
                         }`}
                       >
                         {c.status}
                       </span>
                     </td>
                     <td className="py-3.5 px-4 text-right">
-                      <div className="inline-flex items-center gap-1.5 font-mono text-sm font-semibold text-[#D7FF35]">
+                      <div className="inline-flex items-center gap-1.5 font-mono text-sm font-semibold text-emerald-700 dark:text-[#D7FF35]">
                         <span title="Read-only: ledger verified">
-                          <Lock className="w-3 h-3 text-[#A7B9A8]" />
+                          <Lock className="w-3 h-3 text-slate-400 dark:text-[#A7B9A8]" />
                         </span>
                         <span>{c.available_balance.toFixed(1)} GP</span>
                       </div>
-                      <div className="text-[10px] text-neutral-500 font-mono">
+                      <div className="text-[10px] text-slate-500 dark:text-neutral-500 font-mono">
                         +{c.total_earned.toFixed(0)} earned • -{c.total_redeemed.toFixed(0)} spent
                       </div>
                     </td>
                     <td className="py-3.5 px-4 text-center font-mono">
-                      <span className="text-white font-medium">{c.collections_count}</span>
-                      <span className="text-neutral-500 text-[10px] ml-1">logged</span>
+                      <span className="text-slate-900 dark:text-white font-medium">{c.collections_count}</span>
+                      <span className="text-slate-500 dark:text-neutral-500 text-[10px] ml-1">logged</span>
                     </td>
                     <td className="py-3.5 px-4 text-center font-mono">
-                      <span className="text-white font-medium">{c.redemptions_count}</span>
-                      <span className="text-neutral-500 text-[10px] ml-1">orders</span>
+                      <span className="text-slate-900 dark:text-white font-medium">{c.redemptions_count}</span>
+                      <span className="text-slate-500 dark:text-neutral-500 text-[10px] ml-1">orders</span>
                     </td>
                     <td className="py-3.5 px-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => handleOpenDossier(c.id)}
-                          className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-neutral-300 hover:text-white text-xs font-mono transition flex items-center gap-1"
+                          className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 dark:text-neutral-300 dark:hover:text-white text-xs font-mono transition flex items-center gap-1"
                         >
-                          <Eye className="w-3 h-3 text-[#D7FF35]" />
+                          <Eye className="w-3 h-3 text-emerald-700 dark:text-[#D7FF35]" />
                           <span>Dossier</span>
                         </button>
                         <button
@@ -358,8 +358,8 @@ export const CitizenManagementPage: React.FC = () => {
                           title={c.status === 'ACTIVE' ? 'Suspend Citizen' : 'Activate Citizen'}
                           className={`p-1 rounded-lg border transition ${
                             c.status === 'ACTIVE'
-                              ? 'border-rose-500/30 text-rose-400 hover:bg-rose-500/20'
-                              : 'border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20'
+                              ? 'border-rose-500/30 text-rose-500 dark:text-rose-400 hover:bg-rose-500/20'
+                              : 'border-emerald-500/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20'
                           }`}
                         >
                           {c.status === 'ACTIVE' ? <UserX className="w-3.5 h-3.5" /> : <UserCheck className="w-3.5 h-3.5" />}
@@ -376,67 +376,67 @@ export const CitizenManagementPage: React.FC = () => {
 
       {/* Citizen Dossier Modal */}
       {selectedCitizenId && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-          <div className="relative w-full max-w-3xl rounded-3xl bg-[#062B20] border border-white/20 p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-sm overflow-y-auto">
+          <div className="relative w-full max-w-3xl rounded-3xl bg-white dark:bg-[#062B20] border border-slate-200 dark:border-white/20 p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto text-slate-900 dark:text-white shadow-2xl">
             <button
               onClick={() => { setSelectedCitizenId(null); setDossier(null); }}
-              className="absolute top-6 right-6 text-neutral-400 hover:text-white"
+              className="absolute top-6 right-6 text-slate-400 hover:text-slate-600 dark:text-neutral-400 dark:hover:text-white"
             >
               <X className="w-5 h-5" />
             </button>
 
             {dossierLoading || !dossier ? (
               <div className="py-20 flex flex-col items-center justify-center gap-3">
-                <div className="w-8 h-8 border-2 border-[#D7FF35] border-t-transparent rounded-full animate-spin" />
-                <span className="text-xs font-mono text-[#A7B9A8]">Compiling authentic citizen dossier...</span>
+                <div className="w-8 h-8 border-2 border-emerald-600 dark:border-[#D7FF35] border-t-transparent rounded-full animate-spin" />
+                <span className="text-xs font-mono text-slate-500 dark:text-[#A7B9A8]">Compiling authentic citizen dossier...</span>
               </div>
             ) : (
               <>
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="micro-label text-[#D7FF35]">MUNICIPAL RESIDENT DOSSIER</span>
-                    <span className="font-mono text-xs px-2 py-0.5 rounded bg-white/10 text-white">
+                    <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">MUNICIPAL RESIDENT DOSSIER</span>
+                    <span className="font-mono text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-800 dark:bg-white/10 dark:text-white border border-slate-200 dark:border-transparent">
                       {dossier.greenpay_id || 'GP-PENDING'}
                     </span>
                   </div>
-                  <h2 className="text-2xl font-light text-white">{dossier.name}</h2>
-                  <p className="text-xs text-[#A7B9A8] font-mono">
+                  <h2 className="text-2xl font-light text-slate-900 dark:text-white">{dossier.name}</h2>
+                  <p className="text-xs text-slate-600 dark:text-[#A7B9A8] font-mono">
                     Ward: {dossier.ward_name} &bull; Meter: {dossier.masked_meter} &bull; Status: {dossier.status}
                   </p>
                 </div>
 
                 {/* Ledger Protection Notice */}
-                <div className="p-3.5 rounded-2xl bg-black/40 border border-[#D7FF35]/30 flex items-start gap-3">
-                  <ShieldCheck className="w-4 h-4 text-[#D7FF35] shrink-0 mt-0.5" />
-                  <div className="text-[11px] font-mono text-[#A7B9A8] space-y-0.5">
-                    <span className="text-white font-semibold">Ledger Protection Enforcement</span>
+                <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-black/40 border border-emerald-300 dark:border-[#D7FF35]/30 flex items-start gap-3">
+                  <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-[#D7FF35] shrink-0 mt-0.5" />
+                  <div className="text-[11px] font-mono text-slate-600 dark:text-[#A7B9A8] space-y-0.5">
+                    <span className="text-slate-900 dark:text-white font-semibold">Ledger Protection Enforcement</span>
                     <p>{dossier.balance.verification_note}</p>
                   </div>
                 </div>
 
                 {/* Verified Balance Metric Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <div className="p-4 rounded-xl bg-black/30 border border-white/10">
-                    <span className="text-[10px] font-mono uppercase text-[#A7B9A8]">Current Balance</span>
-                    <div className="text-xl font-bold font-mono text-[#D7FF35] mt-1">
+                  <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/10">
+                    <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8]">Current Balance</span>
+                    <div className="text-xl font-bold font-mono text-emerald-700 dark:text-[#D7FF35] mt-1">
                       {dossier.balance.current_balance.toFixed(1)} GP
                     </div>
                   </div>
-                  <div className="p-4 rounded-xl bg-black/30 border border-white/10">
-                    <span className="text-[10px] font-mono uppercase text-[#A7B9A8]">Lifetime Earned</span>
-                    <div className="text-xl font-bold font-mono text-emerald-400 mt-1">
+                  <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/10">
+                    <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8]">Lifetime Earned</span>
+                    <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1">
                       +{dossier.balance.total_earned.toFixed(1)} GP
                     </div>
                   </div>
-                  <div className="p-4 rounded-xl bg-black/30 border border-white/10">
-                    <span className="text-[10px] font-mono uppercase text-[#A7B9A8]">Lifetime Redeemed</span>
-                    <div className="text-xl font-bold font-mono text-amber-400 mt-1">
+                  <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/10">
+                    <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8]">Lifetime Redeemed</span>
+                    <div className="text-xl font-bold font-mono text-amber-600 dark:text-amber-400 mt-1">
                       -{dossier.balance.total_redeemed.toFixed(1)} GP
                     </div>
                   </div>
-                  <div className="p-4 rounded-xl bg-black/30 border border-white/10">
-                    <span className="text-[10px] font-mono uppercase text-[#A7B9A8]">Total Dry Waste</span>
-                    <div className="text-xl font-bold font-mono text-blue-400 mt-1">
+                  <div className="p-4 rounded-xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/10">
+                    <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8]">Total Dry Waste</span>
+                    <div className="text-xl font-bold font-mono text-blue-600 dark:text-blue-400 mt-1">
                       {dossier.balance.total_weight_kg.toFixed(1)} kg
                     </div>
                   </div>
@@ -445,27 +445,27 @@ export const CitizenManagementPage: React.FC = () => {
                 {/* Recent Collections */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono uppercase tracking-wider text-white font-semibold flex items-center gap-1.5">
-                      <Scale className="w-3.5 h-3.5 text-[#D7FF35]" />
+                    <span className="text-xs font-mono uppercase tracking-wider text-slate-900 dark:text-white font-semibold flex items-center gap-1.5">
+                      <Scale className="w-3.5 h-3.5 text-emerald-700 dark:text-[#D7FF35]" />
                       Verified Dry-Waste Collections ({dossier.recent_collections.length})
                     </span>
                   </div>
                   {dossier.recent_collections.length === 0 ? (
-                    <p className="text-xs font-mono text-neutral-500 py-4 text-center bg-black/20 rounded-xl">
+                    <p className="text-xs font-mono text-slate-400 dark:text-neutral-500 py-4 text-center bg-slate-50 dark:bg-black/20 rounded-xl">
                       No collections recorded for this citizen yet.
                     </p>
                   ) : (
                     <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                       {dossier.recent_collections.map((col: any) => (
-                        <div key={col.id} className="p-3 rounded-xl bg-black/30 border border-white/5 text-xs flex items-center justify-between">
+                        <div key={col.id} className="p-3 rounded-xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/5 text-xs flex items-center justify-between">
                           <div>
-                            <span className="font-mono text-[#D7FF35] font-semibold">{col.transaction_id}</span>
-                            <span className="text-[11px] text-neutral-400 ml-2">{col.collection_date}</span>
-                            <div className="text-[11px] text-neutral-400 mt-0.5">
+                            <span className="font-mono text-emerald-700 dark:text-[#D7FF35] font-semibold">{col.transaction_id}</span>
+                            <span className="text-[11px] text-slate-500 dark:text-neutral-400 ml-2">{col.collection_date}</span>
+                            <div className="text-[11px] text-slate-500 dark:text-neutral-400 mt-0.5">
                               Supervisor: {col.supervisor_name} &bull; Total: {col.total_weight_kg.toFixed(2)} kg
                             </div>
                           </div>
-                          <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/30">
                             {col.status}
                           </span>
                         </div>
@@ -477,29 +477,29 @@ export const CitizenManagementPage: React.FC = () => {
                 {/* Recent Grocery Redemptions */}
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono uppercase tracking-wider text-white font-semibold flex items-center gap-1.5">
-                      <ShoppingBag className="w-3.5 h-3.5 text-[#D7FF35]" />
+                    <span className="text-xs font-mono uppercase tracking-wider text-slate-900 dark:text-white font-semibold flex items-center gap-1.5">
+                      <ShoppingBag className="w-3.5 h-3.5 text-emerald-700 dark:text-[#D7FF35]" />
                       Grocery Redemptions ({dossier.recent_redemptions.length})
                     </span>
                   </div>
                   {dossier.recent_redemptions.length === 0 ? (
-                    <p className="text-xs font-mono text-neutral-500 py-4 text-center bg-black/20 rounded-xl">
+                    <p className="text-xs font-mono text-slate-400 dark:text-neutral-500 py-4 text-center bg-slate-50 dark:bg-black/20 rounded-xl">
                       No grocery redemptions placed yet.
                     </p>
                   ) : (
                     <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                       {dossier.recent_redemptions.map((red: any) => (
-                        <div key={red.id} className="p-3 rounded-xl bg-black/30 border border-white/5 text-xs flex items-center justify-between">
+                        <div key={red.id} className="p-3 rounded-xl bg-slate-50 dark:bg-black/30 border border-slate-200 dark:border-white/5 text-xs flex items-center justify-between">
                           <div>
-                            <span className="font-mono text-white font-semibold">{red.item_title}</span>
-                            <span className="text-[11px] text-neutral-400 ml-2">Qty: {red.item_quantity}</span>
-                            <div className="font-mono text-[10px] text-[#A7B9A8] mt-0.5">
+                            <span className="font-mono text-slate-900 dark:text-white font-semibold">{red.item_title}</span>
+                            <span className="text-[11px] text-slate-500 dark:text-neutral-400 ml-2">Qty: {red.item_quantity}</span>
+                            <div className="font-mono text-[10px] text-slate-500 dark:text-[#A7B9A8] mt-0.5">
                               Ref: {red.redemption_reference} &bull; {red.created_at}
                             </div>
                           </div>
                           <div className="text-right">
-                            <span className="font-mono text-amber-400 font-semibold">-{red.credits_spent} GP</span>
-                            <div className="text-[10px] font-mono text-emerald-400">{red.status}</div>
+                            <span className="font-mono text-amber-600 dark:text-amber-400 font-semibold">-{red.credits_spent} GP</span>
+                            <div className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400">{red.status}</div>
                           </div>
                         </div>
                       ))}

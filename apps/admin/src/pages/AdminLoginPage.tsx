@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAdminAuth } from '../context/AdminAuthContext';
+import { ThemeToggle } from '../components/ThemeToggle';
 import { Shield, KeyRound, Mail, AlertCircle, ArrowRight, Smartphone, RefreshCw, ArrowLeft } from 'lucide-react';
 
 interface AdminLoginPageProps {
@@ -68,19 +69,24 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#041B15]">
-      <div className="max-w-md w-full space-y-8 p-8 rounded-3xl bg-[#0D4935] border border-white/10 shadow-2xl">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] relative transition-colors duration-200">
+      {/* Top right theme toggle */}
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+
+      <div className="max-w-md w-full space-y-8 p-8 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-xl dark:shadow-2xl">
         
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-[#D7FF35]/15 border border-[#D7FF35]/30 flex items-center justify-center mx-auto text-[#D7FF35]">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-[#D7FF35]/15 border border-emerald-300 dark:border-[#D7FF35]/30 flex items-center justify-center mx-auto text-emerald-800 dark:text-[#D7FF35]">
             {is2FAPending ? <Smartphone className="w-6 h-6" /> : <Shield className="w-6 h-6" />}
           </div>
-          <span className="micro-label text-[#D7FF35]">MUNICIPAL OPERATIONS</span>
-          <h1 className="text-2xl font-light text-white tracking-tight">
+          <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">MUNICIPAL OPERATIONS</span>
+          <h1 className="text-2xl font-light text-slate-900 dark:text-white tracking-tight">
             {is2FAPending ? 'Two-Factor Authentication' : 'Admin & Supervisor Portal'}
           </h1>
-          <p className="text-xs text-[#A7B9A8]">
+          <p className="text-xs text-slate-600 dark:text-[#A7B9A8]">
             {is2FAPending
               ? 'Enter the 6-digit code from your authenticator app or use a recovery code.'
               : 'Secure access for authorized municipal field supervisors and platform administrators.'}
@@ -91,16 +97,16 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
           <div
             role="alert"
             aria-live="assertive"
-            className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-2.5"
+            className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-700 dark:text-rose-300 text-xs flex items-start gap-2.5"
           >
-            <AlertCircle className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" />
+            <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400 mt-0.5 shrink-0" />
             <div className="flex-1 flex items-center justify-between">
               <span>{error || backendError}</span>
               {backendError && !error && (
                 <button
                   type="button"
                   onClick={() => retryAuth()}
-                  className="text-[#D7FF35] hover:underline text-[11px] font-bold ml-2 shrink-0"
+                  className="text-emerald-700 dark:text-[#D7FF35] hover:underline text-[11px] font-bold ml-2 shrink-0"
                 >
                   Retry
                 </button>
@@ -113,7 +119,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
           <form onSubmit={handle2FASubmit} className="space-y-4">
             {!useRecoveryCode ? (
               <div className="space-y-1.5">
-                <label className="text-xs font-medium text-[#A7B9A8]" htmlFor="totp-input">
+                <label className="text-xs font-medium text-slate-700 dark:text-[#A7B9A8]" htmlFor="totp-input">
                   Authenticator 6-Digit Code
                 </label>
                 <input
@@ -124,13 +130,13 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
                   value={totpCode}
                   onChange={(e) => setTotpCode(e.target.value)}
                   placeholder="123456"
-                  className="w-full px-3.5 py-3 rounded-xl bg-[#041B15] border border-white/10 text-white font-mono text-center tracking-widest text-lg focus:outline-none focus:border-[#D7FF35]"
+                  className="w-full px-3.5 py-3 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white font-mono text-center tracking-widest text-lg focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
                   autoComplete="one-time-code"
                 />
               </div>
             ) : (
               <div className="space-y-1.5">
-                <label className="text-xs font-medium text-[#A7B9A8]" htmlFor="recovery-input">
+                <label className="text-xs font-medium text-slate-700 dark:text-[#A7B9A8]" htmlFor="recovery-input">
                   Single-Use Recovery Code
                 </label>
                 <input
@@ -140,7 +146,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
                   value={recoveryCode}
                   onChange={(e) => setRecoveryCode(e.target.value.toUpperCase())}
                   placeholder="e.g. 4A8B-9C1D"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-white font-mono text-center tracking-wider text-sm focus:outline-none focus:border-[#D7FF35]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white font-mono text-center tracking-wider text-sm focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
                 />
               </div>
             )}
@@ -148,7 +154,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
             <button
               type="submit"
               disabled={loading || (!useRecoveryCode && totpCode.length < 6) || (useRecoveryCode && !recoveryCode.trim())}
-              className="w-full py-3 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold text-xs tracking-wider uppercase transition flex items-center justify-center gap-2 shadow-glow-lime"
+              className="w-full py-3 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-bold text-xs tracking-wider uppercase transition flex items-center justify-center gap-2 shadow-sm dark:shadow-glow-lime"
             >
               {loading ? <span>Verifying...</span> : <span>Verify & Authenticate</span>}
             </button>
@@ -157,7 +163,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
               <button
                 type="button"
                 onClick={() => setUseRecoveryCode(!useRecoveryCode)}
-                className="text-[#D7FF35] hover:underline"
+                className="text-emerald-700 dark:text-[#D7FF35] hover:underline"
               >
                 {useRecoveryCode ? 'Use Authenticator Code' : 'Use a Recovery Code'}
               </button>
@@ -170,7 +176,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
                   setRecoveryCode('');
                   setError(null);
                 }}
-                className="text-[#A7B9A8] hover:text-white flex items-center gap-1"
+                className="text-slate-600 dark:text-[#A7B9A8] hover:text-slate-900 dark:hover:text-white flex items-center gap-1"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back</span>
@@ -180,11 +186,11 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#A7B9A8]" htmlFor="admin-email">
+              <label className="text-xs font-medium text-slate-700 dark:text-[#A7B9A8]" htmlFor="admin-email">
                 Official Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-[#A7B9A8] absolute left-3 top-3" />
+                <Mail className="w-4 h-4 text-slate-500 dark:text-[#A7B9A8] absolute left-3 top-3" />
                 <input
                   id="admin-email"
                   type="email"
@@ -192,26 +198,26 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="official@greenpay.blr"
-                  className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-xs text-white placeholder-[#A7B9A8]/40 focus:outline-none focus:border-[#D7FF35]"
+                  className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#A7B9A8]/40 focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-medium text-[#A7B9A8]" htmlFor="admin-pass">
+                <label className="text-xs font-medium text-slate-700 dark:text-[#A7B9A8]" htmlFor="admin-pass">
                   Password
                 </label>
                 <button
                   type="button"
                   onClick={() => navigate('/forgot-password')}
-                  className="text-[11px] text-[#D7FF35] hover:underline"
+                  className="text-[11px] text-emerald-700 dark:text-[#D7FF35] hover:underline"
                 >
                   Forgot password?
                 </button>
               </div>
               <div className="relative">
-                <KeyRound className="w-4 h-4 text-[#A7B9A8] absolute left-3 top-3" />
+                <KeyRound className="w-4 h-4 text-slate-500 dark:text-[#A7B9A8] absolute left-3 top-3" />
                 <input
                   id="admin-pass"
                   type="password"
@@ -219,7 +225,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-xs text-white placeholder-[#A7B9A8]/40 focus:outline-none focus:border-[#D7FF35]"
+                  className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#A7B9A8]/40 focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
                 />
               </div>
             </div>
@@ -227,7 +233,7 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold text-xs tracking-wider uppercase transition flex items-center justify-center gap-2 mt-2 shadow-glow-lime"
+              className="w-full py-3 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-bold text-xs tracking-wider uppercase transition flex items-center justify-center gap-2 mt-2 shadow-sm dark:shadow-glow-lime"
             >
               {loading ? (
                 <span>Authenticating...</span>
@@ -242,8 +248,8 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ navigate }) => {
         )}
 
         {/* Security & Cookie Note */}
-        <p className="text-[10px] text-[#A7B9A8]/70 text-center leading-relaxed">
-          Admin portal sessions use isolated cookies (<code className="text-[#A7B9A8]">gp_admin_access</code>) and
+        <p className="text-[10px] text-slate-500 dark:text-[#A7B9A8]/70 text-center leading-relaxed">
+          Admin portal sessions use isolated cookies (<code className="text-slate-700 dark:text-[#A7B9A8]">gp_admin_access</code>) and
           double-submit CSRF headers. Tokens are invalid on citizen endpoints.
         </p>
       </div>

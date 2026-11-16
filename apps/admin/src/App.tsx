@@ -61,10 +61,10 @@ export const App: React.FC = () => {
   // If resolving stored session on administrative views
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#041B15] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-2 border-[#D7FF35] border-t-transparent rounded-full animate-spin" />
-          <p className="text-xs font-mono text-[#A7B9A8]">Checking GreenPay credentials...</p>
+          <p className="text-xs font-mono text-slate-500 dark:text-[#A7B9A8]">Checking GreenPay credentials...</p>
         </div>
       </div>
     );
@@ -113,7 +113,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#041B15] text-[#F4F7F0] font-sans selection:bg-[#D7FF35]/30 selection:text-[#041B15]">
+    <div className="min-h-screen bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] font-sans selection:bg-[#D7FF35]/30 selection:text-[#041B15] transition-colors duration-200">
       <AdminNavbar
         currentPath={currentPath}
         navigate={navigate}

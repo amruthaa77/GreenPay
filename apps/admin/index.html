@@ -3,12 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Theme Pre-Initialization to Prevent FOUC -->
+    <script>
+      (function() {
+        try {
+          var stored = localStorage.getItem('greenpay-theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark = stored === 'dark' || (stored !== 'light' && prefersDark);
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.style.colorScheme = 'dark';
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.style.colorScheme = 'light';
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>GreenPay Admin & Field Supervisor Portal</title>
     <meta name="description" content="Municipal waste collection verification, offline weighment queue, and ward analytics portal." />
     <meta name="robots" content="noindex, nofollow" />
   </head>
-  <body class="bg-[#0B0D11] text-neutral-100 min-h-screen selection:bg-[#22C55E]/30 selection:text-[#22C55E] antialiased">
+  <body class="bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] min-h-screen selection:bg-[#D7FF35]/30 selection:text-[#041B15] antialiased">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

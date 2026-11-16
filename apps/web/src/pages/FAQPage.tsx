@@ -49,15 +49,15 @@ export const FAQPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-12">
+    <div className="min-h-screen py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-12 text-slate-900 dark:text-[#F4F7F0]">
       
       {/* Header */}
       <div className="text-center space-y-4">
-        <span className="micro-label text-[#D7FF35]">QUESTIONS & ANSWERS</span>
-        <h1 className="text-3xl sm:text-5xl font-light text-white tracking-tight">
+        <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">QUESTIONS & ANSWERS</span>
+        <h1 className="text-3xl sm:text-5xl font-light text-slate-900 dark:text-white tracking-tight">
           Frequently Asked Questions
         </h1>
-        <p className="max-w-xl mx-auto text-sm text-[#A7B9A8] font-light">
+        <p className="max-w-xl mx-auto text-sm text-slate-600 dark:text-[#A7B9A8] font-light">
           Everything you need to know about GreenPay doorstep verification, points, and civic privacy.
         </p>
       </div>
@@ -69,23 +69,23 @@ export const FAQPage: React.FC = () => {
           return (
             <div
               key={faq.q}
-              className="rounded-2xl bg-[#0D4935]/80 border border-white/10 shadow-card-dark overflow-hidden transition"
+              className="rounded-2xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-card-dark overflow-hidden transition"
             >
               <button
                 type="button"
                 onClick={() => setOpenIdx(isOpen ? null : idx)}
                 aria-expanded={isOpen}
-                className="w-full p-6 text-left flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D7FF35]"
+                className="w-full p-6 text-left flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 dark:focus-visible:ring-[#D7FF35]"
               >
-                <span className="text-sm font-medium text-white">{faq.q}</span>
+                <span className="text-sm font-medium text-slate-900 dark:text-white">{faq.q}</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-[#A7B9A8] shrink-0 transition-transform duration-200 ${
-                    isOpen ? 'rotate-180 text-[#D7FF35]' : ''
+                  className={`w-4 h-4 text-slate-400 dark:text-[#A7B9A8] shrink-0 transition-transform duration-200 ${
+                    isOpen ? 'rotate-180 text-emerald-700 dark:text-[#D7FF35]' : ''
                   }`}
                 />
               </button>
               {isOpen && (
-                <div className="px-6 pb-6 text-xs text-[#A7B9A8] leading-relaxed border-t border-white/5 pt-4">
+                <div className="px-6 pb-6 text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed border-t border-slate-100 dark:border-white/5 pt-4">
                   {faq.a}
                 </div>
               )}

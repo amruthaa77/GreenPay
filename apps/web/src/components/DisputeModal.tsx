@@ -117,23 +117,23 @@ export const DisputeModal: React.FC<DisputeModalProps> = ({
       role="dialog"
       aria-modal="true"
       aria-labelledby="dispute-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
     >
-      <div className="relative w-full max-w-lg rounded-3xl bg-[#062B20] border border-white/10 p-6 sm:p-8 shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-lg rounded-3xl bg-white dark:bg-[#062B20] border border-slate-200 dark:border-white/10 p-6 sm:p-8 shadow-2xl overflow-hidden text-slate-900 dark:text-white">
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-white/10">
+        <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-white/10">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 dark:text-amber-400 flex items-center justify-center">
               <ShieldAlert className="w-5 h-5" />
             </div>
             <div>
-              <h2 id="dispute-modal-title" className="text-base font-bold text-white">
+              <h2 id="dispute-modal-title" className="text-base font-bold text-slate-900 dark:text-white">
                 {weighmentId
                   ? t('disputes.modal_title_weighment') || 'Dispute Weighment Receipt'
                   : t('disputes.modal_title_general') || 'Report Collection Problem'}
               </h2>
               {weighmentTransactionId && (
-                <p className="text-[11px] font-mono text-[#A7B9A8]">
+                <p className="text-[11px] font-mono text-slate-500 dark:text-[#A7B9A8]">
                   Ref: {weighmentTransactionId} {weighmentDate ? `• ${new Date(weighmentDate).toLocaleDateString()}` : ''}
                 </p>
               )}
@@ -143,7 +143,7 @@ export const DisputeModal: React.FC<DisputeModalProps> = ({
             type="button"
             onClick={handleClose}
             aria-label={t('action.close') || 'Close'}
-            className="p-1.5 rounded-lg text-[#A7B9A8] hover:text-white hover:bg-white/5 transition"
+            className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:text-[#A7B9A8] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -152,28 +152,28 @@ export const DisputeModal: React.FC<DisputeModalProps> = ({
         {/* Content */}
         {createdTicket ? (
           <div className="py-6 text-center space-y-4 animate-in zoom-in-95 duration-200">
-            <div className="w-12 h-12 rounded-full bg-[#D7FF35]/15 border border-[#D7FF35]/30 text-[#D7FF35] mx-auto flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-[#D7FF35]/15 border border-emerald-300 dark:border-[#D7FF35]/30 text-emerald-700 dark:text-[#D7FF35] mx-auto flex items-center justify-center">
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                 {t('disputes.success_title') || 'Dispute Ticket Lodged'}
               </h3>
-              <p className="text-xs text-[#A7B9A8] mt-1">
+              <p className="text-xs text-slate-600 dark:text-[#A7B9A8] mt-1">
                 {t('disputes.success_sub') || 'Your ticket has been assigned to municipal review.'}
               </p>
             </div>
-            <div className="p-3.5 rounded-2xl bg-[#0D4935]/80 border border-white/10 inline-block font-mono text-[#D7FF35] font-bold text-sm tracking-wider">
+            <div className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-[#0D4935]/80 border border-emerald-200 dark:border-white/10 inline-block font-mono text-emerald-800 dark:text-[#D7FF35] font-bold text-sm tracking-wider">
               {createdTicket}
             </div>
-            <p className="text-[11px] text-[#A7B9A8] max-w-sm mx-auto leading-relaxed">
+            <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8] max-w-sm mx-auto leading-relaxed">
               {t('disputes.success_sla') ||
                 'Municipal ward supervisors verify discrepancies within 48 hours. If upheld, compensatory ledger credits will be appended directly.'}
             </p>
             <button
               type="button"
               onClick={handleClose}
-              className="w-full py-3 rounded-xl bg-[#D7FF35] text-[#041B15] font-mono font-bold text-xs uppercase tracking-wider hover:bg-[#C4F020] transition shadow-glow-lime"
+              className="w-full py-3 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-mono font-bold text-xs uppercase tracking-wider transition shadow-sm dark:shadow-glow-lime"
             >
               {t('action.done') || 'Done'}
             </button>
@@ -183,23 +183,23 @@ export const DisputeModal: React.FC<DisputeModalProps> = ({
             {error && (
               <div
                 role="alert"
-                className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 flex items-start gap-2"
+                className="p-3 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 text-rose-700 dark:text-rose-300 flex items-start gap-2"
               >
-                <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                <AlertCircle className="w-4 h-4 text-rose-500 dark:text-rose-400 shrink-0 mt-0.5" />
                 <span>{error}</span>
               </div>
             )}
 
             {/* Category Select */}
             <div>
-              <label htmlFor="dispute-category" className="block text-[#A7B9A8] font-medium mb-1.5">
+              <label htmlFor="dispute-category" className="block text-slate-700 dark:text-[#A7B9A8] font-medium mb-1.5">
                 {t('disputes.field_category') || 'Reason for Dispute / Issue Category'}
               </label>
               <select
                 id="dispute-category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/15 text-white focus:outline-none focus:border-[#D7FF35] transition"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/15 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35] transition"
               >
                 {CATEGORIES.map((cat) => (
                   <option key={cat.value} value={cat.value}>
@@ -211,7 +211,7 @@ export const DisputeModal: React.FC<DisputeModalProps> = ({
 
             {/* Description Textarea */}
             <div>
-              <label htmlFor="dispute-description" className="block text-[#A7B9A8] font-medium mb-1.5">
+              <label htmlFor="dispute-description" className="block text-slate-700 dark:text-[#A7B9A8] font-medium mb-1.5">
                 {t('disputes.field_description') || 'Detailed Explanation'}
               </label>
               <textarea
@@ -224,29 +224,29 @@ export const DisputeModal: React.FC<DisputeModalProps> = ({
                   t('disputes.desc_placeholder') ||
                   'Explain what occurred (e.g. digital scale weight reading, driver skipped door, packaging intact)...'
                 }
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/15 text-white placeholder-[#A7B9A8] focus:outline-none focus:border-[#D7FF35] transition resize-none"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/15 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder-[#A7B9A8] focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35] transition resize-none"
               />
             </div>
 
             {/* Photo Attachment (DPDP compliant EXIF strip) */}
             <div>
-              <label className="block text-[#A7B9A8] font-medium mb-1.5">
+              <label className="block text-slate-700 dark:text-[#A7B9A8] font-medium mb-1.5">
                 {t('disputes.field_photo') || 'Supporting Evidence Photo (Optional)'}
               </label>
 
               {photoPreview ? (
-                <div className="relative rounded-2xl overflow-hidden border border-white/20 bg-black/40 p-2 flex items-center justify-between">
+                <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-white/20 bg-slate-100 dark:bg-black/40 p-2 flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <img
                       src={photoPreview}
                       alt="Dispute evidence preview"
-                      className="w-14 h-14 object-cover rounded-xl border border-white/10"
+                      className="w-14 h-14 object-cover rounded-xl border border-slate-200 dark:border-white/10"
                     />
                     <div>
-                      <p className="text-white text-xs font-medium truncate max-w-[200px]">
+                      <p className="text-slate-900 dark:text-white text-xs font-medium truncate max-w-[200px]">
                         {photoFile?.name}
                       </p>
-                      <p className="text-[10px] text-[#A7B9A8]">
+                      <p className="text-[10px] text-slate-500 dark:text-[#A7B9A8]">
                         {photoFile ? `${(photoFile.size / 1024).toFixed(0)} KB` : ''}
                       </p>
                     </div>
@@ -254,18 +254,18 @@ export const DisputeModal: React.FC<DisputeModalProps> = ({
                   <button
                     type="button"
                     onClick={handleRemovePhoto}
-                    className="p-1.5 rounded-lg bg-white/5 hover:bg-rose-500/20 text-[#A7B9A8] hover:text-rose-400 transition"
+                    className="p-1.5 rounded-lg bg-slate-200 hover:bg-rose-100 dark:bg-white/5 dark:hover:bg-rose-500/20 text-slate-600 hover:text-rose-600 dark:text-[#A7B9A8] dark:hover:text-rose-400 transition"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 </div>
               ) : (
-                <label className="flex flex-col items-center justify-center p-4 rounded-2xl border border-dashed border-white/20 hover:border-[#D7FF35]/50 bg-[#041B15]/50 hover:bg-[#041B15] cursor-pointer transition">
-                  <UploadCloud className="w-6 h-6 text-[#A7B9A8] mb-1" />
-                  <span className="text-[#A7B9A8] font-medium text-xs">
+                <label className="flex flex-col items-center justify-center p-4 rounded-2xl border border-dashed border-slate-300 dark:border-white/20 hover:border-emerald-500 dark:hover:border-[#D7FF35]/50 bg-slate-50 dark:bg-[#041B15]/50 hover:bg-slate-100 dark:hover:bg-[#041B15] cursor-pointer transition">
+                  <UploadCloud className="w-6 h-6 text-slate-500 dark:text-[#A7B9A8] mb-1" />
+                  <span className="text-slate-600 dark:text-[#A7B9A8] font-medium text-xs">
                     {t('disputes.upload_photo_prompt') || 'Attach digital scale or waste bag photo'}
                   </span>
-                  <span className="text-[10px] text-[#A7B9A8]/60 mt-0.5">JPEG, PNG, WebP up to 5MB</span>
+                  <span className="text-[10px] text-slate-400 dark:text-[#A7B9A8]/60 mt-0.5">JPEG, PNG, WebP up to 5MB</span>
                   <input
                     type="file"
                     accept="image/jpeg,image/png,image/webp"
@@ -276,8 +276,8 @@ export const DisputeModal: React.FC<DisputeModalProps> = ({
               )}
 
               {/* DPDP Privacy Alert */}
-              <div className="mt-2 p-2.5 rounded-xl bg-[#0D4935]/40 border border-white/10 text-[10px] text-[#A7B9A8] flex items-start gap-2">
-                <Info className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#D7FF35]" />
+              <div className="mt-2 p-2.5 rounded-xl bg-slate-100 dark:bg-[#0D4935]/40 border border-slate-200 dark:border-white/10 text-[10px] text-slate-600 dark:text-[#A7B9A8] flex items-start gap-2">
+                <Info className="w-3.5 h-3.5 shrink-0 mt-0.5 text-emerald-700 dark:text-[#D7FF35]" />
                 <span>
                   {t('disputes.dpdp_photo_notice') ||
                     'DPDP Minimisation: Embedded camera metadata and GPS coordinates are stripped before storage. Evidence is retained for 90 days.'}
@@ -286,22 +286,22 @@ export const DisputeModal: React.FC<DisputeModalProps> = ({
             </div>
 
             {/* Submit & Cancel */}
-            <div className="pt-2 flex items-center justify-end gap-3 border-t border-white/10">
+            <div className="pt-2 flex items-center justify-end gap-3 border-t border-slate-200 dark:border-white/10">
               <button
                 type="button"
                 onClick={handleClose}
-                className="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white font-mono text-xs uppercase tracking-wider transition"
+                className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-700 dark:text-white font-mono text-xs uppercase tracking-wider border border-slate-200 dark:border-white/10 transition"
               >
                 {t('action.cancel') || 'Cancel'}
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="px-5 py-2.5 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider disabled:opacity-50 transition shadow-glow-lime flex items-center gap-1.5"
+                className="px-5 py-2.5 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider disabled:opacity-50 transition shadow-sm dark:shadow-glow-lime flex items-center gap-1.5"
               >
                 {loading ? (
                   <>
-                    <div className="w-3.5 h-3.5 border-2 border-[#041B15] border-t-transparent rounded-full animate-spin" />
+                    <div className="w-3.5 h-3.5 border-2 border-white dark:border-[#041B15] border-t-transparent rounded-full animate-spin" />
                     <span>{t('action.submitting') || 'Submitting...'}</span>
                   </>
                 ) : (

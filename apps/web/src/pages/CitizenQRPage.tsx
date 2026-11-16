@@ -96,11 +96,11 @@ export const CitizenQRPage: React.FC = () => {
       
       {/* Header */}
       <div className="text-center space-y-4">
-        <span className="micro-label text-[#D7FF35]">PHYSICAL CIVIC CREDENTIAL</span>
-        <h1 className="text-3xl sm:text-5xl font-light text-white tracking-tight">
+        <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">PHYSICAL CIVIC CREDENTIAL</span>
+        <h1 className="text-3xl sm:text-5xl font-light text-slate-900 dark:text-white tracking-tight">
           Permanent Citizen QR ID Card
         </h1>
-        <p className="max-w-xl mx-auto text-sm text-[#A7B9A8] font-light">
+        <p className="max-w-xl mx-auto text-sm text-slate-600 dark:text-[#A7B9A8] font-light">
           Your doorstep identity card. Field supervisors scan this QR code before weighing your household waste.
         </p>
       </div>
@@ -155,20 +155,20 @@ export const CitizenQRPage: React.FC = () => {
         <button
           type="button"
           onClick={handleDownload}
-          className="w-full py-4 rounded-2xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-mono text-xs font-bold uppercase tracking-widest transition shadow-glow-lime flex items-center justify-center gap-2"
+          className="w-full py-4 rounded-2xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-mono text-xs font-bold uppercase tracking-widest transition shadow-sm dark:shadow-glow-lime flex items-center justify-center gap-2"
         >
           <Download className="w-4 h-4" />
           <span>Download Printable Card (PNG)</span>
         </button>
 
         {downloadSuccess && (
-          <div className="p-3 rounded-xl bg-[#D7FF35]/15 border border-[#D7FF35]/30 text-[#D7FF35] text-xs flex items-center justify-center gap-2 font-mono">
+          <div className="p-3 rounded-xl bg-emerald-100 dark:bg-[#D7FF35]/15 border border-emerald-300 dark:border-[#D7FF35]/30 text-emerald-800 dark:text-[#D7FF35] text-xs flex items-center justify-center gap-2 font-mono">
             <CheckCircle className="w-4 h-4" />
             <span>Card downloaded successfully!</span>
           </div>
         )}
 
-        <p className="text-[11px] text-[#A7B9A8] leading-relaxed">
+        <p className="text-[11px] text-slate-500 dark:text-[#A7B9A8] leading-relaxed">
           Tip: You can print this card and attach it near your house gate or waste bin, or simply show this screen from your mobile phone.
         </p>
       </div>

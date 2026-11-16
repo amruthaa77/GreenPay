@@ -89,7 +89,7 @@ interface LandingPageProps {
 export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
 
   return (
-    <div className="relative w-full bg-[#041B15] text-[#F4F7F0]">
+    <div className="relative w-full bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] transition-colors duration-200">
       
       {/* =================================================================== */}
       {/* 1. CINEMATIC SCROLL-DRIVEN 3D STATION EXPERIENCE (600vh PINNED)     */}
@@ -99,49 +99,49 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
       {/* =================================================================== */}
       {/* 2. EDITORIAL TRANSITION: THE CIVIC MANIFESTO                         */}
       {/* =================================================================== */}
-      <section className="relative z-10 py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#041B15] via-[#062B20] to-[#041B15] border-t border-white/10">
+      <section className="relative z-10 py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#F4F7F0] via-emerald-50/50 to-[#F4F7F0] dark:from-[#041B15] dark:via-[#062B20] dark:to-[#041B15] border-t border-slate-200 dark:border-white/10">
         <div className="max-w-7xl mx-auto">
           
-          <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 pb-16 border-b border-white/10">
+          <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 pb-16 border-b border-slate-200 dark:border-white/10">
             <div className="space-y-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D7FF35]/10 border border-[#D7FF35]/30 text-xs font-mono text-[#D7FF35]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D7FF35] animate-ping" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-[#D7FF35]/10 border border-emerald-300 dark:border-[#D7FF35]/30 text-xs font-mono text-emerald-800 dark:text-[#D7FF35]">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-[#D7FF35] animate-ping" />
                 <span>BENGALURU CIVIC INFRASTRUCTURE PROTOCOL</span>
               </div>
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.08]">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-slate-900 dark:text-white leading-[1.08]">
                 Precision waste tracking for India's technological capital.
               </h2>
             </div>
             
-            <p className="max-w-md text-sm text-[#A7B9A8] leading-relaxed">
+            <p className="max-w-md text-sm text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
               Every doorstep transaction is physically anchored to your electricity meter identity, verified by an authorized municipal supervisor, and permanently recorded on an immutable SQLite trigger ledger.
             </p>
           </div>
 
           {/* Key Metric Pillars */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-12">
-            <div className="p-6 rounded-2xl bg-[#0D4935]/40 border border-white/10 space-y-2">
-              <div className="font-mono text-3xl sm:text-4xl font-light text-[#D7FF35]">10,480+</div>
-              <div className="text-xs font-mono uppercase tracking-wider text-[#A7B9A8]">Registered Households</div>
-              <div className="text-[11px] text-[#A7B9A8]/70">Anchored via BESCOM ID</div>
+            <div className="p-6 rounded-2xl bg-white dark:bg-[#0D4935]/40 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-2">
+              <div className="font-mono text-3xl sm:text-4xl font-light text-emerald-700 dark:text-[#D7FF35]">10,480+</div>
+              <div className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-[#A7B9A8]">Registered Households</div>
+              <div className="text-[11px] text-slate-500 dark:text-[#A7B9A8]/70">Anchored via BESCOM ID</div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#0D4935]/40 border border-white/10 space-y-2">
-              <div className="font-mono text-3xl sm:text-4xl font-light text-white">4 Wards</div>
-              <div className="text-xs font-mono uppercase tracking-wider text-[#A7B9A8]">Civic Pilot Zones</div>
-              <div className="text-[11px] text-[#A7B9A8]/70">Koramangala, Indiranagar, Jayanagar, Whitefield</div>
+            <div className="p-6 rounded-2xl bg-white dark:bg-[#0D4935]/40 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-2">
+              <div className="font-mono text-3xl sm:text-4xl font-light text-slate-900 dark:text-white">4 Wards</div>
+              <div className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-[#A7B9A8]">Civic Pilot Zones</div>
+              <div className="text-[11px] text-slate-500 dark:text-[#A7B9A8]/70">Koramangala, Indiranagar, Jayanagar, Whitefield</div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#0D4935]/40 border border-white/10 space-y-2">
-              <div className="font-mono text-3xl sm:text-4xl font-light text-[#D7FF35]">92.4%</div>
-              <div className="text-xs font-mono uppercase tracking-wider text-[#A7B9A8]">Segregation Purity</div>
-              <div className="text-[11px] text-[#A7B9A8]/70">Verified at doorstep weighment</div>
+            <div className="p-6 rounded-2xl bg-white dark:bg-[#0D4935]/40 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-2">
+              <div className="font-mono text-3xl sm:text-4xl font-light text-emerald-700 dark:text-[#D7FF35]">92.4%</div>
+              <div className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-[#A7B9A8]">Segregation Purity</div>
+              <div className="text-[11px] text-slate-500 dark:text-[#A7B9A8]/70">Verified at doorstep weighment</div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#0D4935]/40 border border-white/10 space-y-2">
-              <div className="font-mono text-3xl sm:text-4xl font-light text-white">100%</div>
-              <div className="text-xs font-mono uppercase tracking-wider text-[#A7B9A8]">Non-Monetary Points</div>
-              <div className="text-[11px] text-[#A7B9A8]/70">Zero cash wallets &bull; Pure civic recognition</div>
+            <div className="p-6 rounded-2xl bg-white dark:bg-[#0D4935]/40 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-2">
+              <div className="font-mono text-3xl sm:text-4xl font-light text-slate-900 dark:text-white">100%</div>
+              <div className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-[#A7B9A8]">Non-Monetary Points</div>
+              <div className="text-[11px] text-slate-500 dark:text-[#A7B9A8]/70">Zero cash wallets &bull; Pure civic recognition</div>
             </div>
           </div>
         </div>
@@ -150,15 +150,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
       {/* =================================================================== */}
       {/* 3. HOW IT WORKS: THE 4-STEP PHYSICAL-TO-DIGITAL PROTOCOL            */}
       {/* =================================================================== */}
-      <section id="how-it-works-section" className="py-28 px-4 sm:px-6 lg:px-8 bg-[#062B20] text-white scroll-mt-20">
+      <section id="how-it-works-section" className="py-28 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-[#062B20] text-slate-900 dark:text-white border-t border-slate-200 dark:border-white/10 scroll-mt-20">
         <div className="max-w-7xl mx-auto space-y-16">
           
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <span className="micro-label text-[#D7FF35]">THE COLLECTION PROTOCOL</span>
-            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white">
+            <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">THE COLLECTION PROTOCOL</span>
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-slate-900 dark:text-white">
               From doorstep weighment to immutable credit ledger.
             </h2>
-            <p className="text-sm text-[#A7B9A8] leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
               GreenPay bridges physical urban logistics with mathematical transparency. Four steps guarantee every gram of waste is accounted for.
             </p>
           </div>
@@ -166,69 +166,69 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
             {/* Step 1 */}
-            <div className="p-8 rounded-2xl bg-[#0D4935] border border-white/10 flex flex-col justify-between space-y-6 hover:border-[#D7FF35]/50 transition group">
+            <div className="p-8 rounded-2xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none flex flex-col justify-between space-y-6 hover:border-emerald-500/50 dark:hover:border-[#D7FF35]/50 transition group">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-[#041B15] border border-white/10 flex items-center justify-center text-[#D7FF35] group-hover:scale-105 transition">
+                <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-[#041B15] border border-slate-200 dark:border-white/10 flex items-center justify-center text-emerald-700 dark:text-[#D7FF35] group-hover:scale-105 transition">
                   <QrCode className="w-6 h-6" />
                 </div>
-                <div className="font-mono text-xs text-[#D7FF35] font-semibold tracking-wider">01 // SCAN IDENTITY</div>
-                <h3 className="text-lg font-medium text-white">Doorstep QR Authentication</h3>
-                <p className="text-xs text-[#A7B9A8] leading-relaxed">
-                  Supervisor scans your permanent household QR card (<code className="text-[#D7FF35]">GP-XXXXXX</code>) bound directly to your electricity meter account. Zero ghost collections.
+                <div className="font-mono text-xs text-emerald-700 dark:text-[#D7FF35] font-semibold tracking-wider">01 // SCAN IDENTITY</div>
+                <h3 className="text-lg font-medium text-slate-900 dark:text-white">Doorstep QR Authentication</h3>
+                <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
+                  Supervisor scans your permanent household QR card (<code className="text-emerald-700 dark:text-[#D7FF35]">GP-XXXXXX</code>) bound directly to your electricity meter account. Zero ghost collections.
                 </p>
               </div>
-              <div className="pt-4 border-t border-white/10 text-[11px] font-mono text-[#D7FF35]">
+              <div className="pt-4 border-t border-slate-200 dark:border-white/10 text-[11px] font-mono text-emerald-700 dark:text-[#D7FF35]">
                 &rarr; Tamper-evident card
               </div>
             </div>
 
             {/* Step 2 */}
-            <div className="p-8 rounded-2xl bg-[#0D4935] border border-white/10 flex flex-col justify-between space-y-6 hover:border-[#D7FF35]/50 transition group">
+            <div className="p-8 rounded-2xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none flex flex-col justify-between space-y-6 hover:border-emerald-500/50 dark:hover:border-[#D7FF35]/50 transition group">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-[#041B15] border border-white/10 flex items-center justify-center text-[#D7FF35] group-hover:scale-105 transition">
+                <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-[#041B15] border border-slate-200 dark:border-white/10 flex items-center justify-center text-emerald-700 dark:text-[#D7FF35] group-hover:scale-105 transition">
                   <Scale className="w-6 h-6" />
                 </div>
-                <div className="font-mono text-xs text-[#D7FF35] font-semibold tracking-wider">02 // WEIGH & INSPECT</div>
-                <h3 className="text-lg font-medium text-white">Segregated Dry Weighment</h3>
-                <p className="text-xs text-[#A7B9A8] leading-relaxed">
+                <div className="font-mono text-xs text-emerald-700 dark:text-[#D7FF35] font-semibold tracking-wider">02 // WEIGH & INSPECT</div>
+                <h3 className="text-lg font-medium text-slate-900 dark:text-white">Segregated Dry Weighment</h3>
+                <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
                   Clean dry recyclables are verified across 8 official categories. Authorised collection staff inspect materials and record calibrated weight on certified digital scales.
                 </p>
               </div>
-              <div className="pt-4 border-t border-white/10 text-[11px] font-mono text-[#D7FF35]">
+              <div className="pt-4 border-t border-slate-200 dark:border-white/10 text-[11px] font-mono text-emerald-700 dark:text-[#D7FF35]">
                 &rarr; Certified digital scale
               </div>
             </div>
 
             {/* Step 3 */}
-            <div className="p-8 rounded-2xl bg-[#0D4935] border border-white/10 flex flex-col justify-between space-y-6 hover:border-[#D7FF35]/50 transition group">
+            <div className="p-8 rounded-2xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none flex flex-col justify-between space-y-6 hover:border-emerald-500/50 dark:hover:border-[#D7FF35]/50 transition group">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-[#041B15] border border-white/10 flex items-center justify-center text-[#D7FF35] group-hover:scale-105 transition">
+                <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-[#041B15] border border-slate-200 dark:border-white/10 flex items-center justify-center text-emerald-700 dark:text-[#D7FF35] group-hover:scale-105 transition">
                   <Sparkles className="w-6 h-6" />
                 </div>
-                <div className="font-mono text-xs text-[#D7FF35] font-semibold tracking-wider">03 // MINT CREDITS</div>
-                <h3 className="text-lg font-medium text-white">Deterministic Formula</h3>
-                <p className="text-xs text-[#A7B9A8] leading-relaxed">
-                  Green Points are calculated from the verified weight and category of eligible dry recyclable materials: <code className="text-[#D7FF35]">kg &times; rate = GP</code>.
+                <div className="font-mono text-xs text-emerald-700 dark:text-[#D7FF35] font-semibold tracking-wider">03 // MINT CREDITS</div>
+                <h3 className="text-lg font-medium text-slate-900 dark:text-white">Deterministic Formula</h3>
+                <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
+                  Green Points are calculated from the verified weight and category of eligible dry recyclable materials: <code className="text-emerald-700 dark:text-[#D7FF35]">kg &times; rate = GP</code>.
                 </p>
               </div>
-              <div className="pt-4 border-t border-white/10 text-[11px] font-mono text-[#D7FF35]">
+              <div className="pt-4 border-t border-slate-200 dark:border-white/10 text-[11px] font-mono text-emerald-700 dark:text-[#D7FF35]">
                 &rarr; Append-only trigger ledger
               </div>
             </div>
 
             {/* Step 4 */}
-            <div className="p-8 rounded-2xl bg-[#0D4935] border border-white/10 flex flex-col justify-between space-y-6 hover:border-[#D7FF35]/50 transition group">
+            <div className="p-8 rounded-2xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none flex flex-col justify-between space-y-6 hover:border-emerald-500/50 dark:hover:border-[#D7FF35]/50 transition group">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-[#041B15] border border-white/10 flex items-center justify-center text-[#D7FF35] group-hover:scale-105 transition">
+                <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-[#041B15] border border-slate-200 dark:border-white/10 flex items-center justify-center text-emerald-700 dark:text-[#D7FF35] group-hover:scale-105 transition">
                   <ShoppingBag className="w-6 h-6" />
                 </div>
-                <div className="font-mono text-xs text-[#D7FF35] font-semibold tracking-wider">04 // GROCERY REWARDS</div>
-                <h3 className="text-lg font-medium text-white">Essential Groceries</h3>
-                <p className="text-xs text-[#A7B9A8] leading-relaxed">
+                <div className="font-mono text-xs text-emerald-700 dark:text-[#D7FF35] font-semibold tracking-wider">04 // GROCERY REWARDS</div>
+                <h3 className="text-lg font-medium text-slate-900 dark:text-white">Essential Groceries</h3>
+                <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
                   Redeem your accumulated Green Points for essential grocery items including rice, toor dal, and sunflower cooking oil. Points are reward credits, not cash.
                 </p>
               </div>
-              <div className="pt-4 border-t border-white/10 text-[11px] font-mono text-[#D7FF35]">
+              <div className="pt-4 border-t border-slate-200 dark:border-white/10 text-[11px] font-mono text-emerald-700 dark:text-[#D7FF35]">
                 &rarr; 100% non-monetary credits
               </div>
             </div>
@@ -239,15 +239,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
       {/* =================================================================== */}
       {/* 4. ESSENTIAL GROCERY REWARDS SECTION (HOW POINTS WORK & EXAMPLES)    */}
       {/* =================================================================== */}
-      <section id="grocery-rewards-section" className="py-28 px-4 sm:px-6 lg:px-8 bg-[#041B15] border-t border-white/10 scroll-mt-16 text-white">
+      <section id="grocery-rewards-section" className="py-28 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#041B15] border-t border-slate-200 dark:border-white/10 scroll-mt-16 text-slate-900 dark:text-white">
         <div className="max-w-7xl mx-auto space-y-16">
           
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <span className="micro-label text-[#D7FF35]">GROCERY REWARDS</span>
-            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white leading-tight">
+            <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">GROCERY REWARDS</span>
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-slate-900 dark:text-white leading-tight">
               Exchange Clean Dry Recyclables for Essential Groceries.
             </h2>
-            <p className="text-sm text-[#A7B9A8] leading-relaxed max-w-2xl mx-auto">
+            <p className="text-sm text-slate-600 dark:text-[#A7B9A8] leading-relaxed max-w-2xl mx-auto">
               Segregate responsibly. Earn Green Points on verified dry recyclables and redeem them for staple household grocery items delivered through our civic fulfillment network.
             </p>
           </div>
@@ -256,14 +256,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
           {/* WHAT DRY RECYCLABLES CAN YOU GIVE US? (8 COMPACT CATEGORY BOXES) */}
           {/* =============================================================== */}
           <div id="dry-recyclables-section" className="space-y-6 scroll-mt-20">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-white/10">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-slate-200 dark:border-white/10">
               <div className="space-y-2">
-                <span className="micro-label text-[#D7FF35]">8 APPROVED RECYCLABLE CATEGORIES</span>
-                <h3 className="text-3xl sm:text-4xl font-light text-white tracking-tight">
+                <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">8 APPROVED RECYCLABLE CATEGORIES</span>
+                <h3 className="text-3xl sm:text-4xl font-light text-slate-900 dark:text-white tracking-tight">
                   What Dry Recyclables Can You Give Us?
                 </h3>
               </div>
-              <p className="text-xs text-[#A7B9A8] max-w-md leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-[#A7B9A8] max-w-md leading-relaxed">
                 GreenPay exclusively handles dry recyclable materials. Green Points are awarded after authorised staff inspect, verify the material category, and record the measured weight on calibrated digital scales.
               </p>
             </div>
@@ -274,27 +274,27 @@ export const LandingPage: React.FC<LandingPageProps> = ({ navigate }) => {
                 return (
                   <div
                     key={cat.id}
-                    className="p-5 rounded-2xl bg-[#062B20] border border-white/10 hover:border-[#D7FF35]/40 transition-colors duration-200 flex flex-col justify-between h-full"
+                    className="p-5 rounded-2xl bg-slate-50 dark:bg-[#062B20] border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 dark:hover:border-[#D7FF35]/40 transition-colors duration-200 flex flex-col justify-between h-full"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-3 mb-3.5">
-                        <div className="w-9 h-9 rounded-xl bg-[#041B15] border border-white/10 flex items-center justify-center text-[#D7FF35] shrink-0">
+                        <div className="w-9 h-9 rounded-xl bg-white dark:bg-[#041B15] border border-slate-200 dark:border-white/10 flex items-center justify-center text-emerald-700 dark:text-[#D7FF35] shrink-0">
                           <IconComponent className="w-4 h-4" />
                         </div>
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-lg bg-[#D7FF35]/15 border border-[#D7FF35]/30 font-mono text-xs font-bold text-[#D7FF35] tracking-tight">
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-lg bg-emerald-100 border border-emerald-300 dark:bg-[#D7FF35]/15 dark:border-[#D7FF35]/30 font-mono text-xs font-bold text-emerald-800 dark:text-[#D7FF35] tracking-tight">
                           {cat.rate} GP / kg
                         </span>
                       </div>
 
-                      <div className="text-[10px] font-mono text-[#A7B9A8] uppercase tracking-wider mb-1">
+                      <div className="text-[10px] font-mono text-slate-500 dark:text-[#A7B9A8] uppercase tracking-wider mb-1">
                         {cat.tag}
                       </div>
 
-                      <h4 className="text-base font-semibold text-white tracking-tight leading-snug mb-1.5">
+                      <h4 className="text-base font-semibold text-slate-900 dark:text-white tracking-tight leading-snug mb-1.5">
                         {cat.name}
                       </h4>
 
-                      <p className="text-xs text-[#A7B9A8] leading-relaxed">
+                      <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
                         {cat.desc}
                       </p>
                     </div>

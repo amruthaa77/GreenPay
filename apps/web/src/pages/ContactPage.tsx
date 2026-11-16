@@ -18,15 +18,15 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12">
+    <div className="min-h-screen py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12 text-slate-900 dark:text-[#F4F7F0]">
       
       {/* Header */}
       <div className="text-center space-y-4">
-        <span className="micro-label text-[#D7FF35]">COMMUNICATIONS & GRIEVANCE REDRESSAL</span>
-        <h1 className="text-3xl sm:text-5xl font-light text-white tracking-tight">
+        <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">COMMUNICATIONS & GRIEVANCE REDRESSAL</span>
+        <h1 className="text-3xl sm:text-5xl font-light text-slate-900 dark:text-white tracking-tight">
           Contact GreenPay
         </h1>
-        <p className="max-w-xl mx-auto text-sm text-[#A7B9A8] font-light">
+        <p className="max-w-xl mx-auto text-sm text-slate-600 dark:text-[#A7B9A8] font-light">
           Have a question regarding household waste weighment, your Green Score, or data protection rights?
         </p>
       </div>
@@ -34,30 +34,30 @@ export const ContactPage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         
         {/* Left: Contact Details */}
-        <div className="p-8 rounded-2xl bg-[#0D4935]/80 border border-white/10 shadow-card-dark space-y-6 text-xs text-[#A7B9A8]">
+        <div className="p-8 rounded-2xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-card-dark space-y-6 text-xs text-slate-600 dark:text-[#A7B9A8]">
           <div>
-            <h2 className="text-base font-semibold text-white">Office & Operations</h2>
-            <p className="mt-1 text-[#A7B9A8]">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Office & Operations</h2>
+            <p className="mt-1 text-slate-600 dark:text-[#A7B9A8]">
               {businessConfig.legalName || 'GreenPay Research Project'}
             </p>
           </div>
 
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <MapPin className="w-4 h-4 text-[#D7FF35] mt-0.5 shrink-0" />
+              <MapPin className="w-4 h-4 text-emerald-700 dark:text-[#D7FF35] mt-0.5 shrink-0" />
               <div>
-                <span className="block font-semibold text-white">Registered Address</span>
+                <span className="block font-semibold text-slate-900 dark:text-white">Registered Address</span>
                 <span>{businessConfig.registeredAddress || 'Bengaluru, Karnataka, India'}</span>
               </div>
             </div>
 
             <div className="flex items-start gap-3">
-              <Mail className="w-4 h-4 text-[#D7FF35] mt-0.5 shrink-0" />
+              <Mail className="w-4 h-4 text-emerald-700 dark:text-[#D7FF35] mt-0.5 shrink-0" />
               <div>
-                <span className="block font-semibold text-white">General Inquiries</span>
+                <span className="block font-semibold text-slate-900 dark:text-white">General Inquiries</span>
                 <a
                   href={`mailto:${businessConfig.contactEmail || 'contact@greenpay.blr'}`}
-                  className="text-white hover:text-[#D7FF35] transition"
+                  className="text-slate-900 dark:text-white hover:text-emerald-700 dark:hover:text-[#D7FF35] transition"
                 >
                   {businessConfig.contactEmail || 'contact@greenpay.blr'}
                 </a>
@@ -65,12 +65,12 @@ export const ContactPage: React.FC = () => {
             </div>
 
             <div className="flex items-start gap-3">
-              <Phone className="w-4 h-4 text-[#D7FF35] mt-0.5 shrink-0" />
+              <Phone className="w-4 h-4 text-emerald-700 dark:text-[#D7FF35] mt-0.5 shrink-0" />
               <div>
-                <span className="block font-semibold text-white">Helpline</span>
+                <span className="block font-semibold text-slate-900 dark:text-white">Helpline</span>
                 <a
                   href={`tel:${businessConfig.contactPhone || '+918025534410'}`}
-                  className="text-white hover:text-[#D7FF35] transition"
+                  className="text-slate-900 dark:text-white hover:text-emerald-700 dark:hover:text-[#D7FF35] transition"
                 >
                   {businessConfig.contactPhone || '+91 80 2553 4410'}
                 </a>
@@ -79,20 +79,20 @@ export const ContactPage: React.FC = () => {
           </div>
 
           {/* DPDP Grievance Box */}
-          <div className="p-4 rounded-xl bg-[#062B20]/90 border border-white/10 space-y-2">
-            <div className="flex items-center gap-2 font-semibold text-white">
-              <ShieldCheck className="w-4 h-4 text-[#D7FF35]" />
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#062B20]/90 border border-slate-200 dark:border-white/10 space-y-2">
+            <div className="flex items-center gap-2 font-semibold text-slate-900 dark:text-white">
+              <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-[#D7FF35]" />
               <span>DPDP Act 2023 Grievance Officer</span>
             </div>
-            <p className="text-[11px] text-[#A7B9A8]">
+            <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8]">
               For personal data access requests, rectification, or erasure grievances:
             </p>
-            <div className="text-[11px] font-mono text-[#A7B9A8]">
+            <div className="text-[11px] font-mono text-slate-600 dark:text-[#A7B9A8]">
               Officer: {businessConfig.grievanceOfficerName || 'Grievance Officer'}<br />
               Email:{' '}
               <a
                 href={`mailto:${businessConfig.grievanceOfficerEmail || 'grievance@greenpay.blr'}`}
-                className="text-[#D7FF35] hover:underline"
+                className="text-emerald-700 dark:text-[#D7FF35] hover:underline"
               >
                 {businessConfig.grievanceOfficerEmail || 'grievance@greenpay.blr'}
               </a>
@@ -101,20 +101,20 @@ export const ContactPage: React.FC = () => {
         </div>
 
         {/* Right: Message Form */}
-        <div className="p-8 rounded-2xl bg-[#0D4935]/80 border border-white/10 shadow-card-dark space-y-6">
-          <h2 className="text-base font-semibold text-white">Send Us a Direct Message</h2>
+        <div className="p-8 rounded-2xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-card-dark space-y-6">
+          <h2 className="text-base font-semibold text-slate-900 dark:text-white">Send Us a Direct Message</h2>
           
           {submitted ? (
-            <div className="p-6 rounded-xl bg-[#D7FF35]/10 border border-[#D7FF35]/30 text-center space-y-3">
-              <CheckCircle2 className="w-8 h-8 text-[#D7FF35] mx-auto" />
-              <div className="font-semibold text-white text-sm">Message Recorded</div>
-              <p className="text-xs text-[#A7B9A8]">
+            <div className="p-6 rounded-xl bg-emerald-50 dark:bg-[#D7FF35]/10 border border-emerald-300 dark:border-[#D7FF35]/30 text-center space-y-3">
+              <CheckCircle2 className="w-8 h-8 text-emerald-700 dark:text-[#D7FF35] mx-auto" />
+              <div className="font-semibold text-slate-900 dark:text-white text-sm">Message Recorded</div>
+              <p className="text-xs text-slate-600 dark:text-[#A7B9A8]">
                 Thank you for reaching out. We have logged your query and our team will respond within 2 municipal working days.
               </p>
               <button
                 type="button"
                 onClick={() => setSubmitted(false)}
-                className="text-xs font-mono text-[#D7FF35] hover:underline pt-2"
+                className="text-xs font-mono text-emerald-700 dark:text-[#D7FF35] hover:underline pt-2"
               >
                 Send another message
               </button>
@@ -122,38 +122,38 @@ export const ContactPage: React.FC = () => {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 text-xs">
               <div className="space-y-1">
-                <label htmlFor="contact-name" className="block text-[#A7B9A8] font-medium">Your Name</label>
+                <label htmlFor="contact-name" className="block text-slate-700 dark:text-[#A7B9A8] font-medium">Your Name</label>
                 <input
                   id="contact-name"
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/15 text-white placeholder-[#A7B9A8] focus:outline-none focus:border-[#D7FF35]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/15 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder-[#A7B9A8] focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
                   placeholder="e.g. Ramesh Kumar"
                 />
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="contact-email" className="block text-[#A7B9A8] font-medium">Email Address</label>
+                <label htmlFor="contact-email" className="block text-slate-700 dark:text-[#A7B9A8] font-medium">Email Address</label>
                 <input
                   id="contact-email"
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/15 text-white placeholder-[#A7B9A8] focus:outline-none focus:border-[#D7FF35]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/15 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder-[#A7B9A8] focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
                   placeholder="ramesh@example.com"
                 />
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="contact-subject" className="block text-[#A7B9A8] font-medium">Subject Category</label>
+                <label htmlFor="contact-subject" className="block text-slate-700 dark:text-[#A7B9A8] font-medium">Subject Category</label>
                 <select
                   id="contact-subject"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/15 text-white focus:outline-none focus:border-[#D7FF35]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/15 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
                 >
                   <option value="General Inquiry">General Inquiry</option>
                   <option value="Weighment Dispute">Weighment Dispute</option>
@@ -163,21 +163,21 @@ export const ContactPage: React.FC = () => {
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="contact-message" className="block text-[#A7B9A8] font-medium">Message Details</label>
+                <label htmlFor="contact-message" className="block text-slate-700 dark:text-[#A7B9A8] font-medium">Message Details</label>
                 <textarea
                   id="contact-message"
                   required
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/15 text-white placeholder-[#A7B9A8] focus:outline-none focus:border-[#D7FF35]"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/15 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder-[#A7B9A8] focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
                   placeholder="Describe your inquiry or grievance clearly..."
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider transition shadow-glow-lime flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider transition shadow-sm dark:shadow-glow-lime flex items-center justify-center gap-2"
               >
                 <Send className="w-4 h-4" />
                 <span>Submit Inquiry</span>

@@ -101,13 +101,13 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
         );
       case 'RESOLVED_REJECTED':
         return (
-          <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-[#041B15] border border-white/10 text-[#A7B9A8]">
+          <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-slate-100 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-slate-600 dark:text-[#A7B9A8]">
             {t('disputes.status_rejected') || 'Rejected'}
           </span>
         );
       default:
         return (
-          <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-[#041B15] text-[#A7B9A8]">
+          <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-slate-100 dark:bg-[#041B15] text-slate-600 dark:text-[#A7B9A8]">
             {status}
           </span>
         );
@@ -130,17 +130,17 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+    <div className="max-w-4xl mx-auto px-4 py-8 space-y-6 text-slate-900 dark:text-[#F4F7F0]">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-white/10">
         <div>
           <div className="flex items-center gap-2">
-            <ShieldAlert className="w-6 h-6 text-amber-400" />
-            <h1 className="text-2xl font-bold text-white tracking-tight">
+            <ShieldAlert className="w-6 h-6 text-amber-500 dark:text-amber-400" />
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
               {t('disputes.title') || 'Disputes & Problem Reporting'}
             </h1>
           </div>
-          <p className="text-xs text-[#A7B9A8] mt-1 max-w-xl">
+          <p className="text-xs text-slate-600 dark:text-[#A7B9A8] mt-1 max-w-xl">
             {t('disputes.subtitle') ||
               'File and track weighment disputes or missed doorstep collections. All inquiries receive municipal supervisor review within 48 hours.'}
           </p>
@@ -151,14 +151,14 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
             type="button"
             onClick={fetchDisputes}
             aria-label={t('action.refresh') || 'Refresh'}
-            className="p-2.5 rounded-xl bg-[#062B20] border border-white/10 text-[#A7B9A8] hover:text-white hover:bg-[#062B20]/80 transition"
+            className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-[#062B20] dark:text-[#A7B9A8] dark:hover:text-white dark:hover:bg-[#062B20]/80 border border-slate-200 dark:border-white/10 transition"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold text-xs uppercase tracking-wider transition shadow-glow-lime"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-bold text-xs uppercase tracking-wider transition shadow-sm dark:shadow-glow-lime"
           >
             <Plus className="w-4 h-4" />
             <span>{t('disputes.btn_report_problem') || 'Report an Issue'}</span>
@@ -170,16 +170,16 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
       {error && (
         <div
           role="alert"
-          className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center justify-between"
+          className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 text-rose-700 dark:text-rose-300 text-xs flex items-center justify-between"
         >
           <div className="flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+            <AlertCircle className="w-4 h-4 text-rose-500 dark:text-rose-400 shrink-0" />
             <span>{error}</span>
           </div>
           <button
             type="button"
             onClick={fetchDisputes}
-            className="text-xs underline hover:text-white"
+            className="text-xs underline hover:text-slate-900 dark:hover:text-white"
           >
             Retry
           </button>
@@ -195,8 +195,8 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
             onClick={() => setFilter(tab)}
             className={`px-3.5 py-1.5 rounded-xl font-medium transition ${
               filter === tab
-                ? 'bg-[#D7FF35] text-[#041B15] font-bold shadow-glow-lime'
-                : 'bg-[#062B20] text-[#A7B9A8] hover:text-white border border-white/10'
+                ? 'bg-[#0D4935] text-white dark:bg-[#D7FF35] dark:text-[#041B15] font-bold shadow-sm dark:shadow-glow-lime'
+                : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-[#062B20] dark:text-[#A7B9A8] dark:hover:text-white border border-slate-200 dark:border-white/10'
             }`}
           >
             {tab === 'ALL'
@@ -211,21 +211,21 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
       {/* Ticket List */}
       {loading ? (
         <div className="py-20 text-center space-y-3">
-          <div className="w-8 h-8 border-2 border-[#D7FF35] border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-xs text-[#A7B9A8] font-mono">
+          <div className="w-8 h-8 border-2 border-emerald-600 dark:border-[#D7FF35] border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-xs text-slate-500 dark:text-[#A7B9A8] font-mono">
             {t('common.loading') || 'Loading dispute tickets...'}
           </p>
         </div>
       ) : filteredDisputes.length === 0 ? (
-        <div className="py-16 text-center rounded-3xl bg-[#0D4935] border border-white/10 space-y-4">
-          <div className="w-12 h-12 rounded-2xl bg-[#062B20] text-[#A7B9A8] mx-auto flex items-center justify-center">
-            <CheckCircle2 className="w-6 h-6 text-[#D7FF35]" />
+        <div className="py-16 text-center rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-md space-y-4">
+          <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-[#062B20] text-slate-500 dark:text-[#A7B9A8] mx-auto flex items-center justify-center">
+            <CheckCircle2 className="w-6 h-6 text-emerald-600 dark:text-[#D7FF35]" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-white">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
               {t('disputes.empty_title') || 'No Disputes Found'}
             </h3>
-            <p className="text-xs text-[#A7B9A8] mt-1 max-w-sm mx-auto">
+            <p className="text-xs text-slate-500 dark:text-[#A7B9A8] mt-1 max-w-sm mx-auto">
               {t('disputes.empty_sub') ||
                 'You have no active disputes. Weighments are automatically confirmed 7 days after doorstep collection.'}
             </p>
@@ -233,7 +233,7 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="px-4 py-2 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] text-xs font-bold transition shadow-glow-lime"
+            className="px-4 py-2 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] text-xs font-bold transition shadow-sm dark:shadow-glow-lime"
           >
             {t('disputes.btn_report_problem') || 'Report an Issue'}
           </button>
@@ -243,16 +243,16 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
           {filteredDisputes.map((dispute) => (
             <div
               key={dispute.id}
-              className="p-5 sm:p-6 rounded-3xl bg-[#0D4935] border border-white/10 hover:border-white/20 transition space-y-4"
+              className="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 transition space-y-4 shadow-sm dark:shadow-md"
             >
               {/* Header: Ticket number, Category, Status */}
               <div className="flex flex-wrap items-center justify-between gap-2.5">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-xs font-bold text-white tracking-wide">
+                  <span className="font-mono text-xs font-bold text-slate-900 dark:text-white tracking-wide">
                     {dispute.ticket_number}
                   </span>
-                  <span className="text-[#A7B9A8]/40 text-xs">•</span>
-                  <span className="text-xs font-medium text-amber-300/90">
+                  <span className="text-slate-300 dark:text-[#A7B9A8]/40 text-xs">•</span>
+                  <span className="text-xs font-medium text-amber-700 dark:text-amber-300/90">
                     {getCategoryLabel(dispute.category)}
                   </span>
                 </div>
@@ -260,20 +260,20 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
               </div>
 
               {/* Citizen statement */}
-              <p className="text-xs text-[#A7B9A8] leading-relaxed bg-[#041B15] p-3.5 rounded-2xl border border-white/5">
+              <p className="text-xs text-slate-700 dark:text-[#A7B9A8] leading-relaxed bg-slate-50 dark:bg-[#041B15] p-3.5 rounded-2xl border border-slate-200 dark:border-white/5">
                 {dispute.description}
               </p>
 
               {/* Linked weighment summary if available */}
               {dispute.weighment && (
-                <div className="p-3.5 rounded-2xl bg-[#062B20]/60 border border-white/5 text-xs space-y-1">
-                  <div className="flex items-center justify-between text-[11px] font-mono text-[#A7B9A8]">
+                <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#062B20]/60 border border-slate-200 dark:border-white/5 text-xs space-y-1">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-[#A7B9A8]">
                     <span>Disputed Weighment: {dispute.weighment.transaction_id}</span>
                     <span>{new Date(dispute.weighment.collection_date).toLocaleDateString()}</span>
                   </div>
-                  <div className="text-white flex items-center gap-4 text-xs font-semibold pt-1">
+                  <div className="text-slate-900 dark:text-white flex items-center gap-4 text-xs font-semibold pt-1">
                     <span>Net Weight: {dispute.weighment.total_weight_kg.toFixed(2)} kg</span>
-                    <span className="text-[#A7B9A8]">
+                    <span className="text-slate-500 dark:text-[#A7B9A8]">
                       (Dry: {dispute.weighment.dry_kg.toFixed(2)} kg, Wet: {dispute.weighment.wet_kg.toFixed(2)} kg)
                     </span>
                   </div>
@@ -282,31 +282,31 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
 
               {/* Evidence photo thumbnail if attached */}
               {dispute.has_photo && (
-                <div className="flex items-center gap-2 text-xs text-[#A7B9A8]">
-                  <Camera className="w-4 h-4 text-[#D7FF35]" />
+                <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-[#A7B9A8]">
+                  <Camera className="w-4 h-4 text-emerald-700 dark:text-[#D7FF35]" />
                   <span>{dispute.photo_filename || 'Evidence Photo Attached'}</span>
-                  <span className="text-[10px] text-[#A7B9A8]/60">(EXIF stripped for privacy)</span>
+                  <span className="text-[10px] text-slate-400 dark:text-[#A7B9A8]/60">(EXIF stripped for privacy)</span>
                 </div>
               )}
 
               {/* Action Needed: INFO_REQUESTED section */}
               {dispute.status === 'INFO_REQUESTED' && (
-                <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 space-y-3">
+                <div className="p-4 rounded-2xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 space-y-3">
                   <div className="flex items-start gap-2">
-                    <HelpCircle className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" />
+                    <HelpCircle className="w-4 h-4 text-rose-500 dark:text-rose-400 mt-0.5 shrink-0" />
                     <div>
-                      <p className="text-xs font-bold text-rose-200">
+                      <p className="text-xs font-bold text-rose-800 dark:text-rose-200">
                         {t('disputes.info_needed_title') || 'Supervisor Requested Clarification'}
                       </p>
-                      <p className="text-xs text-[#A7B9A8] mt-1">
+                      <p className="text-xs text-slate-600 dark:text-[#A7B9A8] mt-1">
                         {dispute.resolution_notes || 'Please provide additional details regarding your collection.'}
                       </p>
                     </div>
                   </div>
 
                   {dispute.citizen_response ? (
-                    <div className="p-3 rounded-xl bg-[#041B15] border border-white/10 text-xs text-[#A7B9A8]">
-                      <span className="text-[10px] font-mono text-[#A7B9A8]/60 block">Your Submitted Response:</span>
+                    <div className="p-3 rounded-xl bg-white dark:bg-[#041B15] border border-slate-200 dark:border-white/10 text-xs text-slate-700 dark:text-[#A7B9A8]">
+                      <span className="text-[10px] font-mono text-slate-500 dark:text-[#A7B9A8]/60 block">Your Submitted Response:</span>
                       {dispute.citizen_response}
                     </div>
                   ) : respondingId === dispute.id ? (
@@ -316,7 +316,7 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
                         value={responseText}
                         onChange={(e) => setResponseText(e.target.value)}
                         placeholder="Provide details to help supervisor resolve this..."
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-xs text-[#F4F7F0] placeholder-[#A7B9A8]/50 focus:outline-none focus:border-[#D7FF35] resize-none"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-xs text-slate-900 dark:text-[#F4F7F0] placeholder:text-slate-400 dark:placeholder-[#A7B9A8]/50 focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35] resize-none"
                       />
                       <div className="flex items-center justify-end gap-2">
                         <button
@@ -325,7 +325,7 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
                             setRespondingId(null);
                             setResponseText('');
                           }}
-                          className="px-3 py-1.5 rounded-lg bg-[#062B20] text-[#A7B9A8] text-xs hover:bg-[#062B20]/80"
+                          className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-[#062B20] text-slate-700 dark:text-[#A7B9A8] text-xs dark:hover:bg-[#062B20]/80"
                         >
                           Cancel
                         </button>
@@ -333,7 +333,7 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
                           type="button"
                           disabled={respondingLoading || !responseText.trim()}
                           onClick={() => handleSendResponse(dispute.id)}
-                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold text-xs disabled:opacity-50 shadow-glow-lime"
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-bold text-xs disabled:opacity-50 shadow-sm dark:shadow-glow-lime"
                         >
                           <Send className="w-3.5 h-3.5" />
                           <span>{respondingLoading ? 'Submitting...' : 'Send Clarification'}</span>
@@ -344,7 +344,7 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
                     <button
                       type="button"
                       onClick={() => setRespondingId(dispute.id)}
-                      className="px-3.5 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 font-semibold text-xs transition"
+                      className="px-3.5 py-1.5 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-800 dark:bg-rose-500/20 dark:hover:bg-rose-500/30 dark:text-rose-300 font-semibold text-xs transition"
                     >
                       {t('disputes.btn_reply_now') || 'Reply to Clarification Request'}
                     </button>
@@ -357,8 +357,8 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
                 <div
                   className={`p-3.5 rounded-2xl text-xs space-y-1 ${
                     dispute.status === 'RESOLVED_UPHELD'
-                      ? 'bg-[#10B981]/15 border border-[#10B981]/25 text-[#10B981]'
-                      : 'bg-[#062B20] border border-white/10 text-[#A7B9A8]'
+                      ? 'bg-emerald-50 border border-emerald-300 text-emerald-800 dark:bg-[#10B981]/15 dark:border-[#10B981]/25 dark:text-[#10B981]'
+                      : 'bg-slate-100 dark:bg-[#062B20] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-[#A7B9A8]'
                   }`}
                 >
                   <div className="flex items-center justify-between text-[11px] font-bold">
@@ -368,14 +368,14 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
                         : t('disputes.resolution_rejected') || 'Dispute Closed / Not Upheld'}
                     </span>
                     {dispute.resolved_at && (
-                      <span className="font-mono text-[10px] text-[#A7B9A8]">
+                      <span className="font-mono text-[10px] text-slate-500 dark:text-[#A7B9A8]">
                         {new Date(dispute.resolved_at).toLocaleDateString()}
                       </span>
                     )}
                   </div>
                   {dispute.resolution_notes && <p className="text-xs pt-1">{dispute.resolution_notes}</p>}
                   {dispute.points_adjustment !== 0 && dispute.points_adjustment && (
-                    <p className="text-xs font-semibold text-[#D7FF35] pt-1">
+                    <p className="text-xs font-semibold text-emerald-800 dark:text-[#D7FF35] pt-1">
                       Ledger Adjustment: {dispute.points_adjustment > 0 ? '+' : ''}
                       {dispute.points_adjustment} Green Credits
                     </p>
@@ -384,7 +384,7 @@ export const DisputesPage: React.FC<DisputesPageProps> = ({ navigate }) => {
               )}
 
               {/* Footer: Timestamps & 90-day retention metadata */}
-              <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-white/5 text-[10px] text-neutral-500">
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-white/5 text-[10px] text-slate-400 dark:text-neutral-500">
                 <div className="flex items-center gap-1.5">
                   <Clock className="w-3 h-3" />
                   <span>

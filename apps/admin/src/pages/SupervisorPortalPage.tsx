@@ -251,15 +251,15 @@ export const SupervisorPortalPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-8">
+    <div className="min-h-screen py-10 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-8 transition-colors duration-200">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="micro-label text-[#D7FF35]">DOORSTEP VERIFICATION TERMINAL</span>
-          <h1 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
+          <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">DOORSTEP VERIFICATION TERMINAL</span>
+          <h1 className="text-2xl sm:text-4xl font-light text-slate-900 dark:text-white tracking-tight">
             Field Weighment Entry
           </h1>
-          <p className="text-xs text-[#A7B9A8] mt-1">
+          <p className="text-xs text-slate-600 dark:text-[#A7B9A8] mt-1">
             Scan citizen QR or enter GreenPay ID to verify doorstep segregation, confirm identity, and record weight.
           </p>
         </div>
@@ -268,9 +268,9 @@ export const SupervisorPortalPage: React.FC = () => {
           <button
             type="button"
             onClick={() => setConflictModalOpen(true)}
-            className="px-4 py-2.5 rounded-xl bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-300 text-xs font-semibold flex items-center gap-2 transition"
+            className="px-4 py-2.5 rounded-xl bg-red-100 hover:bg-red-200 border border-red-300 text-red-800 dark:bg-red-500/20 dark:hover:bg-red-500/30 dark:border-red-500/40 dark:text-red-300 text-xs font-semibold flex items-center gap-2 transition"
           >
-            <AlertOctagon className="w-4 h-4 text-red-400" />
+            <AlertOctagon className="w-4 h-4 text-red-600 dark:text-red-400" />
             <span>Resolve {rejectedList.length} Sync Conflict(s)</span>
           </button>
         )}
@@ -283,10 +283,10 @@ export const SupervisorPortalPage: React.FC = () => {
         <div className="lg:col-span-5 space-y-6">
           
           {/* Camera Scanner Box */}
-          <div className="p-6 rounded-3xl bg-[#0D4935] border border-white/10 space-y-4">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-white flex items-center gap-2">
-                <Camera className="w-4 h-4 text-[#D7FF35]" />
+              <span className="text-xs font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                <Camera className="w-4 h-4 text-emerald-600 dark:text-[#D7FF35]" />
                 Camera QR Scanner
               </span>
               <button
@@ -294,8 +294,8 @@ export const SupervisorPortalPage: React.FC = () => {
                 onClick={toggleScanner}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition ${
                   scannerActive
-                    ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
-                    : 'bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold shadow-glow-lime'
+                    ? 'bg-rose-100 text-rose-800 border border-rose-300 dark:bg-rose-500/20 dark:text-rose-300 dark:border-rose-500/30'
+                    : 'bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-bold shadow-sm dark:shadow-glow-lime'
                 }`}
               >
                 {scannerActive ? (
@@ -313,33 +313,33 @@ export const SupervisorPortalPage: React.FC = () => {
             {scannerActive && (
               <div className="space-y-2">
                 <div id="qr-reader" className="w-full rounded-2xl overflow-hidden bg-black aspect-square" />
-                <p className="text-[11px] text-center text-[#A7B9A8]">
+                <p className="text-[11px] text-center text-slate-500 dark:text-[#A7B9A8]">
                   Point camera at the citizen's permanent GreenPay QR card.
                 </p>
               </div>
             )}
 
             {scannerError && (
-              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs">
+              <div className="p-3 rounded-xl bg-amber-100 border border-amber-300 text-amber-800 dark:bg-amber-500/10 dark:border-amber-500/30 dark:text-amber-300 text-xs">
                 {scannerError}
               </div>
             )}
 
             {!scannerActive && (
-              <p className="text-xs text-[#A7B9A8] leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
                 Use your device camera to rapidly scan citizen cards at the doorstep, or enter the ID manually below.
               </p>
             )}
           </div>
 
           {/* Manual ID Input */}
-          <div className="p-6 rounded-3xl bg-[#0D4935] border border-white/10 space-y-3">
-            <label className="text-xs font-semibold text-white block" htmlFor="citizen-search">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-3">
+            <label className="text-xs font-semibold text-slate-900 dark:text-white block" htmlFor="citizen-search">
               Manual Citizen Lookup
             </label>
             <div className="flex gap-2">
               <div className="relative flex-1">
-                <Search className="w-4 h-4 text-[#A7B9A8]/60 absolute left-3 top-3" />
+                <Search className="w-4 h-4 text-slate-400 dark:text-[#A7B9A8]/60 absolute left-3 top-3" />
                 <input
                   id="citizen-search"
                   type="text"
@@ -347,29 +347,29 @@ export const SupervisorPortalPage: React.FC = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleLookup()}
                   placeholder="e.g. GP-2026-KOR-01"
-                  className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-[#041B15] border border-white/10 text-xs text-white placeholder-[#A7B9A8]/40 focus:outline-none focus:border-[#D7FF35] font-mono uppercase"
+                  className="w-full pl-9 pr-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#A7B9A8]/40 focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35] font-mono uppercase"
                 />
               </div>
               <button
                 type="button"
                 onClick={() => handleLookup()}
                 disabled={searching}
-                className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold border border-white/10 transition"
+                className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/10 dark:hover:bg-white/15 dark:text-white text-xs font-semibold border border-slate-200 dark:border-white/10 transition"
               >
                 {searching ? '...' : 'Search'}
               </button>
             </div>
 
             {searchError && (
-              <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+              <div className="p-3 rounded-xl bg-rose-100 border border-rose-300 text-rose-800 dark:bg-rose-500/10 dark:border-rose-500/30 dark:text-rose-300 text-xs flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" />
                 <span>{searchError}</span>
               </div>
             )}
 
-            {/* Quick Demo Pre-fills */}
+            {/* Quick Test Pre-fills */}
             <div className="pt-2">
-              <span className="text-[10px] text-[#A7B9A8]/70 font-mono uppercase block mb-1.5">
+              <span className="text-[10px] text-slate-500 dark:text-[#A7B9A8]/70 font-mono uppercase block mb-1.5">
                 Quick Test Citizen IDs:
               </span>
               <div className="flex flex-wrap gap-1.5">
@@ -381,7 +381,7 @@ export const SupervisorPortalPage: React.FC = () => {
                       setSearchInput(id);
                       handleLookup(id);
                     }}
-                    className="text-[10px] font-mono px-2 py-1 rounded bg-white/5 hover:bg-white/10 text-[#F4F7F0] transition"
+                    className="text-[10px] font-mono px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-white/5 dark:hover:bg-white/10 dark:text-[#F4F7F0] border border-slate-200 dark:border-transparent transition"
                   >
                     {id}
                   </button>
@@ -396,28 +396,28 @@ export const SupervisorPortalPage: React.FC = () => {
           
           {/* Citizen Details Card */}
           {citizen ? (
-            <div className="p-6 rounded-3xl bg-[#0D4935] border border-white/10 space-y-5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+            <div className="p-6 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none space-y-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-white/10 pb-4">
                 <div>
-                  <span className="text-[10px] font-mono text-[#D7FF35] uppercase tracking-wider block">
+                  <span className="text-[10px] font-mono text-emerald-700 dark:text-[#D7FF35] uppercase tracking-wider block">
                     WARD: {citizen.ward_name}
                   </span>
-                  <h2 className="text-xl font-light text-white">{citizen.name}</h2>
-                  <p className="text-xs font-mono text-[#A7B9A8]">
-                    ID: <strong className="text-white">{citizen.greenpay_id}</strong> &bull; Meter: {citizen.masked_meter}
+                  <h2 className="text-xl font-light text-slate-900 dark:text-white">{citizen.name}</h2>
+                  <p className="text-xs font-mono text-slate-600 dark:text-[#A7B9A8]">
+                    ID: <strong className="text-slate-900 dark:text-white">{citizen.greenpay_id}</strong> &bull; Meter: {citizen.masked_meter}
                   </p>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <div className="text-right">
-                    <span className="text-[10px] font-mono text-[#A7B9A8] block uppercase">Green Score</span>
-                    <span className="text-xl font-bold font-mono text-[#D7FF35]">{citizen.green_score}/100</span>
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-[#A7B9A8] block uppercase">Green Score</span>
+                    <span className="text-xl font-bold font-mono text-emerald-700 dark:text-[#D7FF35]">{citizen.green_score}/100</span>
                   </div>
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-bold font-mono ${
                       citizen.account_status === 'ACTIVE'
-                        ? 'bg-[#D7FF35]/15 text-[#D7FF35] border border-[#D7FF35]/30'
-                        : 'bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse'
+                        ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 dark:bg-[#D7FF35]/15 dark:text-[#D7FF35] dark:border-[#D7FF35]/30'
+                        : 'bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30 animate-pulse'
                     }`}
                   >
                     {citizen.account_status}
@@ -450,16 +450,16 @@ export const SupervisorPortalPage: React.FC = () => {
               {/* Weighment Entry Form */}
               <form onSubmit={handleSubmitWeighment} className="space-y-4 pt-1">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-white uppercase font-mono tracking-wider">
+                  <span className="text-xs font-semibold text-slate-900 dark:text-white uppercase font-mono tracking-wider">
                     Record Doorstep Waste Weights
                   </span>
-                  <span className="text-[11px] text-[#A7B9A8]">Calibrated digital scale</span>
+                  <span className="text-[11px] text-slate-500 dark:text-[#A7B9A8]">Calibrated digital scale</span>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {/* Wet Waste */}
-                  <div className="p-3 rounded-2xl bg-[#041B15] border border-white/10 space-y-1">
-                    <label className="text-[10px] font-mono text-emerald-400 block" htmlFor="wt-wet">
+                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 space-y-1">
+                    <label className="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 block" htmlFor="wt-wet">
                       Wet & Organic Waste
                     </label>
                     <div className="flex items-baseline gap-1">
@@ -470,15 +470,15 @@ export const SupervisorPortalPage: React.FC = () => {
                         min="0"
                         value={wetKg}
                         onChange={(e) => setWetKg(parseFloat(e.target.value) || 0)}
-                        className="w-full bg-transparent text-white font-mono text-lg font-semibold focus:outline-none"
+                        className="w-full bg-transparent text-slate-900 dark:text-white font-mono text-lg font-semibold focus:outline-none"
                       />
-                      <span className="text-xs text-[#A7B9A8] font-mono">kg</span>
+                      <span className="text-xs text-slate-500 dark:text-[#A7B9A8] font-mono">kg</span>
                     </div>
                   </div>
 
                   {/* Dry Waste */}
-                  <div className="p-3 rounded-2xl bg-[#041B15] border border-white/10 space-y-1">
-                    <label className="text-[10px] font-mono text-blue-400 block" htmlFor="wt-dry">
+                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 space-y-1">
+                    <label className="text-[10px] font-mono text-blue-700 dark:text-blue-400 block" htmlFor="wt-dry">
                       Dry Recyclables
                     </label>
                     <div className="flex items-baseline gap-1">
@@ -489,15 +489,15 @@ export const SupervisorPortalPage: React.FC = () => {
                         min="0"
                         value={dryKg}
                         onChange={(e) => setDryKg(parseFloat(e.target.value) || 0)}
-                        className="w-full bg-transparent text-white font-mono text-lg font-semibold focus:outline-none"
+                        className="w-full bg-transparent text-slate-900 dark:text-white font-mono text-lg font-semibold focus:outline-none"
                       />
-                      <span className="text-xs text-[#A7B9A8] font-mono">kg</span>
+                      <span className="text-xs text-slate-500 dark:text-[#A7B9A8] font-mono">kg</span>
                     </div>
                   </div>
 
                   {/* Hazardous */}
-                  <div className="p-3 rounded-2xl bg-[#041B15] border border-white/10 space-y-1">
-                    <label className="text-[10px] font-mono text-rose-400 block" htmlFor="wt-haz">
+                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 space-y-1">
+                    <label className="text-[10px] font-mono text-rose-700 dark:text-rose-400 block" htmlFor="wt-haz">
                       Hazardous
                     </label>
                     <div className="flex items-baseline gap-1">
@@ -508,15 +508,15 @@ export const SupervisorPortalPage: React.FC = () => {
                         min="0"
                         value={hazardousKg}
                         onChange={(e) => setHazardousKg(parseFloat(e.target.value) || 0)}
-                        className="w-full bg-transparent text-white font-mono text-lg font-semibold focus:outline-none"
+                        className="w-full bg-transparent text-slate-900 dark:text-white font-mono text-lg font-semibold focus:outline-none"
                       />
-                      <span className="text-xs text-[#A7B9A8] font-mono">kg</span>
+                      <span className="text-xs text-slate-500 dark:text-[#A7B9A8] font-mono">kg</span>
                     </div>
                   </div>
 
                   {/* E-Waste */}
-                  <div className="p-3 rounded-2xl bg-[#041B15] border border-white/10 space-y-1">
-                    <label className="text-[10px] font-mono text-purple-400 block" htmlFor="wt-ewaste">
+                  <div className="p-3 rounded-2xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 space-y-1">
+                    <label className="text-[10px] font-mono text-purple-700 dark:text-purple-400 block" htmlFor="wt-ewaste">
                       E-Waste
                     </label>
                     <div className="flex items-baseline gap-1">
@@ -527,16 +527,16 @@ export const SupervisorPortalPage: React.FC = () => {
                         min="0"
                         value={ewasteKg}
                         onChange={(e) => setEwasteKg(parseFloat(e.target.value) || 0)}
-                        className="w-full bg-transparent text-white font-mono text-lg font-semibold focus:outline-none"
+                        className="w-full bg-transparent text-slate-900 dark:text-white font-mono text-lg font-semibold focus:outline-none"
                       />
-                      <span className="text-xs text-[#A7B9A8] font-mono">kg</span>
+                      <span className="text-xs text-slate-500 dark:text-[#A7B9A8] font-mono">kg</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Notes */}
                 <div className="space-y-1">
-                  <label className="text-xs text-[#A7B9A8] block" htmlFor="wt-notes">
+                  <label className="text-xs text-slate-600 dark:text-[#A7B9A8] block" htmlFor="wt-notes">
                     Supervisor Field Observations (Optional)
                   </label>
                   <input
@@ -545,20 +545,20 @@ export const SupervisorPortalPage: React.FC = () => {
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="e.g. Excellent segregation; washed milk packets."
-                    className="w-full px-3.5 py-2 rounded-xl bg-[#041B15] border border-white/10 text-xs text-white placeholder-[#A7B9A8]/40 focus:outline-none focus:border-[#D7FF35]"
+                    className="w-full px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-[#041B15] border border-slate-300 dark:border-white/10 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-[#A7B9A8]/40 focus:outline-none focus:border-emerald-600 dark:focus:border-[#D7FF35]"
                   />
                 </div>
 
                 {/* Live Credit Preview Strip */}
-                <div className="p-4 rounded-2xl bg-[#062B20] border border-white/10 flex items-center justify-between">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#062B20] border border-slate-200 dark:border-white/10 flex items-center justify-between">
                   <div className="space-y-0.5">
-                    <span className="text-[10px] font-mono uppercase text-[#A7B9A8] block">
+                    <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] block">
                       Estimated Green Credits
                     </span>
-                    <p className="text-[11px] text-[#A7B9A8] font-mono">{previewFormula}</p>
+                    <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8] font-mono">{previewFormula}</p>
                   </div>
                   <div className="text-right">
-                    <span className="text-2xl font-bold font-mono text-[#D7FF35]">
+                    <span className="text-2xl font-bold font-mono text-emerald-700 dark:text-[#D7FF35]">
                       +{previewCredits} <span className="text-xs font-normal">pts</span>
                     </span>
                   </div>
@@ -568,7 +568,7 @@ export const SupervisorPortalPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={submitting || citizen.account_status === 'PENDING'}
-                  className="w-full py-3.5 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold text-xs tracking-wider uppercase transition shadow-glow-lime flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-full py-3.5 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-bold text-xs tracking-wider uppercase transition shadow-sm dark:shadow-glow-lime flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <Scale className="w-4 h-4" />
                   <span>
@@ -583,8 +583,8 @@ export const SupervisorPortalPage: React.FC = () => {
 
               {/* Success Receipt */}
               {lastReceipt && (
-                <div className="p-4 rounded-2xl bg-[#D7FF35]/10 border border-[#D7FF35]/30 space-y-2">
-                  <div className="flex items-center gap-2 text-[#D7FF35] font-semibold text-xs">
+                <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-[#D7FF35]/10 border border-emerald-300 dark:border-[#D7FF35]/30 space-y-2">
+                  <div className="flex items-center gap-2 text-emerald-800 dark:text-[#D7FF35] font-semibold text-xs">
                     <CheckCircle2 className="w-4 h-4" />
                     <span>
                       {lastReceipt.mode === 'ONLINE_INSTANT'
@@ -592,7 +592,7 @@ export const SupervisorPortalPage: React.FC = () => {
                         : 'Saved to Offline Queue (Will Sync Automatically)'}
                     </span>
                   </div>
-                  <div className="text-xs text-[#F4F7F0] font-mono space-y-1">
+                  <div className="text-xs text-slate-800 dark:text-[#F4F7F0] font-mono space-y-1">
                     <div>Receipt ID: {lastReceipt.transaction_id}</div>
                     <div>Total Weight: {lastReceipt.total_weight_kg} kg &bull; Points: +{lastReceipt.credits_earned} pts</div>
                   </div>
@@ -600,12 +600,12 @@ export const SupervisorPortalPage: React.FC = () => {
               )}
             </div>
           ) : (
-            <div className="p-16 rounded-3xl bg-[#0D4935] border border-white/10 text-center space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-[#A7B9A8]/60">
+            <div className="p-16 rounded-3xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none text-center space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center mx-auto text-slate-400 dark:text-[#A7B9A8]/60">
                 <QrCode className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-light text-white">No Citizen Selected</h3>
-              <p className="text-xs text-[#A7B9A8] max-w-sm mx-auto">
+              <h3 className="text-base font-light text-slate-900 dark:text-white">No Citizen Selected</h3>
+              <p className="text-xs text-slate-600 dark:text-[#A7B9A8] max-w-sm mx-auto">
                 Scan a citizen's QR card with the camera or enter their GreenPay ID to load their profile and log doorstep weighments.
               </p>
             </div>

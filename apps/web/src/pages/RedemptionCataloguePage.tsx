@@ -245,41 +245,41 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
       {/* =================================================================== */}
       {/* 1. CINEMATIC HERO BANNER & AUTHORITATIVE BALANCE                    */}
       {/* =================================================================== */}
-      <div className="relative rounded-3xl bg-gradient-to-r from-[#062B20] via-[#0D4935] to-[#062B20] border border-white/10 p-8 sm:p-10 shadow-2xl overflow-hidden">
-        <div className="absolute right-0 top-0 translate-x-12 -translate-y-12 w-80 h-80 bg-[#D7FF35]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative rounded-3xl bg-emerald-50/70 dark:bg-gradient-to-r dark:from-[#062B20] dark:via-[#0D4935] dark:to-[#062B20] border border-emerald-200/80 dark:border-white/10 p-8 sm:p-10 shadow-sm dark:shadow-2xl overflow-hidden transition-colors duration-200">
+        <div className="absolute right-0 top-0 translate-x-12 -translate-y-12 w-80 h-80 bg-emerald-300/20 dark:bg-[#D7FF35]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
           <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D7FF35]/15 border border-[#D7FF35]/30 text-[#D7FF35] text-xs font-mono font-semibold tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-[#D7FF35]/15 border border-emerald-300 dark:border-[#D7FF35]/30 text-emerald-800 dark:text-[#D7FF35] text-xs font-mono font-semibold tracking-wider">
               <ShoppingBag className="w-3.5 h-3.5" />
               <span>OFFICIAL BENGALURU GROCERY REWARDS</span>
             </div>
             
-            <h1 className="text-3xl sm:text-5xl font-light text-white tracking-tight leading-[1.1]">
+            <h1 className="text-3xl sm:text-5xl font-light text-slate-900 dark:text-white tracking-tight leading-[1.1]">
               Civic Grocery Rewards
             </h1>
             
-            <p className="text-[#A7B9A8] text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-600 dark:text-[#A7B9A8] text-sm sm:text-base leading-relaxed">
               Exchange your verified Green Points for essential household groceries: Toor Dal, Rice, Cooking Oil, Sugar, and Salt. Sourced directly through verified Karnataka cooperative ration supply chains.
             </p>
           </div>
 
           {/* Authoritative Individual Balance Card */}
-          <div className="p-6 rounded-2xl bg-[#041B15]/90 border border-white/10 flex flex-col justify-between shrink-0 min-w-[240px] shadow-lg">
+          <div className="p-6 rounded-2xl bg-white dark:bg-[#041B15]/90 border border-slate-200 dark:border-white/10 flex flex-col justify-between shrink-0 min-w-[240px] shadow-sm dark:shadow-lg">
             <div className="space-y-1">
-              <span className="text-[11px] font-mono uppercase text-[#A7B9A8] tracking-wider block">
+              <span className="text-[11px] font-mono uppercase text-slate-500 dark:text-[#A7B9A8] tracking-wider block">
                 Available Balance
               </span>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-extrabold text-white font-mono">
+                <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white font-mono">
                   {user ? balance.toFixed(1) : '—'}
                 </span>
-                <span className="text-sm font-bold text-[#D7FF35] font-mono">GP</span>
+                <span className="text-sm font-bold text-emerald-700 dark:text-[#D7FF35] font-mono">GP</span>
               </div>
             </div>
 
-            <div className="pt-4 mt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-[#A7B9A8]">
-              <span className="inline-flex items-center gap-1.5 text-[#D7FF35]">
+            <div className="pt-4 mt-3 border-t border-slate-200 dark:border-white/10 flex items-center justify-between text-[11px] text-slate-600 dark:text-[#A7B9A8]">
+              <span className="inline-flex items-center gap-1.5 text-emerald-700 dark:text-[#D7FF35] font-medium">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>{user ? 'Verified Individual Ledger' : 'Login to View Balance'}</span>
               </span>
@@ -288,10 +288,10 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
         </div>
 
         {/* Non-Monetary Strict Disclaimer */}
-        <div className="mt-8 pt-6 border-t border-white/10 flex items-start gap-3 text-xs text-[#A7B9A8]">
-          <ShieldCheck className="w-4 h-4 text-[#D7FF35] shrink-0 mt-0.5" />
+        <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10 flex items-start gap-3 text-xs text-slate-600 dark:text-[#A7B9A8]">
+          <ShieldCheck className="w-4 h-4 text-emerald-700 dark:text-[#D7FF35] shrink-0 mt-0.5" />
           <p className="leading-relaxed">
-            <strong className="text-white">Strict Non-Monetary Policy:</strong> Green Points are non-monetary civic ration credits earned exclusively by handing over verified dry recyclables. Green Points carry zero cash value, cannot be converted to currency, and cannot be transferred to UPI, Paytm, or bank accounts.
+            <strong className="text-slate-900 dark:text-white">Strict Non-Monetary Policy:</strong> Green Points are non-monetary civic ration credits earned exclusively by handing over verified dry recyclables. Green Points carry zero cash value, cannot be converted to currency, and cannot be transferred to UPI, Paytm, or bank accounts.
           </p>
         </div>
       </div>
@@ -318,56 +318,56 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
       {/* =================================================================== */}
       {/* 2. HOW GREEN POINTS WORK: STEP-BY-STEP CIVIC PROTOCOL                */}
       {/* =================================================================== */}
-      <div className="p-8 rounded-3xl bg-[#062B20] border border-white/10 space-y-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-white/10">
+      <div className="p-8 rounded-3xl bg-white dark:bg-[#062B20] border border-slate-200 dark:border-white/10 space-y-6 shadow-sm dark:shadow-xl transition-colors duration-200">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-slate-200 dark:border-white/10">
           <div>
-            <span className="micro-label text-[#D7FF35]">THE COLLECTION-TO-GROCERY PROTOCOL</span>
-            <h2 className="text-xl sm:text-2xl font-light text-white tracking-tight mt-1">
+            <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">THE COLLECTION-TO-GROCERY PROTOCOL</span>
+            <h2 className="text-xl sm:text-2xl font-light text-slate-900 dark:text-white tracking-tight mt-1">
               How You Earn and Redeem Green Points
             </h2>
           </div>
-          <p className="text-xs text-[#A7B9A8] max-w-md leading-relaxed">
+          <p className="text-xs text-slate-600 dark:text-[#A7B9A8] max-w-md leading-relaxed">
             Bengaluru households earn Green Points solely on verified dry recyclable materials. Follow these 5 steps to collect fresh kitchen rations.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          <div className="p-5 rounded-2xl bg-[#0D4935]/60 border border-white/10 space-y-2">
-            <div className="font-mono text-xs text-[#D7FF35] font-bold">STEP 01</div>
-            <h3 className="text-sm font-semibold text-white">Source-Segregate</h3>
-            <p className="text-[11px] text-[#A7B9A8] leading-relaxed">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#0D4935]/60 border border-slate-200 dark:border-white/10 space-y-2">
+            <div className="font-mono text-xs text-emerald-700 dark:text-[#D7FF35] font-bold">STEP 01</div>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Source-Segregate</h3>
+            <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
               Sort clean dry recyclables into the 8 approved categories (metals, PET bottles, plastics, papers, cardboard, glass, and textiles).
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#0D4935]/60 border border-white/10 space-y-2">
-            <div className="font-mono text-xs text-[#D7FF35] font-bold">STEP 02</div>
-            <h3 className="text-sm font-semibold text-white">Doorstep Weighment</h3>
-            <p className="text-[11px] text-[#A7B9A8] leading-relaxed">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#0D4935]/60 border border-slate-200 dark:border-white/10 space-y-2">
+            <div className="font-mono text-xs text-emerald-700 dark:text-[#D7FF35] font-bold">STEP 02</div>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Doorstep Weighment</h3>
+            <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
               Supervisor scans your permanent QR ID and weighs segregated dry recyclables on calibrated digital scales.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#0D4935]/60 border border-white/10 space-y-2">
-            <div className="font-mono text-xs text-[#D7FF35] font-bold">STEP 03</div>
-            <h3 className="text-sm font-semibold text-white">Points Credited</h3>
-            <p className="text-[11px] text-[#A7B9A8] leading-relaxed">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#0D4935]/60 border border-slate-200 dark:border-white/10 space-y-2">
+            <div className="font-mono text-xs text-emerald-700 dark:text-[#D7FF35] font-bold">STEP 03</div>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Points Credited</h3>
+            <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
               Points are calculated by verified category rate (e.g. 22 GP/kg metal, 18 GP/kg PET) and written to your ledger.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#0D4935]/60 border border-white/10 space-y-2">
-            <div className="font-mono text-xs text-[#D7FF35] font-bold">STEP 04</div>
-            <h3 className="text-sm font-semibold text-white">Select Ration</h3>
-            <p className="text-[11px] text-[#A7B9A8] leading-relaxed">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#0D4935]/60 border border-slate-200 dark:border-white/10 space-y-2">
+            <div className="font-mono text-xs text-emerald-700 dark:text-[#D7FF35] font-bold">STEP 04</div>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Select Ration</h3>
+            <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
               Choose required everyday grocery staples from this catalogue: Toor Dal, Rice, Cooking Oil, Sugar, or Salt.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#0D4935]/60 border border-white/10 space-y-2">
-            <div className="font-mono text-xs text-[#D7FF35] font-bold">STEP 05</div>
-            <h3 className="text-sm font-semibold text-white">Pickup / Delivery</h3>
-            <p className="text-[11px] text-[#A7B9A8] leading-relaxed">
+          <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#0D4935]/60 border border-slate-200 dark:border-white/10 space-y-2">
+            <div className="font-mono text-xs text-emerald-700 dark:text-[#D7FF35] font-bold">STEP 05</div>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Pickup / Delivery</h3>
+            <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
               Receive a secure voucher code with QR fulfillment to claim at ward ration depots or during morning route delivery.
             </p>
           </div>
@@ -377,19 +377,19 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
       {/* =================================================================== */}
       {/* 3. NAVIGATION TABS: GROCERY CATALOGUE & REDEMPTION HISTORY          */}
       {/* =================================================================== */}
-      <div className="flex border-b border-white/10 space-x-8">
+      <div className="flex border-b border-slate-200 dark:border-white/10 space-x-8">
         <button
           type="button"
           onClick={() => setActiveTab('catalogue')}
           className={`pb-4 text-sm font-semibold border-b-2 transition flex items-center gap-2 ${
             activeTab === 'catalogue'
-              ? 'border-[#D7FF35] text-[#D7FF35]'
-              : 'border-transparent text-[#A7B9A8] hover:text-white'
+              ? 'border-emerald-700 text-emerald-800 dark:border-[#D7FF35] dark:text-[#D7FF35]'
+              : 'border-transparent text-slate-500 hover:text-slate-900 dark:text-[#A7B9A8] dark:hover:text-white'
           }`}
         >
           <ShoppingBag className="w-4 h-4" />
           <span>Grocery Catalogue</span>
-          <span className="px-2 py-0.5 text-xs rounded-full bg-[#D7FF35]/15 text-[#D7FF35] font-mono">
+          <span className="px-2 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-800 dark:bg-[#D7FF35]/15 dark:text-[#D7FF35] font-mono">
             5 Items
           </span>
         </button>
@@ -400,14 +400,14 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
             onClick={() => setActiveTab('history')}
             className={`pb-4 text-sm font-semibold border-b-2 transition flex items-center gap-2 ${
               activeTab === 'history'
-                ? 'border-[#D7FF35] text-[#D7FF35]'
-                : 'border-transparent text-[#A7B9A8] hover:text-white'
+                ? 'border-emerald-700 text-emerald-800 dark:border-[#D7FF35] dark:text-[#D7FF35]'
+                : 'border-transparent text-slate-500 hover:text-slate-900 dark:text-[#A7B9A8] dark:hover:text-white'
             }`}
           >
             <Clock className="w-4 h-4" />
             <span>Redemption History</span>
             {history.length > 0 && (
-              <span className="px-2 py-0.5 text-xs rounded-full bg-white/10 text-white font-mono">
+              <span className="px-2 py-0.5 text-xs rounded-full bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-white font-mono">
                 {history.length}
               </span>
             )}
@@ -435,33 +435,33 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
                 return (
                   <div
                     key={item.id}
-                    className="rounded-3xl bg-[#0D4935]/80 border border-white/10 overflow-hidden shadow-card-dark flex flex-col justify-between hover:border-[#D7FF35]/50 transition group"
+                    className="rounded-3xl bg-white dark:bg-[#0D4935]/80 border border-slate-200 dark:border-white/10 overflow-hidden shadow-sm dark:shadow-card-dark flex flex-col justify-between hover:border-emerald-600 dark:hover:border-[#D7FF35]/50 transition group"
                   >
                     {/* Product Image & Badge Header */}
                     <div>
-                      <div className="relative h-48 w-full overflow-hidden bg-[#041B15]">
+                      <div className="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-[#041B15]">
                         <img
                           src={item.image_url}
                           alt={item.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90"
                           loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0D4935] via-transparent to-black/30" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-white/90 dark:from-[#0D4935] via-transparent to-black/20" />
                         
                         <div className="absolute top-3 left-3">
-                          <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[#041B15]/90 border border-white/20 text-[#D7FF35] backdrop-blur-md">
+                          <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-white/90 dark:bg-[#041B15]/90 border border-slate-200 dark:border-white/20 text-emerald-800 dark:text-[#D7FF35] backdrop-blur-md shadow-sm">
                             {item.quantity}
                           </span>
                         </div>
 
                         <div className="absolute top-3 right-3">
-                          <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-semibold bg-[#10B981]/20 border border-[#10B981]/40 text-[#10B981] backdrop-blur-md">
+                          <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-semibold bg-emerald-100 dark:bg-[#10B981]/20 border border-emerald-300 dark:border-[#10B981]/40 text-emerald-800 dark:text-[#10B981] backdrop-blur-md">
                             In Stock ({item.stock_remaining})
                           </span>
                         </div>
 
                         <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
-                          <span className="text-xs font-mono uppercase text-[#A7B9A8]">
+                          <span className="text-xs font-mono uppercase text-slate-700 dark:text-[#A7B9A8] font-semibold">
                             {item.category}
                           </span>
                         </div>
@@ -470,36 +470,36 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
                       {/* Product Details */}
                       <div className="p-6 space-y-3">
                         <div className="flex items-center justify-between">
-                          <h3 className="text-xl font-bold text-white tracking-tight">
+                          <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                             {item.title}
                           </h3>
-                          <span className="text-xs font-mono text-[#D7FF35] font-semibold">
+                          <span className="text-xs font-mono text-emerald-700 dark:text-[#D7FF35] font-semibold">
                             {item.quantity}
                           </span>
                         </div>
 
-                        <p className="text-xs text-[#A7B9A8] leading-relaxed line-clamp-3">
+                        <p className="text-xs text-slate-600 dark:text-[#A7B9A8] leading-relaxed line-clamp-3">
                           {item.description}
                         </p>
 
-                        <div className="pt-2 text-[11px] font-mono text-[#A7B9A8]/70 flex items-center gap-1.5">
-                          <Package className="w-3.5 h-3.5 text-[#D7FF35]" />
+                        <div className="pt-2 text-[11px] font-mono text-slate-500 dark:text-[#A7B9A8]/70 flex items-center gap-1.5">
+                          <Package className="w-3.5 h-3.5 text-emerald-700 dark:text-[#D7FF35]" />
                           <span>Supply Partner: {item.partner_name}</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Cost & Action Footer */}
-                    <div className="p-6 pt-4 border-t border-white/10 bg-[#062B20]/50 flex items-center justify-between gap-4">
+                    <div className="p-6 pt-4 border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#062B20]/50 flex items-center justify-between gap-4">
                       <div>
-                        <span className="text-[10px] uppercase font-mono text-[#A7B9A8] block">
+                        <span className="text-[10px] uppercase font-mono text-slate-500 dark:text-[#A7B9A8] block">
                           Civic Ration Cost
                         </span>
                         <div className="flex items-baseline gap-1 mt-0.5">
-                          <span className="text-2xl font-black text-white font-mono">
+                          <span className="text-2xl font-black text-slate-900 dark:text-white font-mono">
                             {item.credit_cost}
                           </span>
-                          <span className="text-xs font-bold text-[#D7FF35] font-mono">GP</span>
+                          <span className="text-xs font-bold text-emerald-700 dark:text-[#D7FF35] font-mono">GP</span>
                         </div>
                       </div>
 
@@ -510,10 +510,10 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
                           disabled={!canRedeem}
                           className={`px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider transition shadow-sm ${
                             canRedeem
-                              ? 'bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] shadow-glow-lime'
+                              ? 'bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] dark:shadow-glow-lime'
                               : isPending
-                              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30 cursor-not-allowed'
-                              : 'bg-white/5 text-[#A7B9A8]/40 border border-white/10 cursor-not-allowed'
+                              ? 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 cursor-not-allowed'
+                              : 'bg-slate-100 dark:bg-white/5 text-slate-400 dark:text-[#A7B9A8]/40 border border-slate-200 dark:border-white/10 cursor-not-allowed'
                           }`}
                         >
                           {isPending
@@ -526,7 +526,7 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
                         <button
                           type="button"
                           onClick={() => navigate('/login')}
-                          className="px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] transition shadow-glow-lime flex items-center gap-1.5"
+                          className="px-5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] transition shadow-sm dark:shadow-glow-lime flex items-center gap-1.5"
                         >
                           <span>Login to Redeem</span>
                           <ArrowRight className="w-3.5 h-3.5" />
@@ -547,23 +547,23 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
       {activeTab === 'history' && user && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-white">Your Grocery Redemptions</h2>
-            <span className="text-xs font-mono text-[#A7B9A8]">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">Your Grocery Redemptions</h2>
+            <span className="text-xs font-mono text-slate-500 dark:text-[#A7B9A8]">
               {history.length} {history.length === 1 ? 'redemption' : 'redemptions'} recorded
             </span>
           </div>
 
           {history.length === 0 ? (
-            <div className="text-center py-16 bg-[#0D4935] rounded-3xl border border-white/10 p-8 space-y-3">
-              <ShoppingBag className="w-12 h-12 text-[#A7B9A8]/40 mx-auto" />
-              <h3 className="text-base font-bold text-white">No Grocery Redemptions Yet</h3>
-              <p className="text-xs text-[#A7B9A8] max-w-sm mx-auto">
+            <div className="text-center py-16 bg-white dark:bg-[#0D4935] rounded-3xl border border-slate-200 dark:border-white/10 p-8 space-y-3 shadow-sm dark:shadow-md">
+              <ShoppingBag className="w-12 h-12 text-slate-400 dark:text-[#A7B9A8]/40 mx-auto" />
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">No Grocery Redemptions Yet</h3>
+              <p className="text-xs text-slate-600 dark:text-[#A7B9A8] max-w-sm mx-auto">
                 Your redeemed grocery items, voucher codes, and collection receipts will appear here once you redeem items using your Green Points.
               </p>
               <button
                 type="button"
                 onClick={() => setActiveTab('catalogue')}
-                className="mt-2 px-4 py-2 rounded-xl bg-[#D7FF35] text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider"
+                className="mt-2 px-4 py-2 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider"
               >
                 Browse Catalogue
               </button>
@@ -573,19 +573,19 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
               {history.map((tx) => (
                 <div
                   key={tx.id}
-                  className="p-5 rounded-2xl bg-[#0D4935] border border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4"
+                  className="p-5 rounded-2xl bg-white dark:bg-[#0D4935] border border-slate-200 dark:border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm dark:shadow-md"
                 >
                   <div className="flex items-start gap-3.5">
-                    <div className="w-10 h-10 rounded-xl bg-[#062B20] border border-white/10 flex items-center justify-center text-[#D7FF35] shrink-0 mt-0.5">
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-[#062B20] border border-slate-200 dark:border-white/10 flex items-center justify-center text-emerald-800 dark:text-[#D7FF35] shrink-0 mt-0.5">
                       <ShoppingBag className="w-5 h-5" />
                     </div>
 
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/30">
+                        <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-[#10B981]/20 dark:text-[#10B981] border border-emerald-300 dark:border-[#10B981]/30">
                           Confirmed Ration
                         </span>
-                        <span className="text-xs text-[#A7B9A8]/70 font-mono">
+                        <span className="text-xs text-slate-500 dark:text-[#A7B9A8]/70 font-mono">
                           {new Date(tx.created_at).toLocaleDateString('en-IN', {
                             day: 'numeric',
                             month: 'short',
@@ -594,18 +594,18 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
                         </span>
                       </div>
 
-                      <h4 className="text-base font-bold text-white">
+                      <h4 className="text-base font-bold text-slate-900 dark:text-white">
                         {tx.item_title || 'Civic Grocery Ration'} {tx.item_quantity ? `(${tx.item_quantity})` : ''}
                       </h4>
 
-                      <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-[#A7B9A8] font-mono">
+                      <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-slate-600 dark:text-[#A7B9A8] font-mono">
                         {tx.redemption_reference && (
-                          <span>Ref: <strong className="text-white">{tx.redemption_reference}</strong></span>
+                          <span>Ref: <strong className="text-slate-900 dark:text-white">{tx.redemption_reference}</strong></span>
                         )}
                         {tx.coupon_code && (
                           <div className="flex items-center gap-1.5">
                             <span>Voucher:</span>
-                            <code className="px-2 py-0.5 rounded bg-[#041B15] text-[#D7FF35] font-bold">
+                            <code className="px-2 py-0.5 rounded bg-slate-100 dark:bg-[#041B15] text-emerald-800 dark:text-[#D7FF35] font-bold border border-slate-200 dark:border-white/5">
                               {tx.coupon_code}
                             </code>
                           </div>
@@ -616,8 +616,8 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
 
                   <div className="flex items-center gap-4 self-end md:self-center">
                     <div className="text-right">
-                      <span className="text-[10px] font-mono text-[#A7B9A8] block">Debited</span>
-                      <span className="text-sm font-bold font-mono text-rose-400">
+                      <span className="text-[10px] font-mono text-slate-500 dark:text-[#A7B9A8] block">Debited</span>
+                      <span className="text-sm font-bold font-mono text-rose-600 dark:text-rose-400">
                         -{tx.credits_spent} GP
                       </span>
                     </div>
@@ -626,11 +626,11 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
                       <button
                         type="button"
                         onClick={() => copyToClipboard(tx.coupon_code)}
-                        className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold bg-[#D7FF35]/15 hover:bg-[#D7FF35]/25 border border-[#D7FF35]/30 text-[#D7FF35] flex items-center gap-1.5 transition"
+                        className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 dark:bg-[#D7FF35]/15 dark:hover:bg-[#D7FF35]/25 dark:border-[#D7FF35]/30 dark:text-[#D7FF35] flex items-center gap-1.5 transition"
                       >
                         {copiedCode === tx.coupon_code ? (
                           <>
-                            <Check className="w-3.5 h-3.5 text-[#D7FF35]" />
+                            <Check className="w-3.5 h-3.5 text-emerald-700 dark:text-[#D7FF35]" />
                             <span>Copied</span>
                           </>
                         ) : (
@@ -653,79 +653,79 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
       {/* 4. REDEMPTION CONFIRMATION & OFFICIAL RECEIPT MODAL                  */}
       {/* =================================================================== */}
       {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-[#062B20] rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-white/10 relative max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/80 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white dark:bg-[#062B20] rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-white/10 relative max-h-[90vh] overflow-y-auto text-slate-900 dark:text-white">
             {successResult ? (
               <div className="space-y-6">
                 <div className="text-center space-y-2">
-                  <div className="w-14 h-14 bg-[#D7FF35]/20 text-[#D7FF35] rounded-full flex items-center justify-center mx-auto shadow-glow-lime">
+                  <div className="w-14 h-14 bg-emerald-100 dark:bg-[#D7FF35]/20 text-emerald-800 dark:text-[#D7FF35] rounded-full flex items-center justify-center mx-auto shadow-sm dark:shadow-glow-lime">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   
-                  <span className="micro-label text-[#D7FF35]">CIVIC TRANSACTION CONFIRMED</span>
-                  <h3 className="text-2xl font-bold text-white tracking-tight">
+                  <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">CIVIC TRANSACTION CONFIRMED</span>
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                     Official Redemption Receipt
                   </h3>
-                  <p className="text-xs text-[#A7B9A8] max-w-sm mx-auto leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-[#A7B9A8] max-w-sm mx-auto leading-relaxed">
                     Transaction written to the append-only ledger. Present this digital fulfillment voucher at your ward ration depot.
                   </p>
                 </div>
 
                 {/* Official Receipt Box */}
-                <div className="p-5 rounded-2xl bg-[#041B15] border border-white/10 space-y-3 font-mono text-xs">
+                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-[#041B15] border border-slate-200 dark:border-white/10 space-y-3 font-mono text-xs">
                   {/* Reference & Status */}
-                  <div className="flex justify-between items-center pb-2.5 border-b border-white/10">
+                  <div className="flex justify-between items-center pb-2.5 border-b border-slate-200 dark:border-white/10">
                     <div>
-                      <span className="text-[10px] uppercase text-[#A7B9A8] block">Redemption Reference</span>
-                      <span className="text-white font-bold">{successResult.redemption_reference}</span>
+                      <span className="text-[10px] uppercase text-slate-500 dark:text-[#A7B9A8] block">Redemption Reference</span>
+                      <span className="text-slate-900 dark:text-white font-bold">{successResult.redemption_reference}</span>
                     </div>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#10B981]/20 text-[#10B981] border border-[#10B981]/30 uppercase">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-[#10B981]/20 dark:text-[#10B981] border border-emerald-300 dark:border-[#10B981]/30 uppercase">
                       {successResult.status}
                     </span>
                   </div>
 
                   {/* Citizen Details */}
-                  <div className="flex justify-between items-center text-[#A7B9A8]">
+                  <div className="flex justify-between items-center text-slate-600 dark:text-[#A7B9A8]">
                     <span>Household / Citizen:</span>
-                    <span className="text-white font-bold font-sans">
+                    <span className="text-slate-900 dark:text-white font-bold font-sans">
                       {successResult.citizen_name} ({successResult.citizen_greenpay_id})
                     </span>
                   </div>
 
                   {/* Product & Quantity */}
-                  <div className="flex justify-between items-center text-[#A7B9A8]">
+                  <div className="flex justify-between items-center text-slate-600 dark:text-[#A7B9A8]">
                     <span>Ration Item:</span>
-                    <span className="text-white font-bold font-sans">
+                    <span className="text-slate-900 dark:text-white font-bold font-sans">
                       {successResult.product_title} ({successResult.quantity})
                     </span>
                   </div>
 
                   {/* Price at Redemption */}
-                  <div className="flex justify-between items-center text-[#A7B9A8]">
+                  <div className="flex justify-between items-center text-slate-600 dark:text-[#A7B9A8]">
                     <span>Price at Redemption:</span>
-                    <span className="text-white font-bold">{successResult.credits_spent} GP</span>
+                    <span className="text-slate-900 dark:text-white font-bold">{successResult.credits_spent} GP</span>
                   </div>
 
                   {/* Points Deducted */}
-                  <div className="flex justify-between items-center text-[#A7B9A8]">
+                  <div className="flex justify-between items-center text-slate-600 dark:text-[#A7B9A8]">
                     <span>Points Deducted:</span>
-                    <span className="text-rose-400 font-bold">-{successResult.credits_spent} GP</span>
+                    <span className="text-rose-600 dark:text-rose-400 font-bold">-{successResult.credits_spent} GP</span>
                   </div>
 
                   {/* Previous Balance */}
-                  <div className="flex justify-between items-center text-[#A7B9A8]">
+                  <div className="flex justify-between items-center text-slate-600 dark:text-[#A7B9A8]">
                     <span>Previous Balance:</span>
-                    <span className="text-white">{Number(successResult.previous_balance).toFixed(1)} GP</span>
+                    <span className="text-slate-900 dark:text-white">{Number(successResult.previous_balance).toFixed(1)} GP</span>
                   </div>
 
                   {/* Remaining Balance */}
-                  <div className="flex justify-between items-center pt-2 border-t border-white/10 text-white font-bold">
+                  <div className="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-bold">
                     <span>Remaining Balance:</span>
-                    <span className="text-[#D7FF35]">{Number(successResult.remaining_balance).toFixed(1)} GP</span>
+                    <span className="text-emerald-700 dark:text-[#D7FF35]">{Number(successResult.remaining_balance).toFixed(1)} GP</span>
                   </div>
 
                   {/* Timestamp */}
-                  <div className="flex justify-between items-center text-[11px] text-[#A7B9A8]/70 pt-1">
+                  <div className="flex justify-between items-center text-[11px] text-slate-500 dark:text-[#A7B9A8]/70 pt-1">
                     <span>Timestamp:</span>
                     <span>
                       {new Date(successResult.timestamp).toLocaleString('en-IN', {
@@ -736,18 +736,18 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
                   </div>
 
                   {/* Voucher Box */}
-                  <div className="pt-3 border-t border-white/10 space-y-1">
-                    <span className="text-[10px] uppercase text-[#A7B9A8] block">
+                  <div className="pt-3 border-t border-slate-200 dark:border-white/10 space-y-1">
+                    <span className="text-[10px] uppercase text-slate-500 dark:text-[#A7B9A8] block">
                       Digital Voucher Code
                     </span>
-                    <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-[#062B20] border border-[#D7FF35]/30">
-                      <code className="text-base font-black text-[#D7FF35] tracking-wider">
+                    <div className="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-100 dark:bg-[#062B20] border border-slate-200 dark:border-[#D7FF35]/30">
+                      <code className="text-base font-black text-emerald-800 dark:text-[#D7FF35] tracking-wider">
                         {successResult.voucher_code}
                       </code>
                       <button
                         type="button"
                         onClick={() => copyToClipboard(successResult.voucher_code)}
-                        className="px-3 py-1 rounded-lg bg-[#D7FF35] text-[#041B15] text-[11px] font-bold flex items-center gap-1 shadow-glow-lime hover:bg-[#C4F020] transition"
+                        className="px-3 py-1 rounded-lg bg-[#0D4935] text-white dark:bg-[#D7FF35] dark:text-[#041B15] text-[11px] font-bold flex items-center gap-1 shadow-sm dark:shadow-glow-lime hover:bg-[#14543D] dark:hover:bg-[#C4F020] transition"
                       >
                         {copiedCode === successResult.voucher_code ? (
                           <>
@@ -772,7 +772,7 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
                       setSelectedProduct(null);
                       setSuccessResult(null);
                     }}
-                    className="flex-1 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-[#A7B9A8] hover:text-white font-mono text-xs font-semibold uppercase tracking-wider transition"
+                    className="flex-1 py-3 rounded-xl border border-slate-200 hover:bg-slate-100 dark:border-white/10 dark:hover:bg-white/5 text-slate-600 hover:text-slate-900 dark:text-[#A7B9A8] dark:hover:text-white font-mono text-xs font-semibold uppercase tracking-wider transition"
                   >
                     Close Receipt
                   </button>
@@ -783,7 +783,7 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
                       setSuccessResult(null);
                       setActiveTab('history');
                     }}
-                    className="flex-1 py-3 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider transition shadow-glow-lime"
+                    className="flex-1 py-3 rounded-xl bg-[#0D4935] hover:bg-[#14543D] text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider transition shadow-sm dark:shadow-glow-lime"
                   >
                     View History
                   </button>
@@ -792,48 +792,48 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
             ) : (
               <div className="space-y-6">
                 <div>
-                  <span className="micro-label text-[#D7FF35]">CONFIRM GROCERY REDEMPTION</span>
-                  <h3 className="text-xl font-bold text-white tracking-tight mt-1">
+                  <span className="micro-label text-emerald-700 dark:text-[#D7FF35]">CONFIRM GROCERY REDEMPTION</span>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight mt-1">
                     Redeem {selectedProduct.title} ({selectedProduct.quantity})
                   </h3>
-                  <p className="text-xs text-[#A7B9A8] mt-1 leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-[#A7B9A8] mt-1 leading-relaxed">
                     {selectedProduct.description}
                   </p>
                 </div>
 
                 {/* Ledger Debit Summary */}
-                <div className="p-4 rounded-2xl bg-[#041B15] border border-white/10 space-y-2.5 font-mono text-xs">
-                  <div className="flex justify-between text-[#A7B9A8]">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#041B15] border border-slate-200 dark:border-white/10 space-y-2.5 font-mono text-xs">
+                  <div className="flex justify-between text-slate-600 dark:text-[#A7B9A8]">
                     <span>Product & Quantity:</span>
-                    <span className="text-white font-bold font-sans">{selectedProduct.title} ({selectedProduct.quantity})</span>
+                    <span className="text-slate-900 dark:text-white font-bold font-sans">{selectedProduct.title} ({selectedProduct.quantity})</span>
                   </div>
-                  <div className="flex justify-between text-[#A7B9A8]">
+                  <div className="flex justify-between text-slate-600 dark:text-[#A7B9A8]">
                     <span>Civic Redemption Price:</span>
-                    <span className="text-white font-bold">{selectedProduct.credit_cost.toFixed(1)} GP</span>
+                    <span className="text-slate-900 dark:text-white font-bold">{selectedProduct.credit_cost.toFixed(1)} GP</span>
                   </div>
-                  <div className="flex justify-between text-[#A7B9A8]">
+                  <div className="flex justify-between text-slate-600 dark:text-[#A7B9A8]">
                     <span>Current Available Balance:</span>
-                    <span className="text-white font-bold">{balance.toFixed(1)} GP</span>
+                    <span className="text-slate-900 dark:text-white font-bold">{balance.toFixed(1)} GP</span>
                   </div>
-                  <div className="flex justify-between text-[#A7B9A8]">
+                  <div className="flex justify-between text-slate-600 dark:text-[#A7B9A8]">
                     <span>Points to Debit:</span>
-                    <span className="text-rose-400 font-bold">-{selectedProduct.credit_cost.toFixed(1)} GP</span>
+                    <span className="text-rose-600 dark:text-rose-400 font-bold">-{selectedProduct.credit_cost.toFixed(1)} GP</span>
                   </div>
-                  <div className="pt-2 border-t border-white/10 flex justify-between font-bold text-white">
+                  <div className="pt-2 border-t border-slate-200 dark:border-white/10 flex justify-between font-bold text-slate-900 dark:text-white">
                     <span>Remaining Balance:</span>
-                    <span className={balance >= selectedProduct.credit_cost ? "text-[#D7FF35]" : "text-rose-400"}>
+                    <span className={balance >= selectedProduct.credit_cost ? "text-emerald-700 dark:text-[#D7FF35]" : "text-rose-600 dark:text-rose-400"}>
                       {(balance - selectedProduct.credit_cost).toFixed(1)} GP
                     </span>
                   </div>
                 </div>
 
                 {balance < selectedProduct.credit_cost ? (
-                  <div className="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+                  <div className="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-700 dark:text-rose-300 text-xs flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>Insufficient points. You need {(selectedProduct.credit_cost - balance).toFixed(1)} more GP to redeem this item.</span>
                   </div>
                 ) : (
-                  <p className="text-[11px] text-[#A7B9A8] leading-relaxed">
+                  <p className="text-[11px] text-slate-600 dark:text-[#A7B9A8] leading-relaxed">
                     By confirming, your household ledger will be atomically debited {selectedProduct.credit_cost} GP. An official digital voucher will be generated immediately.
                   </p>
                 )}
@@ -844,7 +844,7 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
                     type="button"
                     onClick={() => setSelectedProduct(null)}
                     disabled={redeeming}
-                    className="flex-1 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-[#A7B9A8] hover:text-white font-mono text-xs font-semibold uppercase tracking-wider transition"
+                    className="flex-1 py-3 rounded-xl border border-slate-200 hover:bg-slate-100 dark:border-white/10 dark:hover:bg-white/5 text-slate-600 hover:text-slate-900 dark:text-[#A7B9A8] dark:hover:text-white font-mono text-xs font-semibold uppercase tracking-wider transition"
                   >
                     Cancel
                   </button>
@@ -852,7 +852,7 @@ export const RedemptionCataloguePage: React.FC<RedemptionCataloguePageProps> = (
                     type="button"
                     onClick={handleConfirmRedeem}
                     disabled={redeeming || balance < selectedProduct.credit_cost}
-                    className="flex-1 py-3 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] disabled:opacity-40 disabled:cursor-not-allowed text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider transition shadow-glow-lime flex items-center justify-center gap-2"
+                    className="flex-1 py-3 rounded-xl bg-[#0D4935] hover:bg-[#14543D] disabled:opacity-40 disabled:cursor-not-allowed text-white dark:bg-[#D7FF35] dark:hover:bg-[#C4F020] dark:text-[#041B15] font-mono text-xs font-bold uppercase tracking-wider transition shadow-sm dark:shadow-glow-lime flex items-center justify-center gap-2"
                   >
                     {redeeming ? (
                       <>
