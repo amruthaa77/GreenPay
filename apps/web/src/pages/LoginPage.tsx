@@ -7,7 +7,7 @@ interface LoginPageProps {
 }
 
 export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
-  const { login } = useAuth();
+  const { login, backendError, retryAuth } = useAuth();
   const [meterOrEmail, setMeterOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -52,14 +52,25 @@ export const LoginPage: React.FC<LoginPageProps> = ({ navigate }) => {
           </p>
         </div>
 
-        {error && (
+        {(error || backendError) && (
           <div
             role="alert"
             aria-live="assertive"
             className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-2.5"
           >
             <AlertCircle className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" />
-            <span>{error}</span>
+            <div className="flex-1 flex items-center justify-between">
+              <span>{error || backendError}</span>
+              {backendError && !error && (
+                <button
+                  type="button"
+                  onClick={() => retryAuth()}
+                  className="text-[#D7FF35] hover:underline text-[11px] font-bold ml-2 shrink-0"
+                >
+                  Retry
+                </button>
+              )}
+            </div>
           </div>
         )}
 

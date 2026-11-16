@@ -15,10 +15,12 @@ export interface CitizenUser {
 interface AuthContextType {
   user: CitizenUser | null;
   loading: boolean;
+  backendError: string | null;
   login: (meter: string, pwd: string) => Promise<any>;
   register: (payload: any) => Promise<any>;
   logout: () => Promise<void>;
   refreshProfile: () => Promise<void>;
+  retryAuth: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -33,27 +35,66 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   });
   const [loading, setLoading] = useState<boolean>(true);
+  const [backendError, setBackendError] = useState<string | null>(null);
 
   const refreshProfile = async () => {
     try {
       const profile = await api.citizen.getProfile();
       setUser(profile);
+      setBackendError(null);
       localStorage.setItem('greenpay_citizen_user', JSON.stringify(profile));
-    } catch {
-      // Not authenticated or error
+    } catch (err: any) {
       setUser(null);
       localStorage.removeItem('greenpay_citizen_user');
+      const msg = err?.message || '';
+      if (
+        msg.includes('timed out') ||
+        msg.includes('Failed to fetch') ||
+        msg.includes('Network request failed') ||
+        msg.includes('502') ||
+        msg.includes('503') ||
+        msg.includes('504')
+      ) {
+        setBackendError('The GreenPay API server could not be reached. It may be starting up or temporarily offline.');
+      } else {
+        setBackendError(null);
+      }
     } finally {
       setLoading(false);
     }
   };
 
+  const retryAuth = async () => {
+    setLoading(true);
+    setBackendError(null);
+    await refreshProfile();
+  };
+
   useEffect(() => {
-    refreshProfile();
+    let mounted = true;
+    // Guaranteed safety resolution: loading state NEVER hangs for > 3.5 seconds
+    const safetyTimer = setTimeout(() => {
+      if (mounted) {
+        setLoading(false);
+      }
+    }, 3500);
+
+    refreshProfile().finally(() => {
+      if (mounted) {
+        clearTimeout(safetyTimer);
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      mounted = false;
+      clearTimeout(safetyTimer);
+    };
   }, []);
 
   const login = async (meter: string, pwd: string) => {
     const res = await api.auth.login(meter, pwd);
+    setBackendError(null);
     if (res.role === 'CITIZEN') {
       await refreshProfile();
     }
@@ -62,6 +103,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const register = async (payload: any) => {
     const res = await api.auth.register(payload);
+    setBackendError(null);
     await refreshProfile();
     return res;
   };
@@ -69,11 +111,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const logout = async () => {
     await api.auth.logout();
     setUser(null);
+    setBackendError(null);
     localStorage.removeItem('greenpay_citizen_user');
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, refreshProfile }}>
+    <AuthContext.Provider value={{ user, loading, backendError, login, register, logout, refreshProfile, retryAuth }}>
       {children}
     </AuthContext.Provider>
   );

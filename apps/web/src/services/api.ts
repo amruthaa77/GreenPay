@@ -37,9 +37,25 @@ export function setAccessToken(token: string | null) {
   }
 }
 
-async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+const DEFAULT_TIMEOUT_MS = 10000;
+
+export interface RequestOptions extends RequestInit {
+  timeoutMs?: number;
+}
+
+async function request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const url = `${API_BASE}${endpoint}`;
   const headers = new Headers(options.headers || {});
+  const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+
+  // Setup abort controller for guaranteed timeout
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  // Link caller's signal if provided
+  if (options.signal) {
+    options.signal.addEventListener('abort', () => controller.abort());
+  }
 
   // Attach Bearer token for cross-origin and local authentication reliability
   const accessToken = getAccessToken();
@@ -59,32 +75,53 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
     headers.set('Content-Type', 'application/json');
   }
 
-  const response = await fetch(url, {
-    ...options,
-    headers,
-    credentials: 'include', // Includes httpOnly cookies
-  });
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      ...options,
+      headers,
+      credentials: 'include', // Includes httpOnly cookies
+      signal: controller.signal,
+    });
+  } catch (err: any) {
+    if (err.name === 'AbortError') {
+      throw new Error(`Connection timed out after ${Math.round(timeoutMs / 1000)}s. GreenPay server did not respond.`);
+    }
+    throw new Error(err.message || 'Network request failed. Please check your connection.');
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   if (response.status === 401 && !endpoint.includes('/auth/login') && !endpoint.includes('/auth/refresh')) {
-    // Attempt automatic refresh token rotation
-    try {
-      const refreshRes = await fetch(`${API_BASE}/auth/refresh`, {
-        method: 'POST',
-        credentials: 'include',
-      });
-      if (refreshRes.ok) {
-        const refreshData = await refreshRes.json();
-        if (refreshData.csrf_token) {
-          setStoredCsrfToken(refreshData.csrf_token);
+    // Only attempt refresh if there was previously a token or user session
+    const hadPreviousSession = Boolean(getAccessToken() || localStorage.getItem('greenpay_citizen_user'));
+    if (hadPreviousSession) {
+      try {
+        const refreshController = new AbortController();
+        const refreshTimer = setTimeout(() => refreshController.abort(), 5000);
+        const refreshRes = await fetch(`${API_BASE}/auth/refresh`, {
+          method: 'POST',
+          credentials: 'include',
+          signal: refreshController.signal,
+        });
+        clearTimeout(refreshTimer);
+
+        if (refreshRes.ok) {
+          const refreshData = await refreshRes.json();
+          if (refreshData.csrf_token) {
+            setStoredCsrfToken(refreshData.csrf_token);
+          }
+          if (refreshData.access_token) {
+            setAccessToken(refreshData.access_token);
+          }
+          // Retry original request with same options
+          return request<T>(endpoint, options);
         }
-        if (refreshData.access_token) {
-          setAccessToken(refreshData.access_token);
-        }
-        // Retry original request
-        return request<T>(endpoint, options);
+      } catch {
+        // Refresh failed, clear session
+        setAccessToken(null);
+        localStorage.removeItem('greenpay_citizen_user');
       }
-    } catch (e) {
-      // Refresh failed, proceed to logout / redirect
     }
   }
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
+import { AlertCircle, RefreshCw } from 'lucide-react';
 
 // Pages
 import { LandingPage } from './pages/LandingPage';
@@ -150,7 +151,7 @@ const PAGE_META: Record<string, { title: string; description: string }> = {
 
 
 export const App: React.FC = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, backendError, retryAuth } = useAuth();
   const [currentPath, setCurrentPath] = useState<string>(() => {
     return window.location.pathname || '/';
   });
@@ -209,18 +210,57 @@ export const App: React.FC = () => {
   const protectedRoutes = ['/dashboard', '/qr-card', '/history', '/credits', '/settings', '/notifications', '/disputes', '/schedule'];
   const isProtected = protectedRoutes.includes(currentPath);
 
-  if (loading) {
+  // If user is accessing a protected route and auth is still resolving, show loader with guaranteed safety timeout
+  if (isProtected && loading) {
     return (
       <div className="min-h-screen bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-2 border-[#D7FF35] border-t-transparent rounded-full animate-spin" />
-          <p className="text-xs font-mono text-[#A7B9A8]">Loading GreenPay...</p>
+          <p className="text-xs font-mono text-[#A7B9A8]">Checking authentication...</p>
         </div>
       </div>
     );
   }
 
-  // Redirect unauthenticated user trying to access protected route
+  // If user is trying to access a protected route and backend service is unreachable, show retry view
+  if (isProtected && !user && backendError) {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0]">
+        <Navbar currentPath={currentPath} navigate={navigate} />
+        <main id="main-content" className="flex-1 flex items-center justify-center p-4">
+          <div className="max-w-md w-full p-8 rounded-3xl bg-[#0D4935] border border-amber-500/30 text-center space-y-4 shadow-2xl">
+            <div className="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center mx-auto text-amber-400">
+              <AlertCircle className="w-6 h-6" />
+            </div>
+            <h2 className="text-xl font-light text-white tracking-tight">Service Temporarily Unavailable</h2>
+            <p className="text-xs text-[#A7B9A8] leading-relaxed">
+              {backendError}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-2.5 pt-2">
+              <button
+                type="button"
+                onClick={() => retryAuth()}
+                className="flex-1 py-3 px-4 rounded-xl bg-[#D7FF35] hover:bg-[#C4F020] text-[#041B15] font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-glow-lime"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                <span>Retry Connection</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate('/')}
+                className="py-3 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-[#A7B9A8] hover:text-white text-xs font-medium transition"
+              >
+                Return to Home
+              </button>
+            </div>
+          </div>
+        </main>
+        <Footer navigate={navigate} />
+      </div>
+    );
+  }
+
+  // Redirect unauthenticated user trying to access protected route to Login
   if (isProtected && !user) {
     return (
       <div className="min-h-screen flex flex-col bg-[#F4F7F0] dark:bg-[#041B15] text-[#062B20] dark:text-[#F4F7F0]">

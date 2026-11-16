@@ -45,18 +45,7 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#041B15] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-2 border-[#D7FF35] border-t-transparent rounded-full animate-spin" />
-          <p className="text-xs font-mono text-[#A7B9A8]">Loading GreenPay Operations...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Public unauthenticated routes
+  // Public unauthenticated routes render immediately
   if (currentPath === '/accept-invite') {
     return <AcceptInvitePage navigate={navigate} />;
   }
@@ -67,6 +56,18 @@ export const App: React.FC = () => {
 
   if (currentPath.startsWith('/reset-password')) {
     return <AdminResetPasswordPage navigate={navigate} />;
+  }
+
+  // If resolving stored session on administrative views
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#041B15] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-2 border-[#D7FF35] border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs font-mono text-[#A7B9A8]">Checking GreenPay credentials...</p>
+        </div>
+      </div>
+    );
   }
 
   // Not logged in -> show Login page

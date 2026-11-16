@@ -24,10 +24,12 @@ export interface LoginResult {
 interface AdminAuthContextType {
   user: AdminUser | null;
   loading: boolean;
+  backendError: string | null;
   login: (email: string, pass: string) => Promise<LoginResult>;
   challenge2FA: (temp_token: string, totp_code?: string, recovery_code?: string) => Promise<AdminUser>;
   acceptInvite: (payload: { invite_token: string; name: string; password: string; phone_number?: string }) => Promise<AdminUser>;
   logout: () => Promise<void>;
+  retryAuth: () => Promise<void>;
   isSuperAdmin: boolean;
   isSupervisor: boolean;
 }
@@ -44,23 +46,65 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   });
   const [loading, setLoading] = useState(true);
+  const [backendError, setBackendError] = useState<string | null>(null);
 
-  useEffect(() => {
-    adminApi.auth.getMe()
-      .then((data) => {
-        if (data && (data.role === 'SUPER_ADMIN' || data.role === 'SUPERVISOR')) {
-          setUser(data);
-          localStorage.setItem('greenpay_admin_user', JSON.stringify(data));
-        } else {
-          setUser(null);
-          localStorage.removeItem('greenpay_admin_user');
-        }
-      })
-      .catch(() => {
+  const checkAuth = async () => {
+    try {
+      const data = await adminApi.auth.getMe();
+      if (data && (data.role === 'SUPER_ADMIN' || data.role === 'SUPERVISOR')) {
+        setUser(data);
+        setBackendError(null);
+        localStorage.setItem('greenpay_admin_user', JSON.stringify(data));
+      } else {
         setUser(null);
         localStorage.removeItem('greenpay_admin_user');
-      })
-      .finally(() => setLoading(false));
+      }
+    } catch (err: any) {
+      setUser(null);
+      localStorage.removeItem('greenpay_admin_user');
+      const msg = err?.message || '';
+      if (
+        msg.includes('timed out') ||
+        msg.includes('Failed to fetch') ||
+        msg.includes('Network request failed') ||
+        msg.includes('502') ||
+        msg.includes('503') ||
+        msg.includes('504')
+      ) {
+        setBackendError('The GreenPay Operations server could not be reached. It may be starting up or temporarily offline.');
+      } else {
+        setBackendError(null);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const retryAuth = async () => {
+    setLoading(true);
+    setBackendError(null);
+    await checkAuth();
+  };
+
+  useEffect(() => {
+    let mounted = true;
+    const safetyTimer = setTimeout(() => {
+      if (mounted) {
+        setLoading(false);
+      }
+    }, 3500);
+
+    checkAuth().finally(() => {
+      if (mounted) {
+        clearTimeout(safetyTimer);
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      mounted = false;
+      clearTimeout(safetyTimer);
+    };
   }, []);
 
   const login = async (email: string, pass: string): Promise<LoginResult> => {
@@ -148,10 +192,12 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       value={{
         user,
         loading,
+        backendError,
         login,
         challenge2FA,
         acceptInvite,
         logout,
+        retryAuth,
         isSuperAdmin,
         isSupervisor,
       }}

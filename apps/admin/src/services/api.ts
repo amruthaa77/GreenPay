@@ -37,9 +37,24 @@ export function setAdminAccessToken(token: string | null) {
   }
 }
 
-async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+const DEFAULT_TIMEOUT_MS = 10000;
+
+export interface RequestOptions extends RequestInit {
+  timeoutMs?: number;
+}
+
+async function request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const url = `${API_BASE}${endpoint}`;
   const headers = new Headers(options.headers || {});
+  const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+
+  // Setup abort controller for guaranteed timeout
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  if (options.signal) {
+    options.signal.addEventListener('abort', () => controller.abort());
+  }
 
   // Attach Bearer token for cross-origin and local authentication reliability
   const accessToken = getAdminAccessToken();
@@ -58,11 +73,22 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
     headers.set('Content-Type', 'application/json');
   }
 
-  const response = await fetch(url, {
-    ...options,
-    headers,
-    credentials: 'include',
-  });
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      ...options,
+      headers,
+      credentials: 'include',
+      signal: controller.signal,
+    });
+  } catch (err: any) {
+    if (err.name === 'AbortError') {
+      throw new Error(`Connection timed out after ${Math.round(timeoutMs / 1000)}s. GreenPay Operations server did not respond.`);
+    }
+    throw new Error(err.message || 'Network request failed. Please check your connection.');
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   if (!response.ok) {
     let errorDetail = 'Network request failed';
